@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ce70ntuilupho"]
+
+[node name="RichTextLabel" type="RichTextLabel"]
+offset_right = 182.0
+offset_bottom = 50.0
+text = "WHAT UP FISH FRIENDS"
