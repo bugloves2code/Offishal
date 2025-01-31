@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=3 format=3 uid="uid://drn71bam3c4bg"]
+
+[ext_resource type="PackedScene" uid="uid://cvw46rhxibyt7" path="res://scenes/Tank.tscn" id="1_0pr1x"]
+[ext_resource type="PackedScene" uid="uid://d0ha7w6j3tk05" path="res://scenes/Fish.tscn" id="2_lb0i5"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Tank" parent="." instance=ExtResource("1_0pr1x")]
+position = Vector2(-21, -37)
+
+[node name="Tank2" parent="." instance=ExtResource("1_0pr1x")]
+position = Vector2(-22, 212)
+
+[node name="Tank3" parent="." instance=ExtResource("1_0pr1x")]
+position = Vector2(-22, 457)
+
+[node name="Fish" parent="." instance=ExtResource("2_lb0i5")]
+position = Vector2(112, 543)
