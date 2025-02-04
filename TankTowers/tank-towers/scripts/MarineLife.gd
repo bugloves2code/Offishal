@@ -1,0 +1,51 @@
+## Fish Friends
+## Last Updated: 2/4/25 by William Duprey
+## MarineLife Parent Script
+## - This node is the parent class for fish and plant nodes,
+##   and contains properties and methods that each need
+
+extends Node2D
+
+## Some notes:
+## - Must use @export if you want a property to be 
+##   visible / editable in the inspector
+## - Exported variables must have a type, but do not
+##   have to have a default value
+## - Any comments that are documentation of a class, 
+##   property, method, etc. should use double hashtags
+## - Placing a "##" comment above a property will make it
+##   so hovering over it in the inspector shows that comment
+## - Sometimes the inspector can be slow to update, but I've
+##   found that commenting / uncommenting the property will
+##   usually get the inspector properly showing what it should
+
+## The age of the marine life. Used to update its
+## appearance as it ages, and track whether it
+## is ready to be harvested.
+@export var age : float = 0.0;
+
+## The age at which the marine life is ready to be harvested.
+## - Note: It might be better to use a Timer node for this?
+##   I'm not sure how those work.
+@export var harvestAge: float;
+
+## The type of water in which the marine life can live.
+## - Defaults to fresh water to avoid warnings.
+@export var waterType : ThEnums.WaterType = ThEnums.WaterType.Fresh;
+
+## Other types of marine life that this marine life can
+## comfortably live with. 
+## - Note: I have no idea if polymorphism is even possible in GDScript.
+##   I think typed arrays are possible? But I'm not sure how to make
+##   an array of MarineLife nodes? Hopefully this just works like the
+##   evil JavaScript arrays, and we can just put whatever we want in here.
+@export var compatible : Array;
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
