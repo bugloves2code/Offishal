@@ -5,14 +5,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
 radius = 58.2151
 
-[node name="Fish" type="Node2D"]
+[node name="Fish" type="CharacterBody2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(87, 76)
 texture = ExtResource("1_fojq5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(111, 72)
 shape = SubResource("CircleShape2D_newn4")
