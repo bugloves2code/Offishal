@@ -36,9 +36,11 @@ func Seek(targetPos: Vector2) -> Vector2:
 
 func Wander(time: float, radius: float) -> Vector2:
 	var futurePos = CalcFuturePosition(time)
-	 wanderAngle += (0.5 - noise.get_noise_2d(global_position.x * 0.1 + perlin_offset.x, 
-											  global_position.y * 0.1 + perlin_offset.y)) * PI * delta
-	return 
+	var noiseCalc = noise.get_noise_2d(global_position.x * 0.1 + perlinOffset, global_position * 0.1 + perlinOffset);
+	wanderAngle += (0.5 - noiseCalc * (PI * get_process_delta_time())) 
+	
+	var targetPos = Vector2(cos(wanderAngle) * radius, sin(wanderAngle) * radius)
+	return Seek(futurePos + targetPos)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
