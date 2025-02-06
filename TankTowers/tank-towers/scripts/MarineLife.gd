@@ -4,7 +4,8 @@
 ## - This node is the parent class for fish and plant nodes,
 ##   and contains properties and methods that each need
 
-extends Node2D
+extends PhysicsObject
+class_name MarineLife
 
 ## Some notes:
 ## - Must use @export if you want a property to be 
@@ -43,9 +44,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	super._ready()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	super._process(delta)
