@@ -70,7 +70,6 @@ func _process(delta: float) -> void:
 	velocity += acceleration * delta;
 	velocity = velocity.limit_length(maxSpeed)
 	#print("Wander force:", Wander(wanderTime, wanderRadius))
-	print("Total force:")
 
 	#velocityFactor = Vector2(clamp(velocityFactor.x, 1, 5), clamp(velocityFactor.y, 1, 5)) # placeholder for min and max clamp velocity, can be made variables later
 	#velocity = velocityFactor
