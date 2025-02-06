@@ -1,10 +1,17 @@
 extends Node
 
-## ui_panel is the panel hookup to the main Ui which
-## show tank data and allows editing to tank
+## ui_panel 
+## this is the panel hookup to the main Ui which
+## shows tank data and allows editing to tank
 @export var ui_panel: CanvasLayer
+
+## tank_scene 
+## tank_scene holds then tank so we can instaniate it
+## and edit it in the future
 var tank_scene =  load("res://scenes/Tank.tscn")
 
+## tankList
+## this is the List which contains all tanks 
 var tankList: Array = []
 var add_fish_handler: Callable
 
@@ -62,15 +69,42 @@ func OnAddFishPressed(tank):
 	print(tank.tankName)
 	var fishInstance = "res://scenes/Fish.tscn"
 	tank.AddFish(fishInstance)
-	
 	ReloadUI(tank)
 	
 ## ReloadUI
 ## This function is not working yet, but is meant to reload the Canvas Layer / UI
 func ReloadUI(tank):
-	for fish in tank.fishList.size():
-		for i in range(1, tank.fishList.size()):
-			print(tank.fishList[i], i)
+	var fish_labels = []
+	var fish_images = []
+	var remove_buttons = []
+
+	# Get references to the UI elements
+	for i in range(1, 11):  # Assuming max 10 fish slots
+		fish_labels.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
+		fish_images.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
+		remove_buttons.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
+
+	# Clear all fish slots first
+	for i in range(fish_labels.size()):
+		fish_labels[i].text = ""  # Clear the label
+		fish_labels[i].hide()     # Hide the label
+		fish_images[i].texture = null  # Clear the image
+		fish_images[i].hide()     # Hide the image
+		remove_buttons[i].hide()  # Hide the remove button
+
+	# Populate the UI with the current fishList
+	if tank.fishList.size() > 0:
+		print("Reloading UI with fish data")
+		for i in range(tank.fishList.size()):
+			if i >= fish_labels.size():
+				break  # Don't exceed the number of UI slots
+
+			var fish = tank.fishList[i]
+			fish_labels[i].text = "Jimmy"  # Set the fish name
+			fish_labels[i].show()               # Show the label
+			fish_images[i].texture = load("res://assets/download.jpg")  # Set the fish image
+			fish_images[i].show()               # Show the image
+			remove_buttons[i].show() 
 
 
 func _on_create_tank_button_pressed() -> void:
@@ -78,8 +112,10 @@ func _on_create_tank_button_pressed() -> void:
 	var new_instance = tank_scene.instantiate()
 	if tankList.size() == 0:
 		new_instance.position = Vector2(-20,700)
+		new_instance.tankName = "Dope Tank"
 	else:
 		new_instance.position = Vector2(-20, 700 - (tankList.size() * 200))
+		new_instance.tankName = get_random_tank_name() 
 	var main_node = get_tree().current_scene
 	tankList.append(new_instance)
 	
@@ -87,4 +123,26 @@ func _on_create_tank_button_pressed() -> void:
 		print("main found")
 		main_node.add_child(new_instance)
 		print(tankList.size())
+
+func get_random_tank_name() -> String:
+	var tank_names = [
+		"Oceanic Oasis",
+		"Coral Cove",
+		"Deep Blue",
+		"Reef Retreat",
+		"Abyssal Abode",
+		"Marine Marvel",
+		"Tidal Treasure",
+		"Seabed Sanctuary",
+		"Neptune's Nest",
+		"Pearl Paradise",
+		"Sunken Serenity",
+		"Wave Whisperer",
+		"Lagoon Lounge",
+		"Shimmering Shallows",
+		"Golden Grotto"
+	]
+	# Randomly select a name from the list
+	var random_index = randi() % tank_names.size()
+	return tank_names[random_index]
 	

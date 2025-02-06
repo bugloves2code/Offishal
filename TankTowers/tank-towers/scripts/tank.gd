@@ -7,7 +7,7 @@
 ## collection pop up will happen and mantaince stats
 ## will be presented 
 
-extends Area2D
+class_name Tank extends Area2D
 
 ## WaterType is pulling the enum of WaterType from ThEnums.gd
 ## unsure if there is a better way of doing this because ThEmnums.gd
@@ -26,7 +26,7 @@ var fishCapacity = 10
 var plantCapacity = 10
 
 ## fishList is an array which holds what fish are in the tank
-var fishList: Array = []
+var fishList: Array
 
 ## plantList is an array which holds what plants are in the tank
 var plantList: Array = []
@@ -38,6 +38,9 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+func _init() -> void:
+	fishList = []
+
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
@@ -45,6 +48,7 @@ func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
 		print("Added Fish: " + fishInstance)
+		print("Tank: ",tankName, " Fish Count: ", fishList.size())
 	else:
 		print("Tank is full of fish")
 	
@@ -85,5 +89,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		var Main = get_parent()
 		if Main and Main.has_method("show_ui_panel"):
 			## print("UI?")
+			Main.ReloadUI(self)
 			Main.show_ui_panel(self)
 		
