@@ -4,7 +4,8 @@
 ## - This node is the parent class for fish and plant nodes,
 ##   and contains properties and methods that each need
 
-extends Node2D
+extends PhysicsObject
+class_name MarineLife
 
 ## Some notes:
 ## - Must use @export if you want a property to be 

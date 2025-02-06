@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=4 format=3 uid="uid://drn71bam3c4bg"]
 
 [ext_resource type="PackedScene" uid="uid://cvw46rhxibyt7" path="res://scenes/Tank.tscn" id="1_0pr1x"]
 [ext_resource type="PackedScene" uid="uid://d0ha7w6j3tk05" path="res://scenes/Fish.tscn" id="2_lb0i5"]
+[ext_resource type="Script" path="res://scripts/Fish.gd" id="3_x28fr"]
 
 [node name="Main" type="Node2D"]
 
@@ -16,3 +17,8 @@ position = Vector2(-22, 457)
 
 [node name="Fish" parent="." instance=ExtResource("2_lb0i5")]
 position = Vector2(112, 543)
+script = ExtResource("3_x28fr")
+wanderTime = 3.0
+wanderRadius = 3.0
+wanderWeight = 3.0
+maxSpeed = 5

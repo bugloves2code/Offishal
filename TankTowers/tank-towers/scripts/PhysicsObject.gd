@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name PhysicsObject
 
 # last edited : Ayden Dueker 2/4
 # this class contains methods that will allow anything that extends it to calculate their movement
@@ -13,7 +14,10 @@ extends CharacterBody2D
 var wanderAngle
 var perlinOffset
 
+var velocityFactor
+
 var totalForce
+var acceleration
 
 var noise: FastNoiseLite
 
@@ -24,6 +28,7 @@ func _CalcSteeringForces() -> void:
 	pass
 
 func ApplyForce(force: Vector2) -> void:
+	acceleration = force / 10 #10 is a placeholder for mass, idk if we want to mess with this at all
 	pass
 
 func CalcFuturePosition(time: float) -> Vector2:
@@ -42,6 +47,9 @@ func Wander(time: float, radius: float) -> Vector2:
 	var targetPos = Vector2(cos(wanderAngle) * radius, sin(wanderAngle) * radius)
 	return Seek(futurePos + targetPos)
 
+func StayInBoundsForce() -> Vector2:
+	return Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	perlinOffset = rng.randf_range(0, 1000)
@@ -56,3 +64,7 @@ func _process(delta: float) -> void:
 	totalForce = Vector2.ZERO;
 	_CalcSteeringForces()
 	ApplyForce(totalForce)
+	velocityFactor += acceleration * delta;
+	velocityFactor = clamp(velocityFactor, 1, 5) # placeholder for min and max clamp velocity, can be made variables later
+	velocity = velocityFactor
+	move_and_slide()

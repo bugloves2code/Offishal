@@ -4,14 +4,14 @@
 ## - This node is a child of the MarineLife node, 
 ##   and the parent node for specific plant nodes.
 
-extends "res://scripts/MarineLife.gd"
+extends MarineLife
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	super._ready()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	super._process(delta)
