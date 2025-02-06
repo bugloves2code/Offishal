@@ -8,6 +8,7 @@
 ## will be presented 
 
 extends Area2D
+class_name Tank
 
 ## WaterType is pulling the enum of WaterType from ThEnums.gd
 ## unsure if there is a better way of doing this because ThEmnums.gd
@@ -38,13 +39,14 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
-		print("Added Fish: " + fishInstance)
+		#print("Added Fish: " + fishInstance)
 	else:
 		print("Tank is full of fish")
 	

@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://TankManager.gd" id="1_1yobj"]
 [ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="1_43f2g"]
-[ext_resource type="PackedScene" uid="uid://cvw46rhxibyt7" path="res://scenes/Tank.tscn" id="1_0pr1x"]
 [ext_resource type="PackedScene" uid="uid://d0ha7w6j3tk05" path="res://scenes/Fish.tscn" id="2_lb0i5"]
-[ext_resource type="Script" path="res://scripts/Fish.gd" id="3_x28fr"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("ui_panel")]
 script = ExtResource("1_1yobj")
@@ -201,12 +199,12 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Create Tank"
 
-[connection signal="pressed" from="Tank UI - CanvasLayer/PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="CreateTankButton" to="." method="_on_create_tank_button_pressed"]
 [node name="Fish" parent="." instance=ExtResource("2_lb0i5")]
 position = Vector2(112, 543)
-script = ExtResource("3_x28fr")
 wanderTime = 30.0
 wanderRadius = 60.0
 wanderWeight = 10.0
 maxSpeed = 10
+
+[connection signal="pressed" from="Tank UI - CanvasLayer/PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="CreateTankButton" to="." method="_on_create_tank_button_pressed"]

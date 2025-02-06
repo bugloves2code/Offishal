@@ -5,10 +5,13 @@
 ##   and the parent node for specific fish nodes.
 
 extends MarineLife
+class_name Fish
 
 @export var wanderTime : float
 @export var wanderRadius : float
 @export var wanderWeight : float
+
+
 
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight

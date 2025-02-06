@@ -11,6 +11,12 @@ class_name PhysicsObject
 
 @export var maxSpeed : int
 
+# these variables represent the bounds of any physics object
+var xMax : float
+var xMin : float
+var yMax : float
+var yMin : float
+
 var wanderAngle
 var perlinOffset
 
@@ -59,6 +65,7 @@ func _ready() -> void:
 	noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.frequency = 0.1
+	maxSpeed = 5
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

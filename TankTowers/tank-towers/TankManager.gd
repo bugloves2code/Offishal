@@ -1,4 +1,5 @@
 extends Node
+class_name TankManager
 
 ## ui_panel is the panel hookup to the main Ui which
 ## show tank data and allows editing to tank
@@ -60,9 +61,8 @@ func show_ui_panel(tank) -> void:
 func OnAddFishPressed(tank):
 	print("Bro we adding fish")
 	print(tank.tankName)
-	var fishInstance = "res://scenes/Fish.tscn"
-	tank.AddFish(fishInstance)
-	
+	#var fishInstance = "res://scenes/Fish.tscn"
+	tank.AddFish(SpawnManager.SpawnFish(tank))
 	ReloadUI(tank)
 	
 ## ReloadUI
@@ -76,6 +76,7 @@ func ReloadUI(tank):
 func _on_create_tank_button_pressed() -> void:
 	print(tankList.size())
 	var new_instance = tank_scene.instantiate()
+	
 	if tankList.size() == 0:
 		new_instance.position = Vector2(-20,700)
 	else:
