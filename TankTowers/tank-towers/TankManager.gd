@@ -20,12 +20,6 @@ func _on_close_button_pressed() -> void:
 ## then process the tank information and populate the ui with it
 func show_ui_panel(tank) -> void:
 	var selectedtank = null
-	for Tank in tankList:
-		if Tank == tank:
-			print("found Tank")
-			selectedtank = Tank
-			if tankList.size() == 1:
-				Tank.tankName = "#1"
 	print(tank.tankName)
 	var addfish_button = ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddFish Button")
 	var addplant_button = ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/AddPlant Button")
@@ -39,9 +33,11 @@ func show_ui_panel(tank) -> void:
 	if addfish_button and addfish_button is Button:
 		print("Add Button found")
 		if addfish_button:
-			addfish_button.pressed.disconnect(func(): OnAddFishPressed(selectedtank))
+			print("check connections: ", addfish_button.pressed.get_connections)
+			addfish_button.pressed.disconnect(func(): OnAddFishPressed(tank))
+			addfish_button.queue_free()
 			print("Disconnected")
-		addfish_button.pressed.connect(func(): OnAddFishPressed(selectedtank))
+		addfish_button.pressed.connect(func(): OnAddFishPressed(tank))
 	for i in range(1, 11):  # Assuming max 10 fish slots
 		fish_labels.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
 		fish_images.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
