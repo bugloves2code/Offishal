@@ -14,10 +14,10 @@ class_name PhysicsObject
 var wanderAngle
 var perlinOffset
 
-var velocityFactor
+var velocityFactor: Vector2 = Vector2.ZERO
 
 var totalForce
-var acceleration
+var acceleration: Vector2 = Vector2.ZERO
 
 var noise: FastNoiseLite
 
@@ -28,7 +28,7 @@ func _CalcSteeringForces() -> void:
 	pass
 
 func ApplyForce(force: Vector2) -> void:
-	acceleration = force / 10 #10 is a placeholder for mass, idk if we want to mess with this at all
+	acceleration += force / 2 #10 is a placeholder for mass, idk if we want to mess with this at all
 	pass
 
 func CalcFuturePosition(time: float) -> Vector2:
@@ -41,8 +41,10 @@ func Seek(targetPos: Vector2) -> Vector2:
 
 func Wander(time: float, radius: float) -> Vector2:
 	var futurePos = CalcFuturePosition(time)
-	var noiseCalc = noise.get_noise_2d(global_position.x * 0.1 + perlinOffset, global_position * 0.1 + perlinOffset);
-	wanderAngle += (0.5 - noiseCalc * (PI * get_process_delta_time())) 
+	var noiseCalc = noise.get_noise_2d(global_position.x * 0.1 + perlinOffset, global_position.y * 0.1 + perlinOffset);
+	#var noiseCalc = (noise.get_noise_2d(global_position.x * 0.1 + perlinOffset, global_position.y * 0.1 + perlinOffset) + 1) / 2.0
+	#wanderAngle += (0.5 - noiseCalc * (PI * get_process_delta_time())) 
+	wanderAngle += (noiseCalc - 0.5) * PI * get_process_delta_time()
 	
 	var targetPos = Vector2(cos(wanderAngle) * radius, sin(wanderAngle) * radius)
 	return Seek(futurePos + targetPos)
@@ -64,7 +66,14 @@ func _process(delta: float) -> void:
 	totalForce = Vector2.ZERO;
 	_CalcSteeringForces()
 	ApplyForce(totalForce)
-	velocityFactor += acceleration * delta;
-	velocityFactor = clamp(velocityFactor, 1, 5) # placeholder for min and max clamp velocity, can be made variables later
-	velocity = velocityFactor
+	#velocityFactor += acceleration * delta;
+	velocity += acceleration * delta;
+	velocity = velocity.limit_length(maxSpeed)
+	#print("Wander force:", Wander(wanderTime, wanderRadius))
+	print("Total force:")
+
+	#velocityFactor = Vector2(clamp(velocityFactor.x, 1, 5), clamp(velocityFactor.y, 1, 5)) # placeholder for min and max clamp velocity, can be made variables later
+	#velocity = velocityFactor
+	#print(velocity)
+	acceleration = Vector2.ZERO;
 	move_and_slide()
