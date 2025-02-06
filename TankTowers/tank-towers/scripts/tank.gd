@@ -27,7 +27,7 @@ var fishCapacity = 10
 var plantCapacity = 10
 
 ## fishList is an array which holds what fish are in the tank
-var fishList: Array = []
+var fishList: Array
 
 ## plantList is an array which holds what plants are in the tank
 var plantList: Array = []
@@ -47,6 +47,8 @@ func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
 		#print("Added Fish: " + fishInstance)
+		print("Added Fish: " + fishInstance)
+		print("Tank: ",tankName, " Fish Count: ", fishList.size())
 	else:
 		print("Tank is full of fish")
 	
@@ -87,5 +89,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		var Main = get_parent()
 		if Main and Main.has_method("show_ui_panel"):
 			## print("UI?")
+			Main.ReloadUI(self)
 			Main.show_ui_panel(self)
 		
