@@ -1,20 +1,208 @@
 [gd_scene load_steps=4 format=3 uid="uid://drn71bam3c4bg"]
 
+[ext_resource type="Script" path="res://TankManager.gd" id="1_1yobj"]
+[ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="1_43f2g"]
 [ext_resource type="PackedScene" uid="uid://cvw46rhxibyt7" path="res://scenes/Tank.tscn" id="1_0pr1x"]
 [ext_resource type="PackedScene" uid="uid://d0ha7w6j3tk05" path="res://scenes/Fish.tscn" id="2_lb0i5"]
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="3_x28fr"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("ui_panel")]
+script = ExtResource("1_1yobj")
+ui_panel = NodePath("Tank UI - CanvasLayer")
 
-[node name="Tank" parent="." instance=ExtResource("1_0pr1x")]
-position = Vector2(-21, -37)
+[node name="Tank UI - CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Tank2" parent="." instance=ExtResource("1_0pr1x")]
-position = Vector2(-22, 212)
+[node name="PanelContainer" type="PanelContainer" parent="Tank UI - CanvasLayer"]
+offset_left = 160.0
+offset_top = 269.0
+offset_right = 414.0
+offset_bottom = 726.0
 
-[node name="Tank3" parent="." instance=ExtResource("1_0pr1x")]
-position = Vector2(-22, 457)
+[node name="GridContainer" type="GridContainer" parent="Tank UI - CanvasLayer/PanelContainer"]
+layout_mode = 2
 
+[node name="Close Button" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer"]
+layout_mode = 2
+text = "CLOSE "
+
+[node name="TankName" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Tank Name"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 81
+
+[node name="AddFish Button" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add Fish"
+
+[node name="MarginContainer" type="MarginContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="AddPlant Button" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Add Plant"
+
+[node name="GridContainer" type="GridContainer" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Fish1Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish1Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish1Name"
+
+[node name="Fish1RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish2Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish2Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish2Name"
+
+[node name="Fish2RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish3Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish3Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish3Name"
+
+[node name="Fish3RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish4Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish4Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish4Name"
+
+[node name="Fish4RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish5Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish5Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish5Name"
+
+[node name="Fish5RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish6Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish6Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish6Name"
+
+[node name="Fish6RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish7Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish7Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish7Name"
+
+[node name="Fish7RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish8Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish8Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish8Name"
+
+[node name="Fish8RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish9Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish9Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish9Name"
+
+[node name="Fish9RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="Fish10Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_43f2g")
+expand_mode = 2
+
+[node name="Fish10Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fish10Name"
+
+[node name="Fish10RemoveButton" type="Button" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Remove Fish"
+
+[node name="CreateTankButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Create Tank"
+
+[connection signal="pressed" from="Tank UI - CanvasLayer/PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="CreateTankButton" to="." method="_on_create_tank_button_pressed"]
 [node name="Fish" parent="." instance=ExtResource("2_lb0i5")]
 position = Vector2(112, 543)
 script = ExtResource("3_x28fr")
