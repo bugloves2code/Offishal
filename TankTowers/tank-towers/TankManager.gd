@@ -6,6 +6,7 @@ extends Node
 var tank_scene =  load("res://scenes/Tank.tscn")
 
 var tankList: Array = []
+var add_fish_handler: Callable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -32,12 +33,11 @@ func show_ui_panel(tank) -> void:
 		tank_name_label.text = tank.tankName
 	if addfish_button and addfish_button is Button:
 		print("Add Button found")
-		if addfish_button:
-			print("check connections: ", addfish_button.pressed.get_connections)
-			addfish_button.pressed.disconnect(func(): OnAddFishPressed(tank))
-			addfish_button.queue_free()
+		if add_fish_handler:
+			addfish_button.pressed.disconnect(add_fish_handler)
 			print("Disconnected")
-		addfish_button.pressed.connect(func(): OnAddFishPressed(tank))
+		add_fish_handler = func(): OnAddFishPressed(tank)
+		addfish_button.pressed.connect(add_fish_handler)
 	for i in range(1, 11):  # Assuming max 10 fish slots
 		fish_labels.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
 		fish_images.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
