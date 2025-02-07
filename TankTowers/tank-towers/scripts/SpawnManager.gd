@@ -21,7 +21,7 @@ func SpawnFish(tank: Tank) -> Fish:
 	var yMin = center.y - halfSize.y
 	var yMax = center.y + halfSize.y
 	
-	var fish = fishScene.instantiate()
+	var fish : Fish = fishScene.instantiate()
 	tank.add_child(fish)
 	#fish.xMin = xMin
 	#fish.xMax = xMax
