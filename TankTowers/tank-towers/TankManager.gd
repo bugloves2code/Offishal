@@ -60,7 +60,7 @@ func show_ui_panel(tank) -> void:
 		harvest_handler = func (): HarvestTank(tank)
 		harvest_button.pressed.connect(harvest_handler)
 		if tank.harvestStatus == false:
-			harvest_button.hide()
+			harvest_button.text = "                    "
 	if addplant_button and addplant_button is Button:
 		if add_plant_handler:
 			addplant_button.pressed.disconnect(add_plant_handler)
@@ -111,9 +111,9 @@ func ReloadUI(tank):
 	
 	if harvest_button and harvest_button is Button:
 		if tank.harvestStatus == true:
-			harvest_button.show()
+			harvest_button.text = "Harvest"
 		else:
-			harvest_button.hide()
+			harvest_button.text = "                    "
 
 	# Get references to the UI elements
 	for i in range(1, 11):  # Assuming max 10 fish slots
