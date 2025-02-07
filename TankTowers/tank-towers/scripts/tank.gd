@@ -66,9 +66,9 @@ func RemoveFish(fishInstance):
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
 func AddPlant(plantInstance):
-	if plantList < plantCapacity:
+	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
-		print("Added plant: " + plantInstance)
+		print("Added plant")
 	else:
 		print("Tank is full")
 	
