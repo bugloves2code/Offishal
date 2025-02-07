@@ -22,6 +22,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print("xMin:", xMin, "xMax:", xMax, "yMin:", yMin, "yMax:", yMax, "center:", centerToSeek)
+	## print("xMin:", xMin, "xMax:", xMax, "yMin:", yMin, "yMax:", yMax, "center:", centerToSeek)
 	#print(centerToSeek)
 	super._process(delta)

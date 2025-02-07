@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvw46rhxibyt7"]
 
-[ext_resource type="Script" path="res://scripts/Tank.gd" id="1_4hwja"]
 [ext_resource type="Texture2D" uid="uid://v3gq5kyl3q2o" path="res://assets/Standard+Aquariums.png" id="1_5hvb3"]
+[ext_resource type="Script" path="res://scripts/Tank.gd" id="1_ickdv"]
 [ext_resource type="PackedScene" uid="uid://daygy35j0jnhk" path="res://scenes/Plant.tscn" id="3_tfag4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
 size = Vector2(409, 141.5)
 
 [node name="Tank" type="Area2D"]
-script = ExtResource("1_4hwja")
+script = ExtResource("1_ickdv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)

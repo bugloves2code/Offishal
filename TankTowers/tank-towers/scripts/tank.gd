@@ -46,11 +46,14 @@ var tankName: String = "Awesome Tank"
 func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
-		#print("Added Fish: " + fishInstance)
-		print("Added Fish: ", fishInstance)
-		print("Tank: ",tankName, " Fish Count: ", fishList.size())
+		## print("Added Fish: " + fishInstance)
+		## print("Added Fish: ", fishInstance)
+		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
 	else:
+		## this needs to be a print statement
+		## it should be a ui statment
 		print("Tank is full of fish")
+		
 	
 ## RemoveFish
 ## This method checks in a given fish is inside the fishList
@@ -68,8 +71,10 @@ func RemoveFish(fishInstance):
 func AddPlant(plantInstance):
 	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
-		print("Added plant")
+		## print("Added plant")
 	else:
+		## this needs to be a print statement
+		## it should be a ui statment
 		print("Tank is full")
 	
 ## RemoveFish

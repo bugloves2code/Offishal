@@ -15,6 +15,10 @@ var tank_scene =  load("res://scenes/Tank.tscn")
 ## this is the List which contains all tanks 
 var tankList: Array = []
 
+## tankCapacity
+## amount of tanks player has unlocked
+var tankCapacity = 4
+
 ## add_fish_handler
 var add_fish_handler: Callable
 
@@ -36,7 +40,7 @@ func _on_close_button_pressed() -> void:
 ## show_ui_panel is used to show Ui when a tank is clicked
 ## then process the tank information and populate the ui with it
 func show_ui_panel(tank) -> void:
-	print(tank.tankName)
+	## print(tank.tankName)
 	var addfish_button = ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddFish Button")
 	var addplant_button = ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddPlant Button")
 	var tank_name_label = ui_panel.get_node("PanelContainer/GridContainer/TankName")
@@ -48,10 +52,10 @@ func show_ui_panel(tank) -> void:
 	if tank_name_label and tank_name_label is Label:
 		tank_name_label.text = tank.tankName
 	if addfish_button and addfish_button is Button:
-		print("Add Button found")
+		## print("Add Button found")
 		if add_fish_handler:
 			addfish_button.pressed.disconnect(add_fish_handler)
-			print("Disconnected")
+			## print("Disconnected")
 		add_fish_handler = func(): OnAddFishPressed(tank)
 		addfish_button.pressed.connect(add_fish_handler)
 	if harvest_button and harvest_button is Button:
@@ -71,7 +75,7 @@ func show_ui_panel(tank) -> void:
 		fish_images.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
 		remove_buttons.append(ui_panel.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
 	if tank.fishList.size() > 0:
-		print("We got fish")
+		## print("We got fish")
 		for i in range(tank.fishList.size()):
 			fish_labels[i].show()
 			fish_images[i].show()
@@ -87,12 +91,14 @@ func show_ui_panel(tank) -> void:
 ## this function adds a fish to the tank
 func OnAddFishPressed(tank):
 	if tank.fishList.size() < tank.fishCapacity:
-		print("Bro we adding fish")
-		print(tank.tankName)
+		## print("Bro we adding fish")
+		## print(tank.tankName)
 		#var fishInstance = "res://scenes/Fish.tscn"
 		tank.AddFish(SpawnManager.SpawnFish(tank))
 		ReloadUI(tank)
 	else:
+		## Print needed for now
+		## will need to be UI later
 		print("Too many Fish")
 	
 func OnAddPlantPressed(tank):
@@ -100,6 +106,8 @@ func OnAddPlantPressed(tank):
 		tank.AddPlant(SpawnManager.SpawnFish(tank))
 		ReloadUI(tank)
 	else:
+		## Print needed for now
+		## will need to be UI later
 		print("Too many Plants")
 ## ReloadUI
 ## This function is not working yet, but is meant to reload the Canvas Layer / UI
@@ -131,36 +139,40 @@ func ReloadUI(tank):
 
 	# Populate the UI with the current fishList
 	if tank.fishList.size() > 0:
-		print("Reloading UI with fish data")
+		## print("Reloading UI with fish data")
 		for i in range(tank.fishList.size()):
 			if i >= fish_labels.size():
 				break  # Don't exceed the number of UI slots
 
 			var fish = tank.fishList[i]
 			fish_labels[i].text = "Jimmy"  # Set the fish name
-			fish_labels[i].show()               # Show the label
-			fish_images[i].texture = load("res://assets/download.jpg")  # Set the fish image
+			fish_labels[i].show() 
+			## Fish Image Goes here
+			## for UI               
+			## Show the label
+			fish_images[i].texture = load("res://assets/8bit-fish-basic-5.png")  # Set the fish image
 			fish_images[i].show()               # Show the image
 			remove_buttons[i].show() 
 
 
 func _on_create_tank_button_pressed() -> void:
-	print(tankList.size())
-	var new_instance = tank_scene.instantiate()
-	
-	if tankList.size() == 0:
-		new_instance.position = Vector2(290,900)
-		new_instance.tankName = "Dope Tank"
-	else:
-		new_instance.position = Vector2(290, 900 - (tankList.size() * 200))
-		new_instance.tankName = get_random_tank_name() 
-	var main_node = get_tree().current_scene
-	tankList.append(new_instance)
-	
-	if main_node:
-		print("main found")
-		main_node.add_child(new_instance)
-		print(tankList.size())
+	## print(tankList.size())
+	if tankList.size() < tankCapacity:
+		var new_instance = tank_scene.instantiate()
+
+		if tankList.size() == 0:
+			new_instance.position = Vector2(290,900)
+			new_instance.tankName = "Dope Tank"
+		else:
+			new_instance.position = Vector2(290, 900 - (tankList.size() * 200))
+			new_instance.tankName = get_random_tank_name() 
+		var main_node = get_tree().current_scene
+		tankList.append(new_instance)
+
+		if main_node:
+			## print("main found")
+			main_node.add_child(new_instance)
+			## print(tankList.size())
 
 func get_random_tank_name() -> String:
 	var tank_names = [

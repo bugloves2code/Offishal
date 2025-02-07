@@ -16,7 +16,7 @@ func SpawnFish(tank: Tank) -> Fish:
 
 	var offset = collisionShape.position
 	var center = position + offset
-	print("position", center)
+	## print("position", center)
 	var xMin = center.x - halfSize.x
 	var xMax = center.x + halfSize.x
 	var yMin = center.y - halfSize.y

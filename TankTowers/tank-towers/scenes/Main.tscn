@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=4 format=3 uid="uid://drn71bam3c4bg"]
 
 [ext_resource type="Script" path="res://scripts/TankManager.gd" id="1_1yobj"]
 [ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="1_43f2g"]
+[ext_resource type="Texture2D" uid="uid://3d1v6bd13jfr" path="res://assets/8bit-fish-basic-5.png" id="2_jteop"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("ui_panel")]
 script = ExtResource("1_1yobj")
@@ -65,7 +66,7 @@ columns = 3
 
 [node name="Fish1Image" type="TextureRect" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-texture = ExtResource("1_43f2g")
+texture = ExtResource("2_jteop")
 expand_mode = 2
 
 [node name="Fish1Label" type="Label" parent="Tank UI - CanvasLayer/PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
