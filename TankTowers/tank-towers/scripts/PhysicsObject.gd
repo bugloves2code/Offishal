@@ -11,14 +11,28 @@ class_name PhysicsObject
 
 @export var maxSpeed : int
 
+# Provide default values so that fish 
+# are not braindead upon being created
+@export var wanderTime : float = 30
+@export var wanderRadius : float = 60
+@export var wanderWeight : float = 50
+@export var boundsWeight : float = 10
+
 # these variables represent the bounds of any physics object
 var xMax : float
 var xMin : float
 var yMax : float
 var yMin : float
 
+# if there is somewhere the physicsObject needs to seek to
+# other then the center of the viewpoint, this can be set
+var centerToSeek : Vector2
+
 var wanderAngle
 var perlinOffset
+
+var sprite
+var direction
 
 var velocityFactor: Vector2 = Vector2.ZERO
 
@@ -56,7 +70,14 @@ func Wander(time: float, radius: float) -> Vector2:
 	return Seek(futurePos + targetPos)
 
 func StayInBoundsForce() -> Vector2:
-	return Vector2.ZERO
+	if (global_position.x < xMin||
+		global_position.x > xMax ||
+		global_position.y < yMin||
+		global_position.y > yMax):
+			#print("hi")
+			return Seek(centerToSeek)
+	else:
+		return Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,7 +86,7 @@ func _ready() -> void:
 	noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.frequency = 0.1
-	maxSpeed = 5
+	sprite = get_node("Sprite2D")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,10 +97,19 @@ func _process(delta: float) -> void:
 	#velocityFactor += acceleration * delta;
 	velocity += acceleration * delta;
 	velocity = velocity.limit_length(maxSpeed)
-	#print("Wander force:", Wander(wanderTime, wanderRadius))
+	
+	# Assuming `velocity` is a Vector2 and `sRenderer` is a Sprite node
+	if (velocity.length() > 0.000001):
+		direction = velocity.normalized()
 
-	#velocityFactor = Vector2(clamp(velocityFactor.x, 1, 5), clamp(velocityFactor.y, 1, 5)) # placeholder for min and max clamp velocity, can be made variables later
-	#velocity = velocityFactor
-	#print(velocity)
+# Flip the sprite based on the direction
+	if direction.x < 0:
+		sprite.flip_v = true  # Flip the sprite horizontally
+	else:
+		sprite.flip_v = false
+
+# Rotate the object to face the direction of movement
+	rotation = direction.angle()
+
 	acceleration = Vector2.ZERO;
 	move_and_slide()

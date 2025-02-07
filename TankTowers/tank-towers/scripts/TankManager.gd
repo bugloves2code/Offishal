@@ -149,10 +149,10 @@ func _on_create_tank_button_pressed() -> void:
 	var new_instance = tank_scene.instantiate()
 	
 	if tankList.size() == 0:
-		new_instance.position = Vector2(-20,700)
+		new_instance.position = Vector2(290,900)
 		new_instance.tankName = "Dope Tank"
 	else:
-		new_instance.position = Vector2(-20, 700 - (tankList.size() * 200))
+		new_instance.position = Vector2(290, 900 - (tankList.size() * 200))
 		new_instance.tankName = get_random_tank_name() 
 	var main_node = get_tree().current_scene
 	tankList.append(new_instance)

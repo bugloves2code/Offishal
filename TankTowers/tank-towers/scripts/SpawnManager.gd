@@ -16,6 +16,7 @@ func SpawnFish(tank: Tank) -> Fish:
 
 	var offset = collisionShape.position
 	var center = position + offset
+	print("position", center)
 	var xMin = center.x - halfSize.x
 	var xMax = center.x + halfSize.x
 	var yMin = center.y - halfSize.y
@@ -23,11 +24,11 @@ func SpawnFish(tank: Tank) -> Fish:
 	
 	var fish : Fish = fishScene.instantiate()
 	tank.add_child(fish)
-	#fish.xMin = xMin
-	#fish.xMax = xMax
-	#fish.yMin = yMin
-	#fish.yMax = yMax
-	
+	fish.xMin = xMin
+	fish.xMax = xMax
+	fish.yMin = yMin
+	fish.yMax = yMax
+	fish.centerToSeek = center
 	return fish
 
 # Called when the node enters the scene tree for the first time.
@@ -37,4 +38,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	pass

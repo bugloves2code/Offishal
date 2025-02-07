@@ -7,29 +7,10 @@
 extends MarineLife
 class_name Fish
 
-# Provide default values so that fish 
-# are not braindead upon being created
-@export var wanderTime : float = 30
-@export var wanderRadius : float = 60
-@export var wanderWeight : float = 10
-
-
 
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight
-	#totalForce += StayInBoundsForce()
-
-#func StayInBoundsForce() -> Vector2:
-	#if (global_position.x < 5||
-			#global_position.x > 5 ||
-			#global_position.y < 5||
-			#global_position.y > 5)
-		#{
-			#Vector2 cameraPosition = Vector2.ZERO;
-			#cameraPosition.z = transform.position.z;
-			#return Seek(cameraPosition);
-		#}
-		#return Vector3.zero; 
+	totalForce += StayInBoundsForce() * boundsWeight
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,4 +22,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	print("xMin:", xMin, "xMax:", xMax, "yMin:", yMin, "yMax:", yMax, "center:", centerToSeek)
+	#print(centerToSeek)
 	super._process(delta)
