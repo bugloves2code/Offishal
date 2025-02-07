@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://daygy35j0jnhk"]
+[gd_scene load_steps=3 format=3 uid="uid://daygy35j0jnhk"]
 
-[ext_resource type="Script" path="res://scripts/Plant.gd" id="1_s5nm1"]
+[ext_resource type="Texture2D" uid="uid://bu06gggmvgulm" path="res://assets/grass.png" id="1_3i05j"]
 
-[node name="Plant" type="Node2D"]
-script = ExtResource("1_s5nm1")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ssdr"]
+size = Vector2(107, 49)
+
+[node name="Plant" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.38, 1.38)
+texture = ExtResource("1_3i05j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, -1.5)
+shape = SubResource("RectangleShape2D_8ssdr")
