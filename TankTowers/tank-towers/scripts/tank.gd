@@ -47,7 +47,7 @@ func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
 		#print("Added Fish: " + fishInstance)
-		print("Added Fish: " + fishInstance)
+		print("Added Fish: ", fishInstance)
 		print("Tank: ",tankName, " Fish Count: ", fishList.size())
 	else:
 		print("Tank is full of fish")
