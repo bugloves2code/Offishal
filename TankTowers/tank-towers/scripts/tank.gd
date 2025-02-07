@@ -27,7 +27,7 @@ var fishCapacity = 10
 var plantCapacity = 10
 
 ## fishList is an array which holds what fish are in the tank
-var fishList: Array
+var fishList: Array = []
 
 ## plantList is an array which holds what plants are in the tank
 var plantList: Array = []
