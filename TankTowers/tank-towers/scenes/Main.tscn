@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://drn71bam3c4bg"]
 
-[ext_resource type="Script" path="res://TankManager.gd" id="1_1yobj"]
+[ext_resource type="Script" path="res://scripts/TankManager.gd" id="1_1yobj"]
 [ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="1_43f2g"]
 [ext_resource type="PackedScene" uid="uid://d0ha7w6j3tk05" path="res://scenes/Fish.tscn" id="2_lb0i5"]
 
