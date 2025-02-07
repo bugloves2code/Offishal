@@ -201,9 +201,6 @@ text = "Create Tank"
 
 [node name="Fish" parent="." instance=ExtResource("2_lb0i5")]
 position = Vector2(112, 543)
-wanderTime = 30.0
-wanderRadius = 60.0
-wanderWeight = 10.0
 maxSpeed = 10
 
 [connection signal="pressed" from="Tank UI - CanvasLayer/PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]

@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/4/25 by William Duprey
+## Last Updated: 2/5/25 by William Duprey
 ## Fish Script
 ## - This node is a child of the MarineLife node, 
 ##   and the parent node for specific fish nodes.
@@ -7,9 +7,11 @@
 extends MarineLife
 class_name Fish
 
-@export var wanderTime : float
-@export var wanderRadius : float
-@export var wanderWeight : float
+# Provide default values so that fish 
+# are not braindead upon being created
+@export var wanderTime : float = 30
+@export var wanderRadius : float = 60
+@export var wanderWeight : float = 10
 
 
 
@@ -31,6 +33,10 @@ func _CalcSteeringForces() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Prevent fish from colliding with each other, stopping them from
+	# flying off the top of the screen when they spawn at the same position
+	# Is this the best place for this line? I have no idea!
+	collision_layer = 0;
 	super._ready()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
