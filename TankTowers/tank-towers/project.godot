@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ThEnums="*res://scripts/ThEnums.gd"
 SpawnManager="*res://scripts/SpawnManager.gd"
+TankManager="*res://scripts/TankManager.gd"
 
 [display]
 

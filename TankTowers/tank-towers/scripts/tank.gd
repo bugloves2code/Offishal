@@ -90,10 +90,11 @@ func RemovePlant(plantInstance):
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("click"):
-		## print("Clicked")
+		print("Clicked")
 		var Main = get_parent()
-		if Main and Main.has_method("show_ui_panel"):
+		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
+		if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
 			## print("UI?")
-			Main.ReloadUI(self)
-			Main.show_ui_panel(self)
+			Ui_Panel.ReloadUI(self)
+			Ui_Panel.show_ui_panel(self)
 		
