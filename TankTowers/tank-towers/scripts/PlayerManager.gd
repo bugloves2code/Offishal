@@ -19,7 +19,7 @@ extends Node
 ##   never a possibility of overflowing to 0 or anything.
 ## - Also, capping at a nice satisfying number instead
 ##   of 2.148 billion or whatever is cleaner.
-@export var moneyMax: int = 9999;
+const moneyMax: int = 9999;
 
 ## The player's experience points.
 ## - We'd talked about having experience / leveling up,
@@ -44,6 +44,13 @@ extends Node
 ##     level scaling.
 @export var level: int = 1;
 
+## The player's max level.
+## - Probably want to have an upper limit for the player's level.
+##   Maybe we could have a system where the player can keep gaining
+##   experience and get a reward for leveling up, but their
+##   actual level doesn't go any higher than the maximum.
+const levelMax: int = 99;
+
 ## The player's inventory for fish and plants.
 ## - I don't think inventory management is the experience
 ##   we're aiming for, so I think it makes sense to split the
@@ -53,12 +60,14 @@ extends Node
 ##   Although, if we do want to change this, I guess we
 ##   could just make it an array of Nodes, since that's the
 ##   parent class for everything.
-@export var marineLifeInventory: Array[MarineLife];
+## - Not exported because encapsulation? Is that even a 
+##   thing in GDScript? I don't know.
+var marineLifeInventory: Array[MarineLife];
 
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
 ##   this is just a regular, untyped array.
-@export var tankInventory: Array;
+var tankInventory: Array;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -82,7 +91,8 @@ func MarineLifeInventoryCount() -> int:
 	return marineLifeInventory.size();
 
 func AddMarineLife(marineLife: MarineLife) -> void:
-	marineLifeInventory.push_back(marineLife);
-	
+	marineLifeInventory.push_back(marineLife);	
+
 func RemoveMarineLife(index: int) -> MarineLife:
+	# Can throw an exception -- good! Let it!
 	return marineLifeInventory.pop_at(index);
