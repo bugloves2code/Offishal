@@ -37,10 +37,9 @@ class_name MarineLife
 ## Other types of marine life that this marine life can
 ## comfortably live with. 
 ## - Note: I have no idea if polymorphism is even possible in GDScript.
-##   I think typed arrays are possible? But I'm not sure how to make
-##   an array of MarineLife nodes? Hopefully this just works like the
-##   evil JavaScript arrays, and we can just put whatever we want in here.
-@export var compatible : Array;
+##   I think typed arrays are possible? I did do some documentation-reading,
+##   and typed arrays are possible, and the syntax is below.
+@export var compatible : Array[MarineLife];
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
