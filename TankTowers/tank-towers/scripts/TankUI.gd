@@ -152,17 +152,22 @@ func _on_create_tank_button_pressed() -> void:
 		var new_instance = TankManager.tank_scene.instantiate()
 
 		if TankManager.tankList.size() == 0:
-			new_instance.position = Vector2(290,900)
+			new_instance.position = Vector2(290,800)
 			new_instance.tankName = "Dope Tank"
 		else:
-			new_instance.position = Vector2(290, 900 - (TankManager.tankList.size() * 200))
+			new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
 			new_instance.tankName = get_random_tank_name() 
-		var main_node = get_tree().current_scene
+		var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
+		var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
 		TankManager.tankList.append(new_instance)
 
-		if main_node:
+		if vbox_node:
 			## print("main found")
-			main_node.add_child(new_instance)
+			vbox_node.add_child(new_instance)
+			#if TankManager.tankList.size() == 1:
+				#vbox_node.move_child(new_instance, TankManager.tankList.size())
+			print(TankManager.tankList.size())
+			vbox_node.move_child(new_instance, 1)
 			## print(tankList.size())
 			
 func get_random_tank_name() -> String:

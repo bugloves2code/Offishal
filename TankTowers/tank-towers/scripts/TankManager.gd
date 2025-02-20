@@ -11,4 +11,4 @@ var tankList: Array = []
 
 ## tankCapacity
 ## amount of tanks player has unlocked
-var tankCapacity = 4
+var tankCapacity = 20
