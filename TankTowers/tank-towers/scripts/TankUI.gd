@@ -85,14 +85,24 @@ func show_ui_panel(tank) -> void:
 ## this function adds a fish to the tank
 func OnAddFishPressed(tank):
 	if tank.fishList.size() < tank.fishCapacity:
+		## Bloop AudioStreamPlayer must be a child of
+		## this script node for this to work
+		$Bloop.play();
+		
 		## print("Bro we adding fish")
 		## print(tank.tankName)
 		#var fishInstance = "res://scenes/Fish.tscn"
 		tank.AddFish(SpawnManager.SpawnFish(tank))
 		ReloadUI(tank)
 	else:
+		## Bloop, but pitched down
+		## - Definitely could name these nodes better, 
+		##   but for now, I prioritize the funny for my sanity
+		$Bleep.play();
+		
 		## Print needed for now
 		## will need to be UI later
+		
 		print("Too many Fish")
 
 ## OnAddPlantPressed is the function that processes when the UI button
@@ -164,6 +174,10 @@ func OnHarvestTankPressed(tank):
 func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
 	if TankManager.tankList.size() < TankManager.tankCapacity:
+		## This sound effect makes me want the tank to fall
+		## from the sky and land on the top of the tower
+		$TankCreation.play();
+		
 		var new_instance = TankManager.tank_scene.instantiate()
 
 		if TankManager.tankList.size() == 0:
