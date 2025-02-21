@@ -39,6 +39,8 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+signal addFish
+signal tankClicked
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
@@ -46,6 +48,8 @@ var tankName: String = "Awesome Tank"
 func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
+		## emit signal for adding fish
+		emit_signal("addFish")
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
@@ -90,6 +94,8 @@ func RemovePlant(plantInstance):
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("click"):
+		## emit signal for tutorial
+		emit_signal("tankClicked")
 		print("Clicked")
 		var Main = get_parent()
 		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
