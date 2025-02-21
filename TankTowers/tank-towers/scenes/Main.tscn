@@ -48,6 +48,7 @@ custom_minimum_size = Vector2(500, 700)
 layout_mode = 2
 
 [node name="CreateTankButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
 offset_left = 125.0
 offset_top = 546.0
 offset_right = 444.0

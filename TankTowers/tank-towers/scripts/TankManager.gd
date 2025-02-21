@@ -1,3 +1,8 @@
+## Fish Friends
+## Last upadated 2/20/25 by Justin Ferreira
+## TankManager Script
+## - this script holds all things that will need to be
+## universally accessed about tanks 
 extends Node
 
 ## tank_scene 

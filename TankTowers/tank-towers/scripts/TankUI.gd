@@ -1,3 +1,11 @@
+## Fish Friends
+## Last upadated 2/20/25 by Justin Ferreira
+## TankUI Script
+## - This script describes the UI layer for tanks
+## this script is used to handle UI events
+## UI events will be things such as add and removing fish
+## 
+
 extends CanvasLayer
 
 ## add_fish_handler
@@ -18,7 +26,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
+# _on_close_button_pressed is the function that procesess what happens when the player closes UI
 func _on_close_button_pressed() -> void:
 	self.hide()
 	
@@ -86,7 +94,9 @@ func OnAddFishPressed(tank):
 		## Print needed for now
 		## will need to be UI later
 		print("Too many Fish")
-	
+
+## OnAddPlantPressed is the function that processes when the UI button
+## Add Plant is pressed
 func OnAddPlantPressed(tank):
 	if tank.plantList.size() < tank.plantCapacity:
 		tank.AddPlant(SpawnManager.SpawnFish(tank))
@@ -140,12 +150,17 @@ func ReloadUI(tank):
 			fish_images[i].show()               # Show the image
 			remove_buttons[i].show() 
 			
+## OnHarvestTankPressed this is the function that allows for the player to harvest
+## all things that are harvestable in the tank this will probably become mutiple
+## functions in the future
 func OnHarvestTankPressed(tank):
 	## Add money to player
 	tank.harvestStatus = false
 	ReloadUI(tank)
 
-
+## _on_create_tank_button_pressed is the function that is attached to the 
+## Creat Tank Button and processes if a tank can be made and then adds it to
+## the scene
 func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
 	if TankManager.tankList.size() < TankManager.tankCapacity:
@@ -166,10 +181,15 @@ func _on_create_tank_button_pressed() -> void:
 			vbox_node.add_child(new_instance)
 			#if TankManager.tankList.size() == 1:
 				#vbox_node.move_child(new_instance, TankManager.tankList.size())
-			print(TankManager.tankList.size())
+			#print(TankManager.tankList.size())
 			vbox_node.move_child(new_instance, 1)
 			## print(tankList.size())
-			
+
+## get_random_tank_name is currently a placeholder function so each tank
+## has a random name and is easier to see what tank you're working with
+## mostly for debug purposes soon the player will beable to name their own tanks
+## not sure if this random generator should still be inside it so all tanks start with a name
+## and can be renamed later
 func get_random_tank_name() -> String:
 	var tank_names = [
 		"Oceanic Oasis",
