@@ -164,8 +164,9 @@ func ReloadUI(tank):
 ## all things that are harvestable in the tank this will probably become mutiple
 ## functions in the future
 func OnHarvestTankPressed(tank):
-	## Add money to player
-	tank.harvestStatus = false
+	## If the tank can be harvested call the harvest function
+	if(tank.harvestStatus):
+		tank.HarvestTank()
 	ReloadUI(tank)
 
 ## _on_create_tank_button_pressed is the function that is attached to the 

@@ -30,4 +30,8 @@ texture = ExtResource("1_5hvb3")
 [node name="Plant" parent="Area2D" instance=ExtResource("3_tfag4")]
 position = Vector2(424, 200)
 
+[node name="Harvest" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="gui_input" from="." to="." method="tank_pressed"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

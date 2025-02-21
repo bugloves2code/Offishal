@@ -52,6 +52,9 @@ var movement_threshold: float = 10.0  # Adjust this value to control sensitivity
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
+	if fishList.size() == 0 && plantList.size() == 0:
+		$Harvest.start()
+		
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
 		## print("Added Fish: " + fishInstance)
@@ -77,6 +80,9 @@ func RemoveFish(fishInstance):
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
 func AddPlant(plantInstance):
+	if fishList.size() && plantList.size() == 0:
+		$Harvest.start()
+		
 	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
 		## print("Added plant")
@@ -94,6 +100,16 @@ func RemovePlant(plantInstance):
 		plantList.erase(plantInstance)
 		plantInstance.queue_free()
 		print("Removed Plant")
+
+## HarvestTank
+## This method harvests the fish and plants in tank and adds
+## money based on the number of fish and plants in the tank
+## and resets the harvest timer and harvestStatus
+func HarvestTank():
+	PlayerManager.money += fishList.size() + plantList.size()
+	print(PlayerManager.money)
+	harvestStatus = false
+	$Harvest.start()
 
 ## tank_pressed is the function that checks the input of the player if they are
 ## touch the tank it will allow UI to show up if the player is not scrolling
@@ -142,3 +158,18 @@ func _input(event: InputEvent) -> void:
 				#print("Significant movement detected earlier - UI display canceled")
 				initial_click_position = Vector2.ZERO
 			initial_click_position = Vector2.ZERO
+
+## _on_harvest_timeout
+## Stops the harvest timer and sets the harvestStatus to true
+## Resets the UI so that the harvest button becomes valid
+func _on_harvest_timeout() -> void:
+	harvestStatus = true
+	$Harvest.stop()
+	
+	var Main = get_tree().current_scene
+	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
+	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
+		Ui_Panel.ReloadUI(self)
+		Ui_Panel.show_ui_panel(self)
+
+	
