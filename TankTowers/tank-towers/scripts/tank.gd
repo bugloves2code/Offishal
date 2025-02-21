@@ -111,7 +111,7 @@ func RemovePlant(plantInstance):
 ## and resets the harvest timer and harvestStatus
 func HarvestTank():
 	PlayerManager.money += fishList.size() + plantList.size()
-	print(PlayerManager.money)
+	## print(PlayerManager.money)
 	harvestStatus = false
 	$Harvest.start()
 
