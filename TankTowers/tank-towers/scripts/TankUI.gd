@@ -1,3 +1,11 @@
+## Fish Friends
+## Last upadated 2/20/25 by Justin Ferreira
+## TankUI Script
+## - This script describes the UI layer for tanks
+## this script is used to handle UI events
+## UI events will be things such as add and removing fish
+## 
+
 extends CanvasLayer
 
 ## add_fish_handler
@@ -18,7 +26,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
+# _on_close_button_pressed is the function that procesess what happens when the player closes UI
 func _on_close_button_pressed() -> void:
 	self.hide()
 	
@@ -77,16 +85,28 @@ func show_ui_panel(tank) -> void:
 ## this function adds a fish to the tank
 func OnAddFishPressed(tank):
 	if tank.fishList.size() < tank.fishCapacity:
+		## Bloop AudioStreamPlayer must be a child of
+		## this script node for this to work
+		$Bloop.play();
+		
 		## print("Bro we adding fish")
 		## print(tank.tankName)
 		#var fishInstance = "res://scenes/Fish.tscn"
 		tank.AddFish(SpawnManager.SpawnFish(tank))
 		ReloadUI(tank)
 	else:
+		## Bloop, but pitched down
+		## - Definitely could name these nodes better, 
+		##   but for now, I prioritize the funny for my sanity
+		$Bleep.play();
+		
 		## Print needed for now
 		## will need to be UI later
+		
 		print("Too many Fish")
-	
+
+## OnAddPlantPressed is the function that processes when the UI button
+## Add Plant is pressed
 func OnAddPlantPressed(tank):
 	if tank.plantList.size() < tank.plantCapacity:
 		tank.AddPlant(SpawnManager.SpawnFish(tank))
@@ -140,31 +160,50 @@ func ReloadUI(tank):
 			fish_images[i].show()               # Show the image
 			remove_buttons[i].show() 
 			
+## OnHarvestTankPressed this is the function that allows for the player to harvest
+## all things that are harvestable in the tank this will probably become mutiple
+## functions in the future
 func OnHarvestTankPressed(tank):
 	## Add money to player
 	tank.harvestStatus = false
 	ReloadUI(tank)
 
-
+## _on_create_tank_button_pressed is the function that is attached to the 
+## Creat Tank Button and processes if a tank can be made and then adds it to
+## the scene
 func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
 	if TankManager.tankList.size() < TankManager.tankCapacity:
+		## This sound effect makes me want the tank to fall
+		## from the sky and land on the top of the tower
+		$TankCreation.play();
+		
 		var new_instance = TankManager.tank_scene.instantiate()
 
 		if TankManager.tankList.size() == 0:
-			new_instance.position = Vector2(290,900)
+			new_instance.position = Vector2(290,800)
 			new_instance.tankName = "Dope Tank"
 		else:
-			new_instance.position = Vector2(290, 900 - (TankManager.tankList.size() * 200))
+			new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
 			new_instance.tankName = get_random_tank_name() 
-		var main_node = get_tree().current_scene
+		var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
+		var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
 		TankManager.tankList.append(new_instance)
 
-		if main_node:
+		if vbox_node:
 			## print("main found")
-			main_node.add_child(new_instance)
+			vbox_node.add_child(new_instance)
+			#if TankManager.tankList.size() == 1:
+				#vbox_node.move_child(new_instance, TankManager.tankList.size())
+			#print(TankManager.tankList.size())
+			vbox_node.move_child(new_instance, 1)
 			## print(tankList.size())
-			
+
+## get_random_tank_name is currently a placeholder function so each tank
+## has a random name and is easier to see what tank you're working with
+## mostly for debug purposes soon the player will beable to name their own tanks
+## not sure if this random generator should still be inside it so all tanks start with a name
+## and can be renamed later
 func get_random_tank_name() -> String:
 	var tank_names = [
 		"Oceanic Oasis",

@@ -9,7 +9,7 @@ extends Node
 # it taking in a reference to a tank to spawn a fish, we can discuss if this ideal or not 
 # in the future
 func SpawnFish(tank: Tank) -> Fish:
-	var collisionShape = tank.get_node("CollisionShape2D") as CollisionShape2D
+	var collisionShape = tank.get_node("Area2D/CollisionShape2D") as CollisionShape2D
 	var rectShape = collisionShape.shape as RectangleShape2D
 	var halfSize = rectShape.size * 0.5
 	var position = collisionShape.global_position

@@ -5,22 +5,29 @@
 [ext_resource type="PackedScene" uid="uid://daygy35j0jnhk" path="res://scenes/Plant.tscn" id="3_tfag4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
-size = Vector2(409, 141.5)
+size = Vector2(325, 121)
 
-[node name="Tank" type="Area2D"]
+[node name="Tank" type="Control"]
+custom_minimum_size = Vector2(550, 235)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 259.0
+mouse_filter = 1
 script = ExtResource("1_ickdv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(271.5, 105.5)
 shape = SubResource("RectangleShape2D_21xh8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 7.62939e-06)
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(280, 119)
 rotation = 0.00523599
-scale = Vector2(0.232733, 0.232733)
+scale = Vector2(0.233004, 0.233905)
 texture = ExtResource("1_5hvb3")
 
-[node name="Plant" parent="." instance=ExtResource("3_tfag4")]
-position = Vector2(111, 78)
+[node name="Plant" parent="Area2D" instance=ExtResource("3_tfag4")]
+position = Vector2(424, 200)
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="gui_input" from="." to="." method="tank_pressed"]

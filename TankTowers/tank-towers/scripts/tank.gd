@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last upadated 2/5/25 by Justin Ferreira
+## Last upadated 2/20/25 by Justin Ferreira
 ## Tank Script
 ## - This scrpt decribes the tank scene 
 ## the tank will hold fish and plants
@@ -7,7 +7,7 @@
 ## collection pop up will happen and mantaince stats
 ## will be presented 
 
-extends Area2D
+extends Control
 class_name Tank
 
 ## WaterType is pulling the enum of WaterType from ThEnums.gd
@@ -41,6 +41,14 @@ var tankName: String = "Awesome Tank"
 
 signal addFish
 signal tankClicked
+## inititial_click_position is a Vextor2 which holds the click of the player 
+## to better handle when the player is trying to scroll and when they are accessing UI
+var initial_click_position: Vector2 = Vector2.ZERO
+
+## movement_threshold is the distance the player is allowed 
+## to move the mouse before it is considered that they are scrolling
+var movement_threshold: float = 10.0  # Adjust this value to control sensitivity
+
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
@@ -104,3 +112,50 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			Ui_Panel.ReloadUI(self)
 			Ui_Panel.show_ui_panel(self)
 		
+## tank_pressed is the function that checks the input of the player if they are
+## touch the tank it will allow UI to show up if the player is not scrolling
+func tank_pressed(event: InputEvent) -> void:
+	# Print the type of event being processed
+	#print("Event type:", event.get_class())
+	# Handle mouse button or touch press events
+	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		# For mouse input, ensure it's a left click and not a scroll event
+		if event is InputEventMouseButton:
+			#print("Mouse button event - Button index:", event.button_index, "Pressed:", event.is_pressed())
+			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				# Store the initial click position
+				initial_click_position = make_input_local(event).position
+				#print("Left mouse button pressed - Initial position:", initial_click_position)
+			elif event is InputEventScreenTouch:
+				if event.is_pressed():
+					initial_click_position = make_input_local(event).position
+					#print("Touch pressed - Initial position:", initial_click_position)
+			
+## _input detects all input to better seperate if the player is 
+## trying to scroll or access the UI panel
+func _input(event: InputEvent) -> void:
+	# Handle mouse motion or touch drag events
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
+		#print("Motion/Drag event detected")
+		#print("Initial click position: ", initial_click_position)
+		#print("Event Position: ", event.position)
+		if initial_click_position != Vector2.ZERO:  # Only check if there's an initial position
+			var local_event_position = make_input_local(event).position
+			var distance_moved = initial_click_position.distance_to(local_event_position)
+			#print("Distance moved: ", distance_moved)
+			if distance_moved > movement_threshold:
+				initial_click_position = Vector2.ZERO # Reset to prevent UI display
+				#print("Movement detected - UI display canceled")
+	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed()) or (event is InputEventScreenTouch and not event.is_pressed()):
+			if initial_click_position != Vector2.ZERO:
+				#print("No significant movement - showing UI")
+				var Main = get_tree().current_scene
+				var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
+				if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
+					Ui_Panel.ReloadUI(self)
+					Ui_Panel.show_ui_panel(self)
+			else:
+				#print("Significant movement detected earlier - UI display canceled")
+				initial_click_position = Vector2.ZERO
+			initial_click_position = Vector2.ZERO
