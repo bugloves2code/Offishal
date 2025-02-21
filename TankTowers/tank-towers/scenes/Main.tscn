@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=10 format=3 uid="uid://drn71bam3c4bg"]
 
 [ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
 [ext_resource type="PackedScene" uid="uid://djlpjokh8cvll" path="res://scenes/TankUI.tscn" id="2_nto52"]
+[ext_resource type="PackedScene" uid="uid://cc635125djwmg" path="res://scenes/PlayerUI.tscn" id="3_p3gy6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -57,5 +58,7 @@ offset_top = 546.0
 offset_right = 444.0
 offset_bottom = 698.0
 text = "Create Tank"
+
+[node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
