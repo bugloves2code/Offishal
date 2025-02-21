@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=9 format=3 uid="uid://drn71bam3c4bg"]
 
+[ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
 [ext_resource type="PackedScene" uid="uid://djlpjokh8cvll" path="res://scenes/TankUI.tscn" id="2_nto52"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
@@ -21,6 +22,8 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_7s786")
 
 [node name="Main" type="Node2D"]
 position = Vector2(8, 9)
+
+[node name="Tutorial" parent="." instance=ExtResource("2_1savc")]
 
 [node name="Tank UI - CanvasLayer" parent="." instance=ExtResource("2_nto52")]
 

@@ -39,6 +39,8 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+signal addFish
+signal tankClicked
 ## inititial_click_position is a Vextor2 which holds the click of the player 
 ## to better handle when the player is trying to scroll and when they are accessing UI
 var initial_click_position: Vector2 = Vector2.ZERO
@@ -57,6 +59,8 @@ func AddFish(fishInstance):
 		
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
+		## emit signal for adding fish
+		emit_signal("addFish")
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
@@ -111,6 +115,19 @@ func HarvestTank():
 	harvestStatus = false
 	$Harvest.start()
 
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if Input.is_action_just_pressed("click"):
+		## emit signal for tutorial
+		emit_signal("tankClicked")
+		print("Clicked")
+		var Main = get_parent()
+		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
+		if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
+			## print("UI?")
+			Ui_Panel.ReloadUI(self)
+			Ui_Panel.show_ui_panel(self)
+		
 ## tank_pressed is the function that checks the input of the player if they are
 ## touch the tank it will allow UI to show up if the player is not scrolling
 func tank_pressed(event: InputEvent) -> void:
