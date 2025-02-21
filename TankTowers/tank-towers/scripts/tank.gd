@@ -84,7 +84,7 @@ func RemoveFish(fishInstance):
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
 func AddPlant(plantInstance):
-	if fishList.size() && plantList.size() == 0:
+	if fishList.size() == 0 && plantList.size() == 0:
 		$Harvest.start()
 		
 	if plantList.size() < plantCapacity:
@@ -187,6 +187,5 @@ func _on_harvest_timeout() -> void:
 	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
 	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
 		Ui_Panel.ReloadUI(self)
-		Ui_Panel.show_ui_panel(self)
 
 	
