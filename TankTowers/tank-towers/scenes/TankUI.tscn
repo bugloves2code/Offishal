@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://djlpjokh8cvll"]
+[gd_scene load_steps=6 format=3 uid="uid://djlpjokh8cvll"]
 
 [ext_resource type="Texture2D" uid="uid://3d1v6bd13jfr" path="res://assets/8bit-fish-basic-5.png" id="1_4egwu"]
 [ext_resource type="Script" path="res://scripts/TankUI.gd" id="1_wt7na"]
 [ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="2_3ypjw"]
+[ext_resource type="AudioStream" uid="uid://bl7pmndb2c6yd" path="res://audio/bloop.wav" id="4_us3ge"]
+[ext_resource type="AudioStream" uid="uid://dr2qsfmjmyopy" path="res://audio/tank_construction.wav" id="5_xcsqr"]
 
 [node name="Tank UI - CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_wt7na")
@@ -190,5 +192,15 @@ text = "Fish10Name"
 [node name="Fish10RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Remove Fish"
+
+[node name="Bloop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_us3ge")
+
+[node name="Bleep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_us3ge")
+pitch_scale = 0.26
+
+[node name="TankCreation" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xcsqr")
 
 [connection signal="pressed" from="PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
