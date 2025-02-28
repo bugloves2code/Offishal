@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/DragDrop.gd" id="1_jhfcx"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="DragDropBox" type="TextureRect"]
 custom_minimum_size = Vector2(40, 40)
 offset_right = 40.0
 offset_bottom = 40.0
