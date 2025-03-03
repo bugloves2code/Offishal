@@ -14,13 +14,32 @@
 class_name SaverLoader
 extends Node
 
+## Saves data to a directory that is guaranteed to be writable.
+## - Using res:// would not work, since when the project is
+##   exported or compiled or whatever, that directory becomes read-only.
+## - On Windows, the user:// directory points to this:
+##   %APPDATA%\Godot\app_userdata\Tank Towers\
+## Currently, the only thing saved is the player's money.
+## - Incredibly rudimentary right now, very bad,
+##   so many TODOs to be TODONE. This past week, I engaged 
+##   in the time-honored tradition of procrastination, so 
+##   this is all I have to show for now.
 func SaveGame():
-	var file = FileAccess.open("res://savegame.data", FileAccess.WRITE);
+	var file = FileAccess.open("user://savegame.data", FileAccess.WRITE);
+	
+	# store_var saves the value in a binary format, so
+	# the file itself is not human-readable
 	file.store_var(PlayerManager.money);
 	file.close();	
 
-
+## Loads data from a file. 
+## - Currently, the only thing loaded is the player's money.
 func LoadGame():
-	var file = FileAccess.open("res://savegame.data", FileAccess.READ)
+	var file = FileAccess.open("user://savegame.data", FileAccess.READ)
+	
+	# Make sure the file exists first
+	if(file == null):
+		return;
+	
 	PlayerManager.money = file.get_var();
 	file.close();
