@@ -6,6 +6,7 @@ func _get_drag_data(at_position):
 	#print("Drag started! Fish instance: ", fish_instance)
 	PlayerManager.is_dragging = true
 	PlayerManager.current_dragged_item = fish_instance
+	print("Hello")
 	
 	var preview_texture = TextureRect.new()
 	
