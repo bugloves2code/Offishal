@@ -12,6 +12,6 @@ script = ExtResource("1_jhfcx")
 [node name="Panel" type="Panel" parent="."]
 show_behind_parent = true
 layout_mode = 0
-offset_right = 80.0
-offset_bottom = 80.0
+offset_right = 86.0
+offset_bottom = 82.0
 mouse_filter = 2

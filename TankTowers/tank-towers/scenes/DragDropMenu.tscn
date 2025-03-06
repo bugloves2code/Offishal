@@ -27,7 +27,7 @@ script = ExtResource("1_lxbjr")
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 3.0
-offset_right = 559.0
+offset_right = 537.0
 offset_bottom = 53.0
 theme = SubResource("Theme_nuyga")
 vertical_scroll_mode = 0
