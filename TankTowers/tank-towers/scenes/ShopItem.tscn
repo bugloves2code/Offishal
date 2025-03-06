@@ -8,6 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 81.0
 offset_bottom = 146.0
+mouse_filter = 2
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0

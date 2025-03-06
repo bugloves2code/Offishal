@@ -40,7 +40,7 @@ offset_bottom = 6.0
 [node name="ScrollContainer" type="ScrollContainer" parent="Control"]
 layout_mode = 0
 offset_left = -8.0
-offset_top = 38.0
+offset_top = 82.0
 offset_right = 568.0
 offset_bottom = 965.0
 theme = SubResource("Theme_jde58")

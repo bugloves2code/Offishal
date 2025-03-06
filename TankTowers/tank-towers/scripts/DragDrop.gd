@@ -4,6 +4,9 @@ var fish_instance: Node = null
 
 func _get_drag_data(at_position):
 	#print("Drag started! Fish instance: ", fish_instance)
+	PlayerManager.is_dragging = true
+	PlayerManager.current_dragged_item = fish_instance
+	
 	var preview_texture = TextureRect.new()
 	
 	preview_texture.texture = texture
@@ -26,3 +29,8 @@ func _drop_data(_pos, data):
 		texture = data.texture
 	else:
 		print("Invalid drop: Data is not a TextureRect.")
+		
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END:
+		PlayerManager.is_dragging = false
+		PlayerManager.current_dragged_item = null
