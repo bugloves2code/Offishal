@@ -1,23 +1,41 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=15 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
+[ext_resource type="Script" path="res://scenes/SellPanel.gd" id="2_afq77"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dgpff"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yf3pr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ihnjs"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ewky"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tadiw"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgmtm"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74d2b"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b6kr"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_og52w"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h75l8"]
 
-[sub_resource type="Theme" id="Theme_l4gk2"]
-HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_dgpff")
-HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_ihnjs")
-HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_tadiw")
-HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_74d2b")
-HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_og52w")
+[sub_resource type="Theme" id="Theme_waj1f"]
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_yf3pr")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_8ewky")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_pgmtm")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_2b6kr")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_h75l8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ec4aa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_likwb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hnrfe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38eb0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch0jg"]
+
+[sub_resource type="Theme" id="Theme_edxc6"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_ec4aa")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_likwb")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_hnrfe")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_38eb0")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_ch0jg")
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_f37m1")
@@ -54,8 +72,8 @@ text = "MoneyCount"
 
 [node name="MenuPanel" type="Panel" parent="."]
 visible = false
-offset_right = 574.0
-offset_bottom = 983.0
+offset_right = 577.0
+offset_bottom = 978.0
 
 [node name="ShopButton" type="Button" parent="MenuPanel"]
 layout_mode = 0
@@ -95,7 +113,7 @@ text = "Settings
 
 [node name="ShopPanel" type="Panel" parent="."]
 visible = false
-offset_right = 572.0
+offset_right = 575.0
 offset_bottom = 980.0
 
 [node name="BackButton" type="Button" parent="ShopPanel"]
@@ -122,21 +140,127 @@ offset_right = 422.0
 offset_bottom = 166.0
 text = "Sell"
 
+[node name="FishShopLabel" type="Label" parent="ShopPanel"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 194.0
+offset_right = 316.0
+offset_bottom = 217.0
+text = "Fish
+"
+
+[node name="DecorationShopLabel" type="Label" parent="ShopPanel"]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 569.0
+offset_right = 316.0
+offset_bottom = 592.0
+text = "Decor
+"
+
+[node name="PlantShopLabel" type="Label" parent="ShopPanel"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 372.0
+offset_right = 312.0
+offset_bottom = 395.0
+text = "Plants
+"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="ShopPanel"]
 layout_mode = 0
-offset_left = 2.0
-offset_top = 195.0
-offset_right = 574.0
-offset_bottom = 338.0
-theme = SubResource("Theme_l4gk2")
+offset_left = 11.0
+offset_top = 218.0
+offset_right = 567.0
+offset_bottom = 373.0
+theme = SubResource("Theme_waj1f")
+vertical_scroll_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopPanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="SellShopPanel" type="Panel" parent="."]
+offset_right = 575.0
+offset_bottom = 980.0
+
+[node name="SellPanel" type="Panel" parent="SellShopPanel"]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 200.0
+offset_right = 401.0
+offset_bottom = 279.0
+
+[node name="Control" type="Control" parent="SellShopPanel/SellPanel"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -17.0
+offset_top = -9.0
+offset_right = 250.0
+offset_bottom = 91.0
+script = ExtResource("2_afq77")
+
+[node name="InstructionLabel" type="Label" parent="SellShopPanel/SellPanel/Control"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 35.0
+offset_right = 202.0
+offset_bottom = 58.0
+text = "Drag Here to Sell"
+
+[node name="PriceLabel" type="Label" parent="SellShopPanel/SellPanel/Control"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 88.0
+offset_right = 159.0
+offset_bottom = 111.0
+text = "Price: "
+
+[node name="BackButton" type="Button" parent="SellShopPanel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 81.0
+offset_right = 91.0
+offset_bottom = 117.0
+text = "<-"
+
+[node name="BuyButton" type="Button" parent="SellShopPanel"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 109.0
+offset_right = 248.0
+offset_bottom = 166.0
+text = "Buy"
+
+[node name="SellButton" type="Button" parent="SellShopPanel"]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 109.0
+offset_right = 422.0
+offset_bottom = 166.0
+text = "Sell"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SellShopPanel"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 337.0
+offset_right = 561.0
+offset_bottom = 965.0
+theme = SubResource("Theme_edxc6")
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="SellShopPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 6
+
 [connection signal="pressed" from="BottomPanel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="MenuPanel/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MenuPanel/FishPediaButton" to="." method="_on_fish_pedia_button_pressed"]
 [connection signal="pressed" from="MenuPanel/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ShopPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ShopPanel/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="SellShopPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="SellShopPanel/BuyButton" to="." method="_on_buy_button_pressed"]

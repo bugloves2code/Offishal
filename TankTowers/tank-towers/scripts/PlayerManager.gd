@@ -72,9 +72,13 @@ var tankInventory: Array;
 ## Testing variables
 var fish_scene = preload("res://scenes/Fish.tscn")
 
+var is_dragging = false
+
+var current_dragged_item: MarineLife = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(5):
+	for i in range(7):
 		var fish_instance = fish_scene.instantiate()
 		marineLifeInventory.append(fish_instance)
 	#print(marineLifeInventory)
