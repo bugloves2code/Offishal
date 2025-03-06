@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dacg7efk2pt4"]
 
-[ext_resource type="Script" path="res://TankDragDrop.gd" id="1_lxbjr"]
+[ext_resource type="Script" path="res://scripts/TankDragDrop.gd" id="1_lxbjr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scnfa"]
 
