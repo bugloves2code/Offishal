@@ -182,6 +182,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SellShopPanel" type="Panel" parent="."]
+visible = false
 offset_right = 575.0
 offset_bottom = 980.0
 
