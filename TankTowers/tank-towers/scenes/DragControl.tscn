@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv0uooiqca8ss"]
+
+[sub_resource type="GDScript" id="GDScript_1f0dy"]
+script/source = "extends Control
+
+signal drag_started
+signal drag_ended
+
+var is_dragging := false
+var drag_offset := Vector2.ZERO
+
+func _gui_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		is_dragging = event.pressed
+		drag_offset = get_global_mouse_position() - get_parent().global_position
+		if is_dragging:
+			var preview = TextureRect.new()
+			preview.texture = get_parent().get_node(\"Sprite2D\").texture
+			preview.size = Vector2(64, 64)
+			set_drag_preview(preview)
+			drag_started.emit()
+		else:
+			drag_ended.emit()
+
+func _process(delta):
+	if is_dragging:
+		get_parent().global_position = get_global_mouse_position() - drag_offset
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_1f0dy")
