@@ -11,7 +11,10 @@ size = Vector2(325, 121)
 custom_minimum_size = Vector2(550, 235)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 259.0
+offset_left = -276.0
+offset_top = -100.0
+offset_right = 274.0
+offset_bottom = 135.0
 mouse_filter = 1
 script = ExtResource("1_ickdv")
 

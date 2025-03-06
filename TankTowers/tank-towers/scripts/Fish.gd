@@ -7,6 +7,10 @@
 extends MarineLife
 class_name Fish
 
+var scrollContainer
+var last_scroll = 0
+var parent_global_pos
+var collisionShape
 
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight
@@ -18,10 +22,29 @@ func _ready() -> void:
 	# flying off the top of the screen when they spawn at the same position
 	# Is this the best place for this line? I have no idea!
 	collision_layer = 0;
+	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 	super._ready()
+
+func adjustFishBounds() -> void:
+	var rectShape = collisionShape.shape as RectangleShape2D
+	var halfSize = rectShape.size * 0.5
+	var position = collisionShape.global_position
+
+	var offset = collisionShape.position
+	var center = position + offset
+	## print("position", center)
+	var xMin = center.x - halfSize.x
+	var xMax = center.x + halfSize.x
+	var yMin = center.y - halfSize.y
+	var yMax = center.y + halfSize.y
+	
+	xMin = xMin
+	xMax = xMax
+	yMin = yMin
+	yMax = yMax
+	centerToSeek = center
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	## print("xMin:", xMin, "xMax:", xMax, "yMin:", yMin, "yMax:", yMax, "center:", centerToSeek)
-	#print(centerToSeek)
+	adjustFishBounds()
 	super._process(delta)
