@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
 [ext_resource type="PackedScene" uid="uid://djlpjokh8cvll" path="res://scenes/TankUI.tscn" id="2_nto52"]
 [ext_resource type="PackedScene" uid="uid://cc635125djwmg" path="res://scenes/PlayerUI.tscn" id="3_p3gy6"]
+[ext_resource type="Script" path="res://scripts/SaverLoader/SaverLoader.gd" id="4_bjs7s"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -64,6 +65,29 @@ offset_right = 444.0
 offset_bottom = 698.0
 text = "Create Tank"
 
+[node name="SaveButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 178.0
+offset_right = 478.0
+offset_bottom = 209.0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 433.0
+offset_top = 215.0
+offset_right = 479.0
+offset_bottom = 246.0
+text = "Load"
+
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 
+[node name="Utilities" type="Node" parent="."]
+
+[node name="SaverLoader" type="Node" parent="Utilities"]
+script = ExtResource("4_bjs7s")
+
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/SaveButton" to="Utilities/SaverLoader" method="SaveGame"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/LoadButton" to="Utilities/SaverLoader" method="LoadGame"]
