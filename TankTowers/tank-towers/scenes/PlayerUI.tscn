@@ -1,18 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=15 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
+[ext_resource type="Script" path="res://scenes/SellPanel.gd" id="2_afq77"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yf3pr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ewky"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pgmtm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b6kr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h75l8"]
+
+[sub_resource type="Theme" id="Theme_waj1f"]
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_yf3pr")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_8ewky")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_pgmtm")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_2b6kr")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_h75l8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ec4aa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_likwb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hnrfe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38eb0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch0jg"]
+
+[sub_resource type="Theme" id="Theme_edxc6"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_ec4aa")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_likwb")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_hnrfe")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_38eb0")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_ch0jg")
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_f37m1")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="BottomPanel" type="Panel" parent="."]
 offset_left = 3.0
 offset_top = 983.0
 offset_right = 576.0
 offset_bottom = 1023.0
 
-[node name="Menu" type="Button" parent="Panel"]
-visible = false
+[node name="Menu" type="Button" parent="BottomPanel"]
 layout_mode = 0
 offset_left = 496.0
 offset_top = 5.0
@@ -20,7 +54,7 @@ offset_right = 567.0
 offset_bottom = 36.0
 text = "Menu"
 
-[node name="$_" type="Label" parent="Panel"]
+[node name="$_" type="Label" parent="BottomPanel"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 8.0
@@ -28,7 +62,7 @@ offset_right = 27.0
 offset_bottom = 31.0
 text = "$:"
 
-[node name="MoenyCount" type="Label" parent="Panel"]
+[node name="MoenyCount" type="Label" parent="BottomPanel"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 8.0
