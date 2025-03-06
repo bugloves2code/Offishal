@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0ha7w6j3tk05"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_6kk0x"]
-[ext_resource type="Texture2D" uid="uid://3d1v6bd13jfr" path="res://assets/8bit-fish-basic-5.png" id="2_og654"]
+[ext_resource type="Texture2D" uid="uid://6ucanyw07b7p" path="res://assets/guppy.PNG" id="2_1f3kr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
-radius = 34.0
+radius = 64.0078
 
 [node name="Fish" type="CharacterBody2D"]
 script = ExtResource("1_6kk0x")
@@ -14,7 +14,9 @@ boundsWeight = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-texture = ExtResource("2_og654")
+rotation = -0.401426
+scale = Vector2(-0.25, 0.25)
+texture = ExtResource("2_1f3kr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_newn4")

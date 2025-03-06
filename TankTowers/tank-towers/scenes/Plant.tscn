@@ -1,16 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://daygy35j0jnhk"]
 
-[ext_resource type="Texture2D" uid="uid://bu06gggmvgulm" path="res://assets/grass.png" id="1_3i05j"]
+[ext_resource type="Texture2D" uid="uid://uxsd2rryiv17" path="res://assets/guppyGrass.PNG" id="1_batkw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ssdr"]
-size = Vector2(107, 49)
+size = Vector2(151, 6)
 
 [node name="Plant" type="CharacterBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.38, 1.38)
-texture = ExtResource("1_3i05j")
+position = Vector2(1, 0)
+scale = Vector2(0.186114, 0.186114)
+texture = ExtResource("1_batkw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5.5, -1.5)
+visibility_layer = 2
+position = Vector2(-4.5, 60)
 shape = SubResource("RectangleShape2D_8ssdr")
