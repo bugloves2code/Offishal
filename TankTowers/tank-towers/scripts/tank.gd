@@ -114,6 +114,7 @@ func HarvestTank():
 	## print(PlayerManager.money)
 	harvestStatus = false
 	$Harvest.start()
+	$WorldEnvironment.environment.set_glow_enabled(false)
 
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
@@ -182,6 +183,7 @@ func _input(event: InputEvent) -> void:
 func _on_harvest_timeout() -> void:
 	harvestStatus = true
 	$Harvest.stop()
+	$WorldEnvironment.environment.set_glow_enabled(true)
 	
 	var Main = get_tree().current_scene
 	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
