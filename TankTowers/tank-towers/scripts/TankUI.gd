@@ -156,7 +156,7 @@ func ReloadUI(tank):
 			## Fish Image Goes here
 			## for UI               
 			## Show the label
-			fish_images[i].texture = load("res://assets/8bit-fish-basic-5.png")  # Set the fish image
+			fish_images[i].texture = load("res://assets/guppy.PNG")  # Set the fish image
 			fish_images[i].show()               # Show the image
 			remove_buttons[i].show() 
 			
