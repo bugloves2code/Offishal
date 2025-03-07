@@ -1,17 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvw46rhxibyt7"]
+[gd_scene load_steps=6 format=3 uid="uid://cvw46rhxibyt7"]
 
-[ext_resource type="Texture2D" uid="uid://v3gq5kyl3q2o" path="res://assets/Standard+Aquariums.png" id="1_5hvb3"]
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_ickdv"]
+[ext_resource type="Texture2D" uid="uid://bm1uev1cn6fg1" path="res://assets/tank.PNG" id="2_qlclt"]
 [ext_resource type="PackedScene" uid="uid://daygy35j0jnhk" path="res://scenes/Plant.tscn" id="3_tfag4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
 size = Vector2(325, 121)
 
+[sub_resource type="Environment" id="Environment_w70qu"]
+background_mode = 3
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+
 [node name="Tank" type="Control"]
 custom_minimum_size = Vector2(550, 235)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 259.0
+offset_left = -276.0
+offset_top = -100.0
+offset_right = 274.0
+offset_bottom = 135.0
 mouse_filter = 1
 script = ExtResource("1_ickdv")
 
@@ -26,13 +34,16 @@ shape = SubResource("RectangleShape2D_21xh8")
 wait_time = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(280, 119)
+position = Vector2(279, 115)
 rotation = 0.00523599
-scale = Vector2(0.233004, 0.233905)
-texture = ExtResource("1_5hvb3")
+scale = Vector2(0.424279, 0.39551)
+texture = ExtResource("2_qlclt")
 
 [node name="Plant" parent="." instance=ExtResource("3_tfag4")]
-position = Vector2(424, 200)
+position = Vector2(415, 159)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w70qu")
 
 [connection signal="gui_input" from="." to="." method="tank_pressed"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
