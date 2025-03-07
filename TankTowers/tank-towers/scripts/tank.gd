@@ -173,7 +173,7 @@ func _input(event: InputEvent) -> void:
 					Ui_Panel.ReloadUI(self)
 					Ui_Panel.show_ui_panel(self)
 			else:
-				#print("Significant movement detected earlier - UI display canceled")
+				print("Significant movement detected earlier - UI display canceled")
 				initial_click_position = Vector2.ZERO
 			initial_click_position = Vector2.ZERO
 
