@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvw46rhxibyt7"]
+[gd_scene load_steps=6 format=3 uid="uid://cvw46rhxibyt7"]
 
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_ickdv"]
 [ext_resource type="Texture2D" uid="uid://bm1uev1cn6fg1" path="res://assets/tank.PNG" id="2_qlclt"]
@@ -6,6 +6,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
 size = Vector2(325, 121)
+
+[sub_resource type="Environment" id="Environment_w70qu"]
+background_mode = 3
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
 
 [node name="Tank" type="Control"]
 custom_minimum_size = Vector2(550, 235)
@@ -36,6 +42,9 @@ texture = ExtResource("2_qlclt")
 
 [node name="Plant" parent="." instance=ExtResource("3_tfag4")]
 position = Vector2(415, 159)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w70qu")
 
 [connection signal="gui_input" from="." to="." method="tank_pressed"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
