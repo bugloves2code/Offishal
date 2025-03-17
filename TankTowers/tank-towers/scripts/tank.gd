@@ -8,7 +8,7 @@
 ## will be presented 
 
 extends Control
-class_name Tank 
+class_name Tank
 
 ## WaterType is pulling the enum of WaterType from ThEnums.gd
 ## unsure if there is a better way of doing this because ThEmnums.gd
