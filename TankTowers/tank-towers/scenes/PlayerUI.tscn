@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=3 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
+[ext_resource type="Script" path="res://scenes/SellPanel.gd" id="2_yi4f4"]
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_f37m1")
@@ -12,7 +13,6 @@ offset_right = 576.0
 offset_bottom = 1023.0
 
 [node name="Menu" type="Button" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_left = 496.0
 offset_top = 5.0
@@ -165,6 +165,7 @@ offset_left = -17.0
 offset_top = -9.0
 offset_right = 250.0
 offset_bottom = 91.0
+script = ExtResource("2_yi4f4")
 
 [node name="InstructionLabel" type="Label" parent="SellShopPanel/SellPanel/Control"]
 layout_mode = 0
@@ -220,6 +221,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 6
 
+[connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="MenuPanel/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MenuPanel/FishPediaButton" to="." method="_on_fish_pedia_button_pressed"]
 [connection signal="pressed" from="MenuPanel/SettingsButton" to="." method="_on_settings_button_pressed"]

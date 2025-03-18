@@ -1,4 +1,4 @@
-	## Fish Friends
+## Fish Friends
 ## Last upadated 2/21/25 by Justin Ferreira
 ## PlayerUI Script
 ## - This Script is used to display and 
@@ -36,7 +36,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$BottomPanel/MoenyCount.text = str(PlayerManager.money)
+	$Panel/MoenyCount.text = str(PlayerManager.money)
 
 
 func _on_menu_pressed() -> void:
@@ -45,7 +45,7 @@ func _on_menu_pressed() -> void:
 	var ShopPanel = $ShopPanel
 	var SellShopPanel = $SellShopPanel
 	
-	var BottomPanel = $BottomPanel
+	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
 	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible:
