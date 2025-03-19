@@ -215,7 +215,12 @@ func _drop_data(_pos, data):
 		
 		var Main = get_tree().current_scene
 		var dragDrop = Main.get_node("DragDropMenu")
+		var PlayerUI = Main.get_node("PlayerUI")
 		if dragDrop and dragDrop.has_method("populate_hbox_container"):
 			dragDrop.populate_hbox_container()
+		if PlayerUI and PlayerUI.has_method("ReloadAllUI"):
+			##print("HEHEHEHE")
+			PlayerUI.ReloadAllUI()
+			
 		
 		data.queue_free()
