@@ -12,7 +12,7 @@ extends Node
 ## - I would have preferred this to be an unsigned integer
 ##   to not have to worry about negative currency, but
 ##   can you take a wild guess what GDScript doesn't have?
-@export var money: int = 10;
+@export var money: int = 0;
 
 ## The player's maximum currency.
 ## - There should probably be a maximum just so there's
@@ -69,21 +69,10 @@ var marineLifeInventory: Array[MarineLife];
 ##   this is just a regular, untyped array.
 var tankInventory: Array;
 
-## Testing variables
-var fish_scene = preload("res://scenes/Fish.tscn")
-
-var is_dragging = false
-
-var current_dragged_item: MarineLife = null
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(7):
-		var fish_instance = fish_scene.instantiate()
-		marineLifeInventory.append(fish_instance)
-	#print(marineLifeInventory)
-	#print(marineLifeInventory.size())
-		
+	pass # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -41,8 +41,6 @@ class_name MarineLife
 ##   and typed arrays are possible, and the syntax is below.
 @export var compatible : Array[MarineLife];
 
-@export var sell_price: int = 1
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()

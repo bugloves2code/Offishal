@@ -31,6 +31,7 @@ func showStep(stepName):
 		completedSteps[stepName] = true
 		tutorialLabel.set("text", tutorialSteps[stepName])
 		TankManager.connect("tankAdded", Callable(self, "onCreateClicked"))
+		TankManager.disconnect("tankAdded", Callable(self, "onCreateClicked"))
 		
 		
 
@@ -38,7 +39,10 @@ func onCreateClicked():
 	showStep("step2")
 	currentTank = TankManager.tankList[0]
 	currentTank.connect("tankClicked", Callable(self, "onTankClicked"))
+	currentTank.disconnect("tankClicked", Callable(self, "onTankClicked"))
 	currentTank.connect("addFish", Callable(self, "onAddFish"))
+	currentTank.disconnect("addFish", Callable(self, "onAddFish"))
+
 
 func onTankClicked():
 	showStep("step3")

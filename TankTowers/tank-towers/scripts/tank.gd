@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last upadated 2/21/25 by Justin Ferreira
+## Last upadated 2/20/25 by Justin Ferreira
 ## Tank Script
 ## - This scrpt decribes the tank scene 
 ## the tank will hold fish and plants
@@ -8,7 +8,7 @@
 ## will be presented 
 
 extends Control
-class_name Tank
+class_name Tank 
 
 ## WaterType is pulling the enum of WaterType from ThEnums.gd
 ## unsure if there is a better way of doing this because ThEmnums.gd
@@ -59,7 +59,6 @@ func AddFish(fishInstance):
 		
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
-		SpawnManager.SpawnFish(self)
 		## emit signal for adding fish
 		emit_signal("addFish")
 		## print("Added Fish: " + fishInstance)
@@ -122,7 +121,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("click"):
 		## emit signal for tutorial
 		emit_signal("tankClicked")
-		#print("Clicked")
+		print("Clicked")
 		var Main = get_parent()
 		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
 		if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
@@ -191,33 +190,4 @@ func _on_harvest_timeout() -> void:
 	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
 		Ui_Panel.ReloadUI(self)
 
-func _can_drop_data(_pos,data):
-	if data is Node:
-		if fishList.size() < fishCapacity:
-			#print("Drop allowed: Tank has space.")
-			return true
-		#else:
-			#print("Drop denied: Tank is full.")
-	else:
-		#print("Drop denied: Invalid data type.")
-		return false
-
-func _drop_data(_pos, data):
-	#print("Inventory before drop: ", PlayerManager.marineLifeInventory.size())
-	#print("Fish instance ID being dropped: ", data.get_instance_id())
-	#print("Fish instance IDs in inventory: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
-	if data is Node:
-		
-		AddFish(data)
-		
-		PlayerManager.marineLifeInventory.erase(data)
-		
-		#print("Inventory before after: ", PlayerManager.marineLifeInventory.size())
-		#print("Fish instance IDs in inventory after drop: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
-		
-		var Main = get_tree().current_scene
-		var dragDrop = Main.get_node("DragDropMenu")
-		if dragDrop and dragDrop.has_method("populate_hbox_container"):
-			dragDrop.populate_hbox_container()
-		
-		data.queue_free()
+	
