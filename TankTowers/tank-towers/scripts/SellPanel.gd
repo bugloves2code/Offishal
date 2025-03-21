@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	
 
 func _on_mouse_entered():
-	print("Mouse enter")
+	#print("Mouse enter")
 	if PlayerManager.is_dragging:
 		update_price_label()
 		
@@ -31,7 +31,7 @@ func _drop_data(_pos, data):
 		PlayerManager.money += data.sell_price
 		PlayerManager.marineLifeInventory.erase(data)
 		data.queue_free()
-		print(get_tree().current_scene)
+		#print(get_tree().current_scene)
 		get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
 		
 func update_price_label():

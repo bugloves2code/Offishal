@@ -20,4 +20,4 @@ func _process(delta: float) -> void:
 	if timePassed >= 1.0:
 		counter += 10
 		timePassed = 0
-		print(counter)
+		#print(counter)

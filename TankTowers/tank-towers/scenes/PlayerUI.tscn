@@ -1,7 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=15 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
 [ext_resource type="Script" path="res://scripts/SellPanel.gd" id="2_vvt7t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7xcx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tin0n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvtmf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_82ttx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8gpx"]
+
+[sub_resource type="Theme" id="Theme_jodsd"]
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_c7xcx")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_tin0n")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_nvtmf")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_82ttx")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_i8gpx")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5oymf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtyo0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrnu8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ypcss"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ximmp"]
+
+[sub_resource type="Theme" id="Theme_2twb3"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_5oymf")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_rtyo0")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_jrnu8")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_ypcss")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_ximmp")
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_f37m1")
@@ -139,6 +173,7 @@ offset_left = 11.0
 offset_top = 218.0
 offset_right = 567.0
 offset_bottom = 373.0
+theme = SubResource("Theme_jodsd")
 vertical_scroll_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopPanel/ScrollContainer"]
@@ -213,6 +248,7 @@ offset_left = 42.0
 offset_top = 337.0
 offset_right = 561.0
 offset_bottom = 965.0
+theme = SubResource("Theme_2twb3")
 horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="SellShopPanel/ScrollContainer"]

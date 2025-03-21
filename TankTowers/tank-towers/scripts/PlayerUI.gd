@@ -31,7 +31,7 @@ func _ready() -> void:
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	drag_drop_menu = get_tree().get_root().get_node("Main/DragDropMenu")
-	print(drag_drop_menu)
+	#print(drag_drop_menu)
 	LoadShop()
 	LoadSellShop()
 
@@ -158,7 +158,7 @@ func ReloadSellShopUI():
 	LoadSellShop()
 
 func ReloadAllUI():
-	print("CALLED")
+	#print("CALLED")
 	ReloadSellShopUI()
 	ReloadShopUI()
 	drag_drop_menu.populate_hbox_container()

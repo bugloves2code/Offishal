@@ -64,10 +64,10 @@ func AddFish(fishInstance):
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
-	else:
+	#else:
 		## this needs to be a print statement
 		## it should be a ui statment
-		print("Tank is full of fish")
+		#print("Tank is full of fish")
 	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
 		
 	
@@ -122,7 +122,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if Input.is_action_just_pressed("click"):
 		## emit signal for tutorial
 		emit_signal("tankClicked")
-		print("Clicked")
+		#print("Clicked")
 		var Main = get_parent()
 		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
 		if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
@@ -174,7 +174,7 @@ func _input(event: InputEvent) -> void:
 					Ui_Panel.ReloadUI(self)
 					Ui_Panel.show_ui_panel(self)
 			else:
-				print("Significant movement detected earlier - UI display canceled")
+				#print("Significant movement detected earlier - UI display canceled")
 				initial_click_position = Vector2.ZERO
 			initial_click_position = Vector2.ZERO
 
