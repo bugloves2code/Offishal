@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://dacg7efk2pt4"]
+
+[ext_resource type="Script" path="res://scripts/TankDragDrop.gd" id="1_lxbjr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scnfa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yfklv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxqhk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nptd7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rkli"]
+
+[sub_resource type="Theme" id="Theme_nuyga"]
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_scnfa")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_yfklv")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_yxqhk")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_nptd7")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_0rkli")
+
+[node name="DragDropMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lxbjr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 537.0
+offset_bottom = 53.0
+theme = SubResource("Theme_nuyga")
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
