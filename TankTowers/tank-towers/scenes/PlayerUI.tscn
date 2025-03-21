@@ -157,7 +157,6 @@ offset_left = 161.0
 offset_top = 200.0
 offset_right = 401.0
 offset_bottom = 279.0
-script = ExtResource("2_vvt7t")
 
 [node name="Control" type="Control" parent="SellShopPanel/SellPanel"]
 layout_mode = 3
@@ -166,6 +165,7 @@ offset_left = -17.0
 offset_top = -9.0
 offset_right = 250.0
 offset_bottom = 91.0
+script = ExtResource("2_vvt7t")
 
 [node name="InstructionLabel" type="Label" parent="SellShopPanel/SellPanel/Control"]
 layout_mode = 0

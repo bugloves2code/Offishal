@@ -108,6 +108,8 @@ func LoadSellShop():
 	for child in grid_container.get_children():
 		child.queue_free()
 	
+	await get_tree().process_frame
+	
 	for item in PlayerManager.marineLifeInventory:
 		var drag_drop_instance = drag_drop_scene.instantiate()
 		
@@ -156,6 +158,7 @@ func ReloadSellShopUI():
 	LoadSellShop()
 
 func ReloadAllUI():
+	print("CALLED")
 	ReloadSellShopUI()
 	ReloadShopUI()
 	drag_drop_menu.populate_hbox_container()
