@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=13 format=3 uid="uid://drn71bam3c4bg"]
 
 [ext_resource type="Texture2D" uid="uid://blalccixuhlqo" path="res://assets/wood1.png" id="1_pknq4"]
 [ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
 [ext_resource type="PackedScene" uid="uid://djlpjokh8cvll" path="res://scenes/TankUI.tscn" id="2_nto52"]
 [ext_resource type="PackedScene" uid="uid://cc635125djwmg" path="res://scenes/PlayerUI.tscn" id="3_p3gy6"]
 [ext_resource type="PackedScene" uid="uid://dacg7efk2pt4" path="res://scenes/DragDropMenu.tscn" id="5_bmkks"]
+[ext_resource type="Script" path="res://scripts/save_load/SaverLoader.gd" id="6_wxoh1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -66,8 +67,29 @@ offset_right = 444.0
 offset_bottom = 698.0
 text = "Create Tank"
 
+[node name="SaveButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 179.0
+offset_right = 551.0
+offset_bottom = 248.0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 258.0
+offset_right = 550.0
+offset_bottom = 333.0
+text = "Load"
+
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 
 [node name="DragDropMenu" parent="." instance=ExtResource("5_bmkks")]
 
+[node name="SaverLoader" type="Node" parent="."]
+script = ExtResource("6_wxoh1")
+
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/SaveButton" to="SaverLoader" method="SaveGame"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/LoadButton" to="SaverLoader" method="LoadGame"]

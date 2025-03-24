@@ -37,7 +37,7 @@ func SaveGame():
 	#   on this train is not in the best state to be coding,
 	#   so this is where I'm going to leave things.
 	for tank:Tank in TankManager.tankList:
-		savedGame.tankNames.append([tank.name]);
+		savedGame.tankCount += 1;
 	
 	savedGame.money = PlayerManager.money;
 	
@@ -48,7 +48,8 @@ func SaveGame():
 	ResourceSaver.save(savedGame, "user://savegame.tres");
 
 ## Loads data from a file. 
-## - Currently, the only thing loaded is the player's money.
+## - Clears out the current scene tree so that nodes are not
+##   duplicated when loading new nodes from the file
 func LoadGame():
 	# "as" statement necessary for whatever 
 	# Godot's version of Intellisense to work
@@ -69,19 +70,12 @@ func LoadGame():
 		tank.queue_free();
 	TankManager.tankList.clear();
 	
-	# Copied from TankUI script.
-	var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
+	# Get the Tank UI node so that its tank creation function can be used
+	var tankUINode = get_tree().current_scene.get_node("Tank UI - CanvasLayer");
 	
-	# Loop to load tanks (currently just does the tank's name)
-	# - Could definitely use the TankUI functionality for creating
-	#   new tanks, could that script be made an autoload? Or there's
-	#   probably some way to have it as a variable for this script.
-	for name in savedGame.tankNames:
-		var tankScene = preload("res://scenes/Tank.tscn");
-		var newTank = tankScene.instantiate();
-		newTank.name = name;
-		
-		# Code copied from TankUI script
-		vbox_node.add_child(newTank);
-		vbox_node.move_child(newTank, 1);
-		TankManager.tankList.append(newTank);
+	# Loop to load tanks
+	# - This does play the sound effect for each tank created,
+	#   but that can probably be fixed by just passing a boolean
+	#   in as an argument to _on_create_tank_button_pressed, or something
+	for i in savedGame.tankCount:
+		tankUINode._on_create_tank_button_pressed();

@@ -10,7 +10,8 @@
 class_name SavedGame
 extends Resource
 
+## The player's money.
 @export var money:int;
 
-# Initialized with an empty array to avoid needing null checks
-@export var tankNames:Array[String] = [];
+## The number of tanks.
+@export var tankCount:int;
