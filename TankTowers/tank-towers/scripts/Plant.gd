@@ -5,6 +5,7 @@
 ##   and the parent node for specific plant nodes.
 
 extends MarineLife
+class_name Plant
 var counter
 var timePassed
 

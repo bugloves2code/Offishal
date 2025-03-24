@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last updated 3/7/25 by William Duprey
+## Last updated 3/23/25 by William Duprey
 ## Saving and Loading Script
 ## - This script handles saving and loading all data
 ##   required to play the game (tanks, fish, player stats, etc.)
@@ -8,6 +8,7 @@
 ##   want to have some kind of autosave eventually, either
 ##   based on a Timer, or triggered whenever the player does
 ##   something worth saving.
+## - NOTE: Currently only works for empty tanks. Working on that.
 ## - Mostly followed this Godot tutorial:
 ##   https://www.youtube.com/watch?v=43BZsLZheA4
 
@@ -32,11 +33,32 @@ func SaveGame():
 	# exported variables with data we want to save
 	var savedGame:SavedGame = SavedGame.new();
 	
+	# Initialize the fishList and plantList variables to empty arrays
+	savedGame.fishList = [];
+	savedGame.plantList = [];
+	
 	# Loop through each tank, and add data to SavedGame
-	# - Currently doesn't work, hooray! My sleepless brain
-	#   on this train is not in the best state to be coding,
-	#   so this is where I'm going to leave things.
-	for tank:Tank in TankManager.tankList:
+	for tank:Tank in TankManager.tankList:		
+		# Push an empty array for this tank's fish objects
+		savedGame.fishList.push_back([]);
+		
+		# Loop through the current tank's fish
+		for fish:Fish in tank.fishList:
+			# Add the fish to the tank's corresponding array
+			# - TODO: This is giving me some error about fish
+			#   being null, and when debugging, it sure was.
+			#   So, I'm not sure where the fish are actually
+			#   being stored, since it doesn't seem to be inside
+			#   the Tank's fishList.
+			savedGame.fishList[savedGame.tankCount].push_back(fish);
+		
+		# Repeat same process as above but for plants
+		savedGame.plantList.push_back([]);
+		for plant:Plant in tank.plantList:
+			savedGame.fishList[savedGame.tankCount].push_back(plant);
+		
+		# Increment tank counter
+		# - In GDScript, there is no ++ or --
 		savedGame.tankCount += 1;
 	
 	savedGame.money = PlayerManager.money;
@@ -71,11 +93,26 @@ func LoadGame():
 	TankManager.tankList.clear();
 	
 	# Get the Tank UI node so that its tank creation function can be used
-	var tankUINode = get_tree().current_scene.get_node("Tank UI - CanvasLayer");
+	var tankUINode:CanvasLayer = get_tree().current_scene.get_node("Tank UI - CanvasLayer");
+	
+	# Variable for the current tank being loaded in
+	var tank:Tank;
 	
 	# Loop to load tanks
 	# - This does play the sound effect for each tank created,
 	#   but that can probably be fixed by just passing a boolean
 	#   in as an argument to _on_create_tank_button_pressed, or something
 	for i in savedGame.tankCount:
+		# Create a tank object
 		tankUINode._on_create_tank_button_pressed();
+		
+		# Find that tank object in the list of tanks
+		tank = TankManager.tankList[i];
+		
+		# Loop through all the fish saved for this tank, and add them
+		for fish:Fish in savedGame.fishList[i]:
+			tank.AddFish(fish);
+		
+		# Repeat for plants
+		for plant:Plant in savedGame.plantList[i]:
+			tank.AddPlant(plant);
