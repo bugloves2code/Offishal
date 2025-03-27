@@ -197,13 +197,12 @@ func _on_harvest_timeout() -> void:
 
 func _can_drop_data(_pos,data):
 	if data is Node:
-		if fishList.size() < fishCapacity:
+		if data is Fish && fishList.size() < fishCapacity:
 			#print("Drop allowed: Tank has space.")
 			return true
-		#else:
-			#print("Drop denied: Tank is full.")
+		elif data is Plant && plantList.size() < plantCapacity:
+			return true
 	else:
-		#print("Drop denied: Invalid data type.")
 		return false
 
 func _drop_data(_pos, data):
@@ -212,11 +211,24 @@ func _drop_data(_pos, data):
 	#print("Fish instance IDs in inventory: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
 	if data is Node:
 		
-		if data is Fish:
+		if data is Fish && !(fishList.size() >= fishCapacity):
 			AddFish(data)
-		
-		if data is Plant:
+		elif data is Plant && !(plantList.size() >= plantCapacity):
 			AddPlant(data)
+		elif data is Fish && fishList.size() == fishCapacity:
+			print("FISH LIST")
+			$FishFullLabel.visible = true
+			$UITimer.wait_time = 3
+			$UITimer.start()
+			await $UITimer.timeout
+			$FishFullLabel.visible = false
+		elif data is Plant && plantList.size() >= plantCapacity:
+			print("PLANT LIST")
+			$PlantFullLabel.visible = true
+			$UITimer.wait_time = 3
+			$UITimer.start()
+			await $UITimer.timeout
+			$PlantFullLabel.visible = false
 		
 		PlayerManager.marineLifeInventory.erase(data)
 		

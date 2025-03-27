@@ -5,6 +5,7 @@
 extends Node
 
 var ShopStock: Array;
+var PlantShopStock: Array;
 
 var drag_drop_menu = null
 
@@ -24,6 +25,7 @@ var ShopItem = preload("res://scenes/ShopItem.tscn")
 var drag_drop_scene = preload("res://scenes/DragDrop.tscn")
 
 var FishScene = preload("res://scenes/Fish.tscn")
+var PlantScene = preload("res://scenes/Plant.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,6 +49,17 @@ func _ready() -> void:
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
+	
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	
+	
 	drag_drop_menu = get_tree().get_root().get_node("Main/DragDropMenu")
 	#print(drag_drop_menu)
 	LoadShop()
@@ -127,6 +140,25 @@ func LoadShop():
 		
 		# Add the instance to the HBoxContainer
 		$ShopPanel/ScrollContainer/HBoxContainer.add_child(instance)
+	
+	for item in PlantShopStock:
+		# Instantiate the ShopItem scene
+		var instance = ShopItem.instantiate()
+		
+		# Access the nodes in the instance
+		var image = instance.get_node("GridContainer/Image")
+		#print(image)
+		var price = instance.get_node("GridContainer/Price")
+		#print(price)
+		var buyButton = instance.get_node("GridContainer/BuyButton")
+		
+		# Set the texture and price
+		image.texture = item.texture
+		price.text = str(item.price)
+		# Connect the BuyButton to a function
+		buyButton.connect("pressed", Callable(self, "_on_BuyPlantButton_pressed").bind(item, instance))
+		
+		$ShopPanel/PlantScrollContainer/HBoxContainer.add_child(instance)
 		
 func LoadSellShop():
 	for child in grid_container.get_children():
@@ -161,6 +193,22 @@ func _on_BuyButton_pressed(item, instance):
 		# Add a fish to the PlayerInventory
 		var fish_instance = FishScene.instantiate()
 		PlayerManager.marineLifeInventory.append(fish_instance)
+		
+		# Reload the UI
+		ReloadAllUI()
+		
+func _on_BuyPlantButton_pressed(item, instance):
+	#print("Button Linked")
+	# Check if the player has enough money
+	if PlayerManager.money >= item["price"]:
+		# Deduct the price from the player's money
+		PlayerManager.money -= item["price"]
+		# Remove the item from ShopStock
+		ShopStock.erase(item)
+		
+		# Add a fish to the PlayerInventory
+		var plant_instance = PlantScene.instantiate()
+		PlayerManager.marineLifeInventory.append(plant_instance)
 		
 		# Reload the UI
 		ReloadAllUI()
