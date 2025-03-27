@@ -24,6 +24,9 @@ var xMin : float
 var yMax : float
 var yMin : float
 
+# this variable will disable all physics stuff 
+@export var isMoving : bool = true
+
 # if there is somewhere the physicsObject needs to seek to
 # other then the center of the viewpoint, this can be set
 var centerToSeek : Vector2
@@ -32,7 +35,7 @@ var wanderAngle
 var perlinOffset
 
 var sprite
-var direction
+var direction = Vector2.ZERO
 
 var velocityFactor: Vector2 = Vector2.ZERO
 
@@ -91,22 +94,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	totalForce = Vector2.ZERO;
-	_CalcSteeringForces()
-	ApplyForce(totalForce)
-	#velocityFactor += acceleration * delta;
-	velocity += acceleration * delta;
-	velocity = velocity.limit_length(maxSpeed)
+	if isMoving:
+		totalForce = Vector2.ZERO;
+		_CalcSteeringForces()
+		ApplyForce(totalForce)
+		#velocityFactor += acceleration * delta;
+		velocity += acceleration * delta;
+		velocity = velocity.limit_length(maxSpeed)
 	
-	# Assuming `velocity` is a Vector2 and `sRenderer` is a Sprite node
-	if (velocity.length() > 0.000001):
-		direction = velocity.normalized()
+		# Assuming `velocity` is a Vector2 and `sRenderer` is a Sprite node
+		if (velocity.length() > 0.000001):
+			direction = velocity.normalized()
 
-# Flip the sprite based on the direction
-	if direction.x < 0:
-		sprite.flip_v = true  # Flip the sprite horizontally
-	else:
-		sprite.flip_v = false
+	# Flip the sprite based on the direction
+		if direction.x < 0:
+			sprite.flip_v = true  # Flip the sprite horizontally
+		else:
+			sprite.flip_v = false
 
 # Rotate the object to face the direction of movement
 	rotation = direction.angle()

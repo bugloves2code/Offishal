@@ -72,6 +72,7 @@ var tankInventory: Array;
 
 ## Testing variables
 var fish_scene = preload("res://scenes/Fish.tscn")
+var plant_scene = preload("res://scenes/Plant.tscn")
 
 var is_dragging = false
 
@@ -80,9 +81,11 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(70):
+	for i in range(3):
 		var fish_instance = fish_scene.instantiate()
 		marineLifeInventory.append(fish_instance)
+	for i in range(5):
+		marineLifeInventory.append(plant_scene.instantiate())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

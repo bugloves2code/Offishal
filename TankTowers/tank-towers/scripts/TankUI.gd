@@ -109,7 +109,7 @@ func OnAddFishPressed(tank):
 ## Add Plant is pressed
 func OnAddPlantPressed(tank):
 	if tank.plantList.size() < tank.plantCapacity:
-		tank.AddPlant(SpawnManager.SpawnFish(tank))
+		tank.AddPlant(SpawnManager.SpawnPlant(tank))
 		ReloadUI(tank)
 	else:
 		## Print needed for now

@@ -313,6 +313,7 @@ offset_bottom = 4.0
 text = "Music Volume"
 
 [node name="NumberLabel" type="Label" parent="SettingsPanel/MusicSlider" node_paths=PackedStringArray("slider")]
+layout_mode = 0
 offset_left = 212.0
 offset_top = 43.0
 offset_right = 252.0
@@ -336,6 +337,7 @@ offset_bottom = 10.0
 text = "Sound Effects Volume"
 
 [node name="NumberLabel" type="Label" parent="SettingsPanel/SFXSlider" node_paths=PackedStringArray("slider")]
+layout_mode = 0
 offset_left = 211.0
 offset_top = 54.0
 offset_right = 251.0
@@ -344,6 +346,7 @@ script = ExtResource("3_koabv")
 slider = NodePath("..")
 
 [node name="BackButton" type="Button" parent="SettingsPanel"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = 81.0
 offset_right = 91.0

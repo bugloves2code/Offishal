@@ -91,11 +91,14 @@ func AddPlant(plantInstance):
 		
 	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
+		SpawnManager.SpawnPlant(self)
 		## print("Added plant")
 	else:
 		## this needs to be a print statement
 		## it should be a ui statment
 		print("Tank is full")
+		
+	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
 	
 ## RemoveFish
 ## This method checks in a given plant is inside the plantList
@@ -209,7 +212,11 @@ func _drop_data(_pos, data):
 	#print("Fish instance IDs in inventory: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
 	if data is Node:
 		
-		AddFish(data)
+		if data is Fish:
+			AddFish(data)
+		
+		if data is Plant:
+			AddPlant(data)
 		
 		PlayerManager.marineLifeInventory.erase(data)
 		

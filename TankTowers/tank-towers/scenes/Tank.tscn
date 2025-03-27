@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvw46rhxibyt7"]
+[gd_scene load_steps=6 format=3 uid="uid://cvw46rhxibyt7"]
 
 [ext_resource type="Script" path="res://scripts/Tank.gd" id="1_ickdv"]
 [ext_resource type="Texture2D" uid="uid://bm1uev1cn6fg1" path="res://assets/tank.PNG" id="2_qlclt"]
-[ext_resource type="PackedScene" uid="uid://daygy35j0jnhk" path="res://scenes/Plant.tscn" id="3_tfag4"]
 [ext_resource type="AudioStream" uid="uid://bl7pmndb2c6yd" path="res://audio/bloop.wav" id="4_t21nx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
@@ -39,9 +38,6 @@ position = Vector2(279, 115)
 rotation = 0.00523599
 scale = Vector2(0.424279, 0.39551)
 texture = ExtResource("2_qlclt")
-
-[node name="Plant" parent="." instance=ExtResource("3_tfag4")]
-position = Vector2(415, 159)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w70qu")

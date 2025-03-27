@@ -2,6 +2,25 @@ extends Node
 
 
 @export var fishScene: PackedScene
+@export var plantScene : PackedScene
+
+var plantPositions: Array = [
+Vector2(110, 180), 
+Vector2(145, 180), 
+Vector2(180, 180), 
+Vector2(215, 180), 
+Vector2(250, 180), 
+Vector2(285, 180), 
+Vector2(320, 180), 
+Vector2(355, 180), 
+Vector2(390, 180), 
+Vector2(425, 180)]
+
+func SpawnPlant(tank: Tank) -> Plant:
+	var plant : Plant = plantScene.instantiate()
+	tank.add_child(plant)
+	plant.position = plantPositions[tank.plantList.size() - 1]
+	return plant
 
 
 # Last Edited by Ayden Dueker
@@ -34,6 +53,7 @@ func SpawnFish(tank: Tank) -> Fish:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fishScene = load("res://scenes/Fish.tscn")
+	plantScene = load("res://scenes/Plant.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
