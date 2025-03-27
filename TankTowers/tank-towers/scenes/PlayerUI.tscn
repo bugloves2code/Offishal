@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=16 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
 [ext_resource type="Script" path="res://scripts/SellPanel.gd" id="2_vvt7t"]
+[ext_resource type="Script" path="res://scripts/SettingsLabel.gd" id="3_koabv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7xcx"]
 
@@ -257,6 +258,105 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 6
 
+[node name="SettingsPanel" type="Panel" parent="."]
+offset_right = 574.0
+offset_bottom = 979.0
+
+[node name="SettingsLabel" type="Label" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 9.0
+offset_right = 381.0
+offset_bottom = 50.0
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 223.0
+offset_right = 530.0
+offset_bottom = 289.0
+
+[node name="MasterLabel" type="Label" parent="SettingsPanel/MasterSlider"]
+layout_mode = 0
+offset_left = 164.0
+offset_top = -14.0
+offset_right = 299.0
+offset_bottom = 17.0
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="NumberLabel" type="Label" parent="SettingsPanel/MasterSlider" node_paths=PackedStringArray("slider")]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 45.0
+offset_right = 250.0
+offset_bottom = 68.0
+script = ExtResource("3_koabv")
+slider = NodePath("..")
+
+[node name="MusicSlider" type="HSlider" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 368.0
+offset_right = 527.0
+offset_bottom = 430.0
+
+[node name="MusicLabel" type="Label" parent="SettingsPanel/MusicSlider"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = -19.0
+offset_right = 290.0
+offset_bottom = 4.0
+text = "Music Volume"
+
+[node name="NumberLabel" type="Label" parent="SettingsPanel/MusicSlider" node_paths=PackedStringArray("slider")]
+offset_left = 212.0
+offset_top = 43.0
+offset_right = 252.0
+offset_bottom = 66.0
+script = ExtResource("3_koabv")
+slider = NodePath("..")
+
+[node name="SFXSlider" type="HSlider" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 513.0
+offset_right = 527.0
+offset_bottom = 584.0
+
+[node name="SFXLabel" type="Label" parent="SettingsPanel/SFXSlider"]
+layout_mode = 0
+offset_left = 149.0
+offset_top = -13.0
+offset_right = 317.0
+offset_bottom = 10.0
+text = "Sound Effects Volume"
+
+[node name="NumberLabel" type="Label" parent="SettingsPanel/SFXSlider" node_paths=PackedStringArray("slider")]
+offset_left = 211.0
+offset_top = 54.0
+offset_right = 251.0
+offset_bottom = 77.0
+script = ExtResource("3_koabv")
+slider = NodePath("..")
+
+[node name="BackButton" type="Button" parent="SettingsPanel"]
+offset_left = 19.0
+offset_top = 81.0
+offset_right = 91.0
+offset_bottom = 117.0
+text = "<-"
+
+[node name="MuteCheckBox" type="CheckBox" parent="SettingsPanel"]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 155.0
+offset_right = 329.0
+offset_bottom = 186.0
+text = "Mute"
+
 [connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="MenuPanel/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="MenuPanel/FishPediaButton" to="." method="_on_fish_pedia_button_pressed"]
@@ -265,3 +365,7 @@ columns = 6
 [connection signal="pressed" from="ShopPanel/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="SellShopPanel/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="SellShopPanel/BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="value_changed" from="SettingsPanel/MasterSlider" to="." method="_on_master_volume_changed"]
+[connection signal="value_changed" from="SettingsPanel/MusicSlider" to="." method="_on_music_volume_changed"]
+[connection signal="value_changed" from="SettingsPanel/SFXSlider" to="." method="_on_sfx_volume_changed"]
+[connection signal="pressed" from="SettingsPanel/BackButton" to="." method="_on_back_button_pressed"]

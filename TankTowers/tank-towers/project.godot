@@ -22,6 +22,7 @@ SpawnManager="*res://scripts/SpawnManager.gd"
 TankManager="*res://scripts/TankManager.gd"
 PlayerManager="*res://scripts/PlayerManager.gd"
 TutorialManager="*res://scripts/TutorialManager.gd"
+SettingsManager="*res://scripts/SettingsManager.gd"
 
 [display]
 

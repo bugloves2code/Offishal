@@ -10,6 +10,15 @@ var drag_drop_menu = null
 
 @onready var grid_container = $SellShopPanel/ScrollContainer/GridContainer
 
+## Settings Panel
+## Sliders
+@onready var master_slider = $SettingsPanel/MasterSlider
+@onready var music_slider = $SettingsPanel/MusicSlider
+@onready var sfx_slider = $SettingsPanel/SFXSlider
+@onready var mute_check = $SettingsPanel/MuteCheckBox
+## Check Boxes
+
+
 ## Shop Item Scenes
 var ShopItem = preload("res://scenes/ShopItem.tscn")
 var drag_drop_scene = preload("res://scenes/DragDrop.tscn")
@@ -18,6 +27,12 @@ var FishScene = preload("res://scenes/Fish.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Load current values
+	master_slider.value = SettingsManager.settings.audio.master_volume
+	music_slider.value = SettingsManager.settings.audio.music_volume
+	sfx_slider.value = SettingsManager.settings.audio.sfx_volume
+	mute_check.button_pressed = SettingsManager.settings.audio.muted
+	## Place Holder Shop Until Level Up implemented
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
@@ -46,17 +61,19 @@ func _on_menu_pressed() -> void:
 	var MenuPanel = $MenuPanel
 	var ShopPanel = $ShopPanel
 	var SellShopPanel = $SellShopPanel
+	var SettingsPanel = $SettingsPanel
 	
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
-	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible:
+	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
 		MenuPanel.visible = true
 		menuButton.text = "X"
 	else:
 		MenuPanel.visible = false
 		ShopPanel.visible = false
 		SellShopPanel.visible = false
+		SettingsPanel.visible = false
 		menuButton.text = "Menu"
 
 
@@ -72,15 +89,20 @@ func _on_fish_pedia_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	print("Settings Clicked")
+	var SettingsPanel = $SettingsPanel
+	var MenuPanel = $MenuPanel
+	MenuPanel.visible = false
+	SettingsPanel.visible = true
 
 
 func _on_back_button_pressed() -> void:
 	var ShopPanel = $ShopPanel
 	var SellShopPanel = $SellShopPanel
 	var MenuPanel = $MenuPanel
+	var SettingsPanel = $SettingsPanel
 	ShopPanel.visible = false
 	SellShopPanel.visible = false
+	SettingsPanel.visible = false
 	MenuPanel.visible = true
 	
 func LoadShop():
@@ -175,3 +197,18 @@ func _on_buy_button_pressed() -> void:
 	var SellShopPanel = $SellShopPanel
 	ShopPanel.visible = true
 	SellShopPanel.visible = false
+	
+func _on_master_volume_changed(value):
+	SettingsManager.settings.audio.master_volume = value
+	SettingsManager.apply_settings()
+	SettingsManager.save_settings()
+	
+func _on_music_volume_changed(value):
+	SettingsManager.settings.audio.music_volume = value
+	SettingsManager.apply_settings()
+	SettingsManager.save_settings()
+
+func _on_sfx_volume_changed(value):
+	SettingsManager.settings.audio.sfx_volume = value
+	SettingsManager.apply_settings()
+	SettingsManager.save_settings()

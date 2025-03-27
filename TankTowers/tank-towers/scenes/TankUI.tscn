@@ -195,12 +195,15 @@ text = "Remove Fish"
 
 [node name="Bloop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_us3ge")
+bus = &"SFX"
 
 [node name="Bleep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_us3ge")
 pitch_scale = 0.26
+bus = &"SFX"
 
 [node name="TankCreation" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_xcsqr")
+bus = &"SFX"
 
 [connection signal="pressed" from="PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
