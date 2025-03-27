@@ -193,10 +193,6 @@ text = "Fish10Name"
 layout_mode = 2
 text = "Remove Fish"
 
-[node name="Bloop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_us3ge")
-bus = &"SFX"
-
 [node name="Bleep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_us3ge")
 pitch_scale = 0.26

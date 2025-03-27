@@ -32,6 +32,8 @@ func _ready() -> void:
 	music_slider.value = SettingsManager.settings.audio.music_volume
 	sfx_slider.value = SettingsManager.settings.audio.sfx_volume
 	mute_check.button_pressed = SettingsManager.settings.audio.muted
+	# Connect signal
+	mute_check.toggled.connect(_on_mute_toggled)
 	## Place Holder Shop Until Level Up implemented
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
 	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
@@ -212,3 +214,15 @@ func _on_sfx_volume_changed(value):
 	SettingsManager.settings.audio.sfx_volume = value
 	SettingsManager.apply_settings()
 	SettingsManager.save_settings()
+	
+func _on_mute_toggled(toggled):
+	SettingsManager.settings.audio.muted = toggled
+	SettingsManager.apply_settings()
+	SettingsManager.save_settings()
+	master_slider.editable = not toggled
+	music_slider.editable = not toggled
+	sfx_slider.editable = not toggled
+	if toggled:
+		mute_check.add_theme_color_override("font_color", Color.RED)
+	else:
+		mute_check.remove_theme_color_override("font_color")

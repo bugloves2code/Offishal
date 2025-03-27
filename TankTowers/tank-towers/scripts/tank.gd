@@ -59,6 +59,7 @@ func AddFish(fishInstance):
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
 		SpawnManager.SpawnFish(self)
+		$Bloop.play()
 		## emit signal for adding fish
 		emit_signal("addFish")
 		## print("Added Fish: " + fishInstance)

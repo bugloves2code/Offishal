@@ -34,6 +34,9 @@ func load_settings():
 	apply_settings()
 	
 func apply_settings():
+	# Mute master bus
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), settings.audio.muted)
+	
 	# Audio settings
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), settings.audio.muted)
 	AudioServer.set_bus_volume_db(
