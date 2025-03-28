@@ -205,6 +205,7 @@ func _can_drop_data(_pos,data):
 		elif data is Plant && plantList.size() < plantCapacity:
 			return true
 	else:
+		
 		return false
 
 func _drop_data(_pos, data):
@@ -217,20 +218,6 @@ func _drop_data(_pos, data):
 			AddFish(data)
 		elif data is Plant && !(plantList.size() >= plantCapacity):
 			AddPlant(data)
-		elif data is Fish && fishList.size() == fishCapacity:
-			print("FISH LIST")
-			$FishFullLabel.visible = true
-			$UITimer.wait_time = 3
-			$UITimer.start()
-			await $UITimer.timeout
-			$FishFullLabel.visible = false
-		elif data is Plant && plantList.size() >= plantCapacity:
-			print("PLANT LIST")
-			$PlantFullLabel.visible = true
-			$UITimer.wait_time = 3
-			$UITimer.start()
-			await $UITimer.timeout
-			$PlantFullLabel.visible = false
 		
 		PlayerManager.marineLifeInventory.erase(data)
 		
