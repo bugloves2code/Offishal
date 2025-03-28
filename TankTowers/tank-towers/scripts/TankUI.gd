@@ -35,23 +35,23 @@ func _on_close_button_pressed() -> void:
 ## then process the tank information and populate the ui with it
 func show_ui_panel(tank) -> void:
 	## print(tank.tankName)
-	var addfish_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddFish Button")
-	var addplant_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddPlant Button")
-	var tank_name_label = self.get_node("PanelContainer/GridContainer/TankName")
-	var harvest_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HarvestButton")
-	var fish_labels = []
-	var fish_images = []
-	var remove_buttons = []
+	#var addfish_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddFish Button")
+	#var addplant_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/AddPlant Button")
+	var tank_name_label = self.get_node("PanelContainer/TankName")
+	var harvest_button = self.get_node("PanelContainer/HarvestButton")
+	#var fish_labels = []
+	#var fish_images = []
+	#var remove_buttons = []
 	
 	if tank_name_label and tank_name_label is Label:
 		tank_name_label.text = tank.tankName
-	if addfish_button and addfish_button is Button:
-		## print("Add Button found")
-		if add_fish_handler:
-			addfish_button.pressed.disconnect(add_fish_handler)
-			## print("Disconnected")
-		add_fish_handler = func(): OnAddFishPressed(tank)
-		addfish_button.pressed.connect(add_fish_handler)
+	#if addfish_button and addfish_button is Button:
+		### print("Add Button found")
+		#if add_fish_handler:
+			#addfish_button.pressed.disconnect(add_fish_handler)
+			### print("Disconnected")
+		#add_fish_handler = func(): OnAddFishPressed(tank)
+		#addfish_button.pressed.connect(add_fish_handler)
 	if harvest_button and harvest_button is Button:
 		if harvest_handler:
 			harvest_button.pressed.disconnect(harvest_handler)
@@ -59,26 +59,26 @@ func show_ui_panel(tank) -> void:
 		harvest_button.pressed.connect(harvest_handler)
 		if tank.harvestStatus == false:
 			harvest_button.text = "                    "
-	if addplant_button and addplant_button is Button:
-		if add_plant_handler:
-			addplant_button.pressed.disconnect(add_plant_handler)
-		add_plant_handler = func(): OnAddPlantPressed(tank)
-		addplant_button.pressed.connect(add_plant_handler)
-	for i in range(1, 11):  # Assuming max 10 fish slots
-		fish_labels.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
-		fish_images.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
-		remove_buttons.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
-	if tank.fishList.size() > 0:
-		## print("We got fish")
-		for i in range(tank.fishList.size()):
-			fish_labels[i].show()
-			fish_images[i].show()
-			remove_buttons[i].show()
-	else:
-		for i in range(fish_labels.size()):
-			fish_labels[i].hide()
-			fish_images[i].hide()
-			remove_buttons[i].hide()
+	#if addplant_button and addplant_button is Button:
+		#if add_plant_handler:
+			#addplant_button.pressed.disconnect(add_plant_handler)
+		#add_plant_handler = func(): OnAddPlantPressed(tank)
+		#addplant_button.pressed.connect(add_plant_handler)
+	#for i in range(1, 11):  # Assuming max 10 fish slots
+		#fish_labels.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
+		#fish_images.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
+		#remove_buttons.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
+	#if tank.fishList.size() > 0:
+		### print("We got fish")
+		#for i in range(tank.fishList.size()):
+			#fish_labels[i].show()
+			#fish_images[i].show()
+			#remove_buttons[i].show()
+	#else:
+		#for i in range(fish_labels.size()):
+			#fish_labels[i].hide()
+			#fish_images[i].hide()
+			#remove_buttons[i].hide()
 	self.show()
 	
 ## OnAddFishPressed 
@@ -121,7 +121,7 @@ func ReloadUI(tank):
 	#var fish_labels = []
 	#var fish_images = []
 	#var remove_buttons = []
-	var harvest_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HarvestButton")
+	var harvest_button = self.get_node("PanelContainer/HarvestButton")
 	
 	if harvest_button and harvest_button is Button:
 		if tank.harvestStatus == true:
