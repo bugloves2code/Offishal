@@ -91,7 +91,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if xp / level == 5:
-		print("LevelUp")
 		Levelup()
 
 
@@ -114,6 +113,7 @@ func RemoveMarineLife(index: int) -> MarineLife:
 	return marineLifeInventory.pop_at(index);
 	
 func Levelup():
+	Notifier.push_notification("Level Up!")
 	level += 1
 	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
 	PlayerUI.StockShop()

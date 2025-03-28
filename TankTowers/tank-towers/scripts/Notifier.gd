@@ -4,7 +4,6 @@ var NotificationLabel: Label
 var NotificationTimer: Timer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(NotificationLabel)
 	pass # Replace with function body.
 
 
