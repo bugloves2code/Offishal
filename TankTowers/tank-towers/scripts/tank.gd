@@ -49,6 +49,7 @@ var initial_click_position: Vector2 = Vector2.ZERO
 ## to move the mouse before it is considered that they are scrolling
 var movement_threshold: float = 10.0  # Adjust this value to control sensitivity
 
+
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
@@ -119,7 +120,7 @@ func HarvestTank():
 	## print(PlayerManager.money)
 	harvestStatus = false
 	$Harvest.start()
-	$WorldEnvironment.environment.set_glow_enabled(false)
+	$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
@@ -188,7 +189,7 @@ func _input(event: InputEvent) -> void:
 func _on_harvest_timeout() -> void:
 	harvestStatus = true
 	$Harvest.stop()
-	$WorldEnvironment.environment.set_glow_enabled(true)
+	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
 	
 	var Main = get_tree().current_scene
 	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
