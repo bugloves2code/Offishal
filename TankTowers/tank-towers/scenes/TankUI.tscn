@@ -1,197 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://djlpjokh8cvll"]
+[gd_scene load_steps=4 format=3 uid="uid://djlpjokh8cvll"]
 
-[ext_resource type="Texture2D" uid="uid://3d1v6bd13jfr" path="res://assets/8bit-fish-basic-5.png" id="1_4egwu"]
 [ext_resource type="Script" path="res://scripts/TankUI.gd" id="1_wt7na"]
-[ext_resource type="Texture2D" uid="uid://bwhjki1x6xac3" path="res://assets/download.jpg" id="2_3ypjw"]
 [ext_resource type="AudioStream" uid="uid://bl7pmndb2c6yd" path="res://audio/bloop.wav" id="4_us3ge"]
 [ext_resource type="AudioStream" uid="uid://dr2qsfmjmyopy" path="res://audio/tank_construction.wav" id="5_xcsqr"]
 
 [node name="Tank UI - CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_wt7na")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-offset_left = 160.0
-offset_top = 269.0
-offset_right = 414.0
-offset_bottom = 726.0
+[node name="PanelContainer" type="Panel" parent="."]
+offset_left = 221.0
+offset_top = 484.0
+offset_right = 328.0
+offset_bottom = 607.0
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer"]
+[node name="TankName" type="Label" parent="PanelContainer"]
 layout_mode = 2
-
-[node name="Close Button" type="Button" parent="PanelContainer/GridContainer"]
-layout_mode = 2
-text = "CLOSE "
-
-[node name="TankName" type="Label" parent="PanelContainer/GridContainer"]
-layout_mode = 2
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 109.0
+offset_bottom = 27.0
 text = "Tank Name"
 horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/GridContainer"]
+[node name="Close Button" type="Button" parent="PanelContainer"]
 layout_mode = 2
+offset_left = 1.0
+offset_top = 90.0
+offset_right = 108.0
+offset_bottom = 121.0
+text = "CLOSE "
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/GridContainer/CenterContainer"]
+[node name="HarvestButton" type="Button" parent="PanelContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="AddFish Button" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Add Fish"
-
-[node name="HarvestButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
+offset_left = 9.0
+offset_top = 42.0
+offset_right = 97.0
+offset_bottom = 73.0
 text = "Harvest"
-
-[node name="AddPlant Button" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Add Plant"
-
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="Fish1Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("1_4egwu")
-expand_mode = 2
-
-[node name="Fish1Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish1Name"
-
-[node name="Fish1RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish2Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish2Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish2Name"
-
-[node name="Fish2RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish3Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish3Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish3Name"
-
-[node name="Fish3RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish4Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish4Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish4Name"
-
-[node name="Fish4RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish5Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish5Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish5Name"
-
-[node name="Fish5RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish6Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish6Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish6Name"
-
-[node name="Fish6RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish7Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish7Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish7Name"
-
-[node name="Fish7RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish8Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish8Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish8Name"
-
-[node name="Fish8RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish9Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish9Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish9Name"
-
-[node name="Fish9RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
-
-[node name="Fish10Image" type="TextureRect" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-texture = ExtResource("2_3ypjw")
-expand_mode = 2
-
-[node name="Fish10Label" type="Label" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Fish10Name"
-
-[node name="Fish10RemoveButton" type="Button" parent="PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Remove Fish"
 
 [node name="Bleep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_us3ge")
@@ -202,4 +47,4 @@ bus = &"SFX"
 stream = ExtResource("5_xcsqr")
 bus = &"SFX"
 
-[connection signal="pressed" from="PanelContainer/GridContainer/Close Button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="PanelContainer/Close Button" to="." method="_on_close_button_pressed"]
