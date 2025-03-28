@@ -4,6 +4,7 @@ func _ready():
 	var song = load("res://audio/fishSong.mp3")  # Replace with your actual file path
 	stream = song
 	playing = true
+	bus = "Music"
 	finished.connect(_on_music_finished)
 
 func _on_music_finished():
