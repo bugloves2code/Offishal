@@ -190,6 +190,7 @@ func _on_create_tank_button_pressed() -> void:
 				new_instance.tankName = get_random_tank_name() 
 			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
 			var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
+			new_instance.get_node("TankLabel").text = new_instance.tankName
 			TankManager.tankList.append(new_instance)
 
 			if vbox_node:

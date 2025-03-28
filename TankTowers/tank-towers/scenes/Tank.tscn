@@ -71,5 +71,14 @@ texture = ExtResource("2_qlclt")
 stream = ExtResource("4_t21nx")
 bus = &"SFX"
 
+[node name="TankLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 185.0
+offset_top = -10.0
+offset_right = 367.0
+offset_bottom = 13.0
+text = "Test Text"
+horizontal_alignment = 1
+
 [connection signal="gui_input" from="." to="." method="tank_pressed"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
