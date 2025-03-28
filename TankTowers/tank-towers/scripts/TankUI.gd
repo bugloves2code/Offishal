@@ -118,9 +118,9 @@ func OnAddPlantPressed(tank):
 ## ReloadUI
 ## This function is not working yet, but is meant to reload the Canvas Layer / UI
 func ReloadUI(tank):
-	var fish_labels = []
-	var fish_images = []
-	var remove_buttons = []
+	#var fish_labels = []
+	#var fish_images = []
+	#var remove_buttons = []
 	var harvest_button = self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/HarvestButton")
 	
 	if harvest_button and harvest_button is Button:
@@ -130,35 +130,35 @@ func ReloadUI(tank):
 			harvest_button.text = "                    "
 
 	# Get references to the UI elements
-	for i in range(1, 11):  # Assuming max 10 fish slots
-		fish_labels.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
-		fish_images.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
-		remove_buttons.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
+	#for i in range(1, 11):  # Assuming max 10 fish slots
+		#fish_labels.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dLabel" % i))
+		#fish_images.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dImage" % i))
+		#remove_buttons.append(self.get_node("PanelContainer/GridContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer/Fish%dRemoveButton" % i))
 
 	# Clear all fish slots first
-	for i in range(fish_labels.size()):
-		fish_labels[i].text = ""  # Clear the label
-		fish_labels[i].hide()     # Hide the label
-		fish_images[i].texture = null  # Clear the image
-		fish_images[i].hide()     # Hide the image
-		remove_buttons[i].hide()  # Hide the remove button
+	#for i in range(fish_labels.size()):
+		#fish_labels[i].text = ""  # Clear the label
+		#fish_labels[i].hide()     # Hide the label
+		#fish_images[i].texture = null  # Clear the image
+		#fish_images[i].hide()     # Hide the image
+		#remove_buttons[i].hide()  # Hide the remove button
 
 	# Populate the UI with the current fishList
-	if tank.fishList.size() > 0:
-		## print("Reloading UI with fish data")
-		for i in range(tank.fishList.size()):
-			if i >= fish_labels.size():
-				break  # Don't exceed the number of UI slots
+	#if tank.fishList.size() > 0:
+		### print("Reloading UI with fish data")
+		#for i in range(tank.fishList.size()):
+			#if i >= fish_labels.size():
+				#break  # Don't exceed the number of UI slots
 
-			var fish = tank.fishList[i]
-			fish_labels[i].text = "Jimmy"  # Set the fish name
-			fish_labels[i].show() 
+			#var fish = tank.fishList[i]
+			#fish_labels[i].text = "Jimmy"  # Set the fish name
+			#fish_labels[i].show() 
 			## Fish Image Goes here
 			## for UI               
 			## Show the label
-			fish_images[i].texture = load("res://assets/guppy.PNG")  # Set the fish image
-			fish_images[i].show()               # Show the image
-			remove_buttons[i].show() 
+			#fish_images[i].texture = load("res://assets/guppy.PNG")  # Set the fish image
+			#fish_images[i].show()               # Show the image
+			#remove_buttons[i].show() 
 			
 ## OnHarvestTankPressed this is the function that allows for the player to harvest
 ## all things that are harvestable in the tank this will probably become mutiple
