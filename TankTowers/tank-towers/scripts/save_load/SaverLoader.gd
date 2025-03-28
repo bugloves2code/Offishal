@@ -8,12 +8,19 @@
 ##   want to have some kind of autosave eventually, either
 ##   based on a Timer, or triggered whenever the player does
 ##   something worth saving.
-## - NOTE: Currently only works for empty tanks. Working on that.
 ## - Mostly followed this Godot tutorial:
 ##   https://www.youtube.com/watch?v=43BZsLZheA4
 
 class_name SaverLoader
 extends Node
+
+## This is sloppy, but works for now. If we ever
+## have more than one type of fish, this will need
+## to be changed. 
+## - It's probably possible to save the resource path 
+##   for a scene to a file, and to programmatically
+##   create new instances from it later when loading.
+const FishScene = preload("res://scenes/Fish.tscn")
 
 ## Saves data to a directory that is guaranteed to be writable.
 ## - Using res:// would not work, since when the project is
@@ -34,32 +41,35 @@ func SaveGame():
 	var savedGame:SavedGame = SavedGame.new();
 	
 	# Initialize the fishList and plantList variables to empty arrays
-	savedGame.fishList = [];
-	savedGame.plantList = [];
+	#savedGame.fishList = [];
+	#savedGame.plantList = [];
 	
 	# Loop through each tank, and add data to SavedGame
 	for tank:Tank in TankManager.tankList:		
 		# Push an empty array for this tank's fish objects
-		savedGame.fishList.push_back([]);
+		#savedGame.fishList.push_back([]);
 		
 		# Loop through the current tank's fish
-		for fish:Fish in tank.fishList:
+		#for fish:Fish in tank.fishList:
 			# Add the fish to the tank's corresponding array
 			# - TODO: This is giving me some error about fish
 			#   being null, and when debugging, it sure was.
 			#   So, I'm not sure where the fish are actually
 			#   being stored, since it doesn't seem to be inside
 			#   the Tank's fishList.
-			savedGame.fishList[savedGame.tankCount].push_back(fish);
+			#savedGame.fishList[savedGame.tankCount].push_back(fish);
 		
 		# Repeat same process as above but for plants
-		savedGame.plantList.push_back([]);
-		for plant:Plant in tank.plantList:
-			savedGame.fishList[savedGame.tankCount].push_back(plant);
+		#savedGame.plantList.push_back([]);
+		#for plant:Plant in tank.plantList:
+		#	savedGame.fishList[savedGame.tankCount].push_back(plant);
 		
 		# Increment tank counter
 		# - In GDScript, there is no ++ or --
 		savedGame.tankCount += 1;
+		
+		# NOTE: Temporary, just store the number of fish
+		savedGame.fishCounts.push_back(tank.fishList.size());
 	
 	savedGame.money = PlayerManager.money;
 	
@@ -88,8 +98,16 @@ func LoadGame():
 	#   can have unwanted side effects, so it's best
 	#   practice to remove the node from its parent first
 	for tank:Tank in TankManager.tankList:
+		# Clear out all fish nodes too
+		# - Or not necessary, since fish are children of tank?
+		#   Garbage collector goes vroom?
+		#for fish:Fish in tank.fishList:
+		#	fish.get_parent().remove_child(fish);
+		#	fish.queue_free();
+		
 		tank.get_parent().remove_child(tank);
 		tank.queue_free();
+		
 	TankManager.tankList.clear();
 	
 	# Get the Tank UI node so that its tank creation function can be used
@@ -109,10 +127,9 @@ func LoadGame():
 		# Find that tank object in the list of tanks
 		tank = TankManager.tankList[i];
 		
-		# Loop through all the fish saved for this tank, and add them
-		for fish:Fish in savedGame.fishList[i]:
-			tank.AddFish(fish);
-		
-		# Repeat for plants
-		for plant:Plant in savedGame.plantList[i]:
-			tank.AddPlant(plant);
+		# Create fish instances according to the stored count
+		for j in savedGame.fishCounts[i]:
+			# TODO: After saving other aspects of the current
+			#       fish, this is where they would be applied,
+			#       before adding it to the tank
+			tank.AddFish(FishScene.instantiate());

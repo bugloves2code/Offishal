@@ -20,6 +20,10 @@ extends Resource
 ## The number of tanks.
 @export var tankCount:int;
 
+## Temporary, since all this stores is the number
+## of fish in each tank, but not any of their properties
+@export var fishCounts:Array;
+
 ## An array of arrays of fish objects
 ## - First index is for the tank
 ## - Second index is for the fish
