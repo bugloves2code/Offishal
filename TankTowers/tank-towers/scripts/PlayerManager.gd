@@ -81,7 +81,7 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(11):
+	for i in range(2):
 		var fish_instance = fish_scene.instantiate()
 		marineLifeInventory.append(fish_instance)
 	for i in range(2):
