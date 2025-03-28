@@ -29,6 +29,7 @@ var PlantScene = preload("res://scenes/Plant.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	ShowPlayerLevel()
 	# Load current values
 	master_slider.value = SettingsManager.settings.audio.master_volume
 	music_slider.value = SettingsManager.settings.audio.music_volume
@@ -37,27 +38,7 @@ func _ready() -> void:
 	# Connect signal
 	mute_check.toggled.connect(_on_mute_toggled)
 	## Place Holder Shop Until Level Up implemented
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	StockShop()
 	
 	
 	drag_drop_menu = get_tree().get_root().get_node("Main/DragDropMenu")
@@ -204,7 +185,7 @@ func _on_BuyPlantButton_pressed(item, instance):
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
-		ShopStock.erase(item)
+		PlantShopStock.erase(item)
 		
 		# Add a fish to the PlayerInventory
 		var plant_instance = PlantScene.instantiate()
@@ -216,6 +197,9 @@ func _on_BuyPlantButton_pressed(item, instance):
 func ReloadShopUI():
 	# Clear existing children in the HBoxContainer
 	for child in $ShopPanel/ScrollContainer/HBoxContainer.get_children():
+		child.queue_free()
+	
+	for child in $ShopPanel/PlantScrollContainer/HBoxContainer.get_children():
 		child.queue_free()
 		
 	# Reload the ShopStock items
@@ -233,7 +217,12 @@ func ReloadAllUI():
 	#print("CALLED")
 	ReloadSellShopUI()
 	ReloadShopUI()
+	ShowPlayerLevel()
 	drag_drop_menu.populate_hbox_container()
+	
+func ShowPlayerLevel():
+	var LevelLabel = $Panel/LevelLabel
+	LevelLabel.text = "Level: %s" % PlayerManager.level
 	
 func _on_sell_button_pressed() -> void:
 	var ShopPanel = $ShopPanel
@@ -274,3 +263,9 @@ func _on_mute_toggled(toggled):
 		mute_check.add_theme_color_override("font_color", Color.RED)
 	else:
 		mute_check.remove_theme_color_override("font_color")
+		
+func StockShop():
+	for i in range(0,PlayerManager.level * 2):
+		ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
+		PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	

@@ -81,16 +81,18 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(11):
+	for i in range(2):
 		var fish_instance = fish_scene.instantiate()
 		marineLifeInventory.append(fish_instance)
-	for i in range(11):
+	for i in range(2):
 		marineLifeInventory.append(plant_scene.instantiate())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if xp / level == 5:
+		print("LevelUp")
+		Levelup()
 
 
 ## --- Marine Life Inventory Functions ---
@@ -110,3 +112,10 @@ func AddMarineLife(marineLife: MarineLife) -> void:
 func RemoveMarineLife(index: int) -> MarineLife:
 	# Can throw an exception -- good! Let it!
 	return marineLifeInventory.pop_at(index);
+	
+func Levelup():
+	level += 1
+	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
+	PlayerUI.StockShop()
+	PlayerUI.ReloadAllUI()
+	

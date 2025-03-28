@@ -174,31 +174,33 @@ func OnHarvestTankPressed(tank):
 ## the scene
 func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
-	if TankManager.tankList.size() < TankManager.tankCapacity:
-		## This sound effect makes me want the tank to fall
-		## from the sky and land on the top of the tower
-		$TankCreation.play();
-		
-		var new_instance = TankManager.tank_scene.instantiate()
+	if PlayerManager.money >= 5:
+		if TankManager.tankList.size() < TankManager.tankCapacity:
+			## This sound effect makes me want the tank to fall
+			## from the sky and land on the top of the tower
+			$TankCreation.play();
+			
+			var new_instance = TankManager.tank_scene.instantiate()
 
-		if TankManager.tankList.size() == 0:
-			new_instance.position = Vector2(290,800)
-			new_instance.tankName = "Dope Tank"
-		else:
-			new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
-			new_instance.tankName = get_random_tank_name() 
-		var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
-		var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
-		TankManager.tankList.append(new_instance)
+			if TankManager.tankList.size() == 0:
+				new_instance.position = Vector2(290,800)
+				new_instance.tankName = "Dope Tank"
+			else:
+				new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
+				new_instance.tankName = get_random_tank_name() 
+			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
+			var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
+			TankManager.tankList.append(new_instance)
 
-		if vbox_node:
-			## print("main found")
-			vbox_node.add_child(new_instance)
-			#if TankManager.tankList.size() == 1:
-				#vbox_node.move_child(new_instance, TankManager.tankList.size())
-			#print(TankManager.tankList.size())
-			vbox_node.move_child(new_instance, 1)
-			## print(tankList.size())
+			if vbox_node:
+				## print("main found")
+				vbox_node.add_child(new_instance)
+				#if TankManager.tankList.size() == 1:
+					#vbox_node.move_child(new_instance, TankManager.tankList.size())
+				#print(TankManager.tankList.size())
+				vbox_node.move_child(new_instance, 1)
+				## print(tankList.size())
+			PlayerManager.money -= 5
 
 ## get_random_tank_name is currently a placeholder function so each tank
 ## has a random name and is easier to see what tank you're working with

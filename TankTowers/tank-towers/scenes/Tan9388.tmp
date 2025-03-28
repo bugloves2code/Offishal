@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvw46rhxibyt7"]
+
+[ext_resource type="Script" path="res://scripts/Tank.gd" id="1_ickdv"]
+[ext_resource type="Texture2D" uid="uid://bm1uev1cn6fg1" path="res://assets/tank.PNG" id="2_qlclt"]
+[ext_resource type="AudioStream" uid="uid://bl7pmndb2c6yd" path="res://audio/bloop.wav" id="4_t21nx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xh8"]
+size = Vector2(325, 121)
+
+[sub_resource type="Shader" id="Shader_hn2ib"]
+code = "shader_type canvas_item;
+uniform float onOff = 0.0;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	vec4 input_color = texture(TEXTURE, UV);
+	
+	if(onOff == 0.0) {
+		COLOR = input_color;
+	}
+	
+	if(onOff == 1.0) {
+		COLOR = vec4(input_color.r, input_color.g, 1.0, input_color.a);
+	}
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4pbf"]
+resource_local_to_scene = true
+shader = SubResource("Shader_hn2ib")
+shader_parameter/onOff = 0.0
+
+[node name="Tank" type="Control"]
+custom_minimum_size = Vector2(550, 235)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -276.0
+offset_top = -100.0
+offset_right = 274.0
+offset_bottom = 135.0
+mouse_filter = 1
+script = ExtResource("1_ickdv")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(277, 102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_21xh8")
+
+[node name="Harvest" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h4pbf")
+position = Vector2(279, 115)
+rotation = 0.00523599
+scale = Vector2(0.424279, 0.39551)
+texture = ExtResource("2_qlclt")
+
+[node name="Bloop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_t21nx")
+bus = &"SFX"
+
+[connection signal="gui_input" from="." to="." method="tank_pressed"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
