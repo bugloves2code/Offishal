@@ -35,6 +35,8 @@ func _enter_tree():
 
 func push_notification(text: String):
 	NotificationLabel.text = text
+	NotificationLabel.add_theme_color_override("font_color", Color.WHITE)  
+	NotificationLabel.add_theme_font_size_override("font_size", 24)  # Larger font size
 	NotificationLabel.visible = true
 	
 	NotificationLabel.reset_size()
@@ -43,4 +45,5 @@ func push_notification(text: String):
 	NotificationTimer.start()
 	await NotificationTimer.timeout
 	NotificationLabel.visible = false
+	
 	

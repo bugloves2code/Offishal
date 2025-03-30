@@ -63,9 +63,7 @@ func _on_menu_pressed() -> void:
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
-	if TankManager.tankList.size() == 0:
-		Notifier.push_notification("You should buy a tank before you check that out")
-	elif MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
+	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
 		MenuPanel.visible = true
 		TankUI.visible = false
 		menuButton.text = "X"
