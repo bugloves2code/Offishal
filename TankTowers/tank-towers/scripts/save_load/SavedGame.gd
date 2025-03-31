@@ -20,16 +20,18 @@ extends Resource
 ## The number of tanks.
 @export var tankCount:int;
 
-## Temporary, since all this stores is the number
-## of fish in each tank, but not any of their properties
-@export var fishCounts:Array;
+## An array of SavedMarineLife resources,
+## one for each fish in a tank.
+## - Indices into this array correspond to the
+##   the counts of fish in each tank.
+## - I would have preferred this to be an array
+##   of arrays of SavedMarineLife, but GDScript
+##   doesn't allow for an array of arrays type.
+## - Instead of making a SavedFish or SavedPlant
+##   resource, they share the same exact data
+##   that needs to be shared, I just use a common resource.
+@export var fishList:Array[SavedMarineLife];
 
-## An array of arrays of fish objects
-## - First index is for the tank
-## - Second index is for the fish
-@export var fishList:Array;
-
-## An array of arrays of plant objects
-## - First index is for the tank
-## - Second index is for the plant
-@export var plantList:Array;
+## An array of SavedMarineLife resources,
+## one for each plant in a tank.
+@export var plantList:Array[SavedMarineLife];
