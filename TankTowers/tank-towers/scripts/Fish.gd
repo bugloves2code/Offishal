@@ -50,8 +50,5 @@ func _process(delta: float) -> void:
 	super._process(delta)
 
 
-func _on_control_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		var mouse_event := event as InputEventMouseButton
-		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			print("FISH CLICKED")
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	print("Click")
