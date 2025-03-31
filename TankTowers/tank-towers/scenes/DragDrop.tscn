@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://35qvduqxh407"]
 
-[ext_resource type="Script" path="res://scripts/DragDrop.gd" id="1_jhfcx"]
+[ext_resource type="Script" uid="uid://bqlyuginfeyxg" path="res://scripts/DragDrop.gd" id="1_jhfcx"]
 
 [node name="DragDropBox" type="TextureRect"]
 custom_minimum_size = Vector2(80, 80)
