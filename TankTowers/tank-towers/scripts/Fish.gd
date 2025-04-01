@@ -45,11 +45,13 @@ func _ready() -> void:
 func adjustFishBounds() -> void:
 	var rectShape = collisionShape.shape as RectangleShape2D
 	var halfSize = rectShape.size * 0.5
+	# There is a position already on Node2D sop this causes a warning - Justin
 	var position = collisionShape.global_position
 
 	var offset = collisionShape.position
 	var center = position + offset
 	## print("position", center)
+	## you might just bebale to inherit these from PhysicObject
 	var xMin = center.x - halfSize.x
 	var xMax = center.x + halfSize.x
 	var yMin = center.y - halfSize.y

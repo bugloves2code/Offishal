@@ -28,7 +28,7 @@ var drag_info: Node = null
 ## It also interacts with PlayerManger
 ## In order to keep track of when player
 ## is dragging
-func _get_drag_data(at_position):
+func _get_drag_data(_at_position):
 	PlayerManager.is_dragging = true
 	PlayerManager.current_dragged_item = drag_info
 	

@@ -22,20 +22,30 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
+## ReloadAllUI
+## Takes every UI element that could possibly need a reload
+## except for UI that is updated within their process function
+## and give it a refresh so it is up to date with player experience
 func ReloadAllUI():
 	PlayerUI.ReloadSellShopUI()
 	PlayerUI.ReloadShopUI()
 	PlayerUI.ShowPlayerLevel()
 	TankDragDrop.populate_hbox_container()
 	
+## CloseAllFishUIBut
+## closes all FishUI except the one passed
+## used to make sure only one is open at a time
 func CloseAllFishUIBut(fish_ui_instance : CanvasLayer):
 	for FishUI in FishUIs:
 		if FishUI != fish_ui_instance:
 			FishUI.visible = false
 			
+## CloseAllFishUI
+## which every FishUI is open will be closed
+## this should only be one UI at a time
 func CloseAllFishUI():
 	for FishUI in FishUIs:
 		FishUI.visible = false

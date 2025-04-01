@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 ## OnHarvestTankPressed this is the function that allows for the player to harvest
@@ -45,7 +45,6 @@ func _on_create_tank_button_pressed() -> void:
 				new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
 				new_instance.tankName = get_random_tank_name() 
 			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
-			var scroll_node = get_tree().current_scene.get_node("Control/ScrollContainer")
 			new_instance.get_node("TankLabel").text = new_instance.tankName
 			TankManager.tankList.append(new_instance)
 
