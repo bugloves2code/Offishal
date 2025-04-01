@@ -124,5 +124,5 @@ func Levelup():
 	level += 1
 	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
 	PlayerUI.StockShop()
-	PlayerUI.ReloadAllUI()
+	UiManager.ReloadAllUI()
 	

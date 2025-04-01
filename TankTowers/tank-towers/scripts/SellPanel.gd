@@ -53,7 +53,7 @@ func _drop_data(_pos, data):
 		PlayerManager.marineLifeInventory.erase(data)
 		data.queue_free()
 		#print(get_tree().current_scene)
-		get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
+		UiManager.ReloadAllUI()
 		
 ## update_price_label
 ## Show the price of the item hovering over the sell panel

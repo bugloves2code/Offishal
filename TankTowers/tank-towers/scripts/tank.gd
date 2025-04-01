@@ -68,7 +68,7 @@ func AddFish(fishInstance):
 		## this needs to be a print statement
 		## it should be a ui statment
 		#print("Tank is full of fish")
-	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
+	UiManager.ReloadAllUI()
 		
 
 		
@@ -88,7 +88,7 @@ func AddPlant(plantInstance):
 		## it should be a ui statment
 		print("Tank is full")
 		
-	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
+	UiManager.ReloadAllUI()
 	
 
 ## HarvestTank
@@ -98,7 +98,6 @@ func AddPlant(plantInstance):
 func HarvestTank():
 	PlayerManager.money += fishList.size() + plantList.size()
 	PlayerManager.xp += 1
-	## print(PlayerManager.money)
 	harvestStatus = false
 	$Harvest.start()
 	$Sprite2D.material.set_shader_parameter("onOff", 0.0);
@@ -134,9 +133,6 @@ func _can_drop_data(_pos,data):
 ## checks if data dropped is a Fish or plant that can be
 ## added to the tank
 func _drop_data(_pos, data):
-	#print("Inventory before drop: ", PlayerManager.marineLifeInventory.size())
-	#print("Fish instance ID being dropped: ", data.get_instance_id())
-	#print("Fish instance IDs in inventory: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
 	if data is Node:
 		
 		if data is Fish && !(fishList.size() >= fishCapacity):
@@ -145,9 +141,6 @@ func _drop_data(_pos, data):
 			AddPlant(data)
 		
 		PlayerManager.marineLifeInventory.erase(data)
-		
-		#print("Inventory before after: ", PlayerManager.marineLifeInventory.size())
-		#print("Fish instance IDs in inventory after drop: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
 		
 		var Main = get_tree().current_scene
 		var dragDrop = Main.get_node("DragDropMenu")

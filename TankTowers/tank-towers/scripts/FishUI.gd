@@ -58,26 +58,25 @@ func loadFishUI():
 ## PutInInventory
 ## allows player to put fis back in their inventory
 func PutInInventory():
-	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
-	
 	PlayerManager.AddMarineLife(fish)
 
 	var tank_container = get_tree().get_root().get_node("Main/Control/ScrollContainer/VBoxContainer")
 	if tank_container:
 		for child in tank_container.get_children():
 			if child is Tank: # Ensure we're only checking Tank nodes
-				print(child.tankName)
 				if child.get_children().has(fish):
 					if fish in child.fishList:
 						child.fishList.erase(fish)
 					if fish.get_parent() == child:
 						child.remove_child(fish)
+					if self in UiManager.FishUIs:
+						UiManager.FishUIs.erase(self)
 						
 
 		# Optional: Remove from scene tree if parented to tank
 		
 	
-	PlayerUI.ReloadAllUI()
+	UiManager.ReloadAllUI()
 	
 ## CloseUI
 ## closes ui

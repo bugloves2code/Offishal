@@ -32,6 +32,7 @@ func _ready() -> void:
 	super._ready()
 	# 
 	fish_ui_instance = FishUI.instantiate()
+	UiManager.FishUIs.append(fish_ui_instance)
 	fish_ui_instance.loadFish(self)
 	add_child(fish_ui_instance)
 	fish_ui_instance.visible = false
@@ -76,6 +77,7 @@ func fish_clicked(event: InputEvent) -> void:
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == false:
 				fish_ui_instance.loadFishUI()
+				UiManager.CloseAllFishUIBut(fish_ui_instance)
 				PlayerManager.xp += 1
 				PlayerManager.money += 1
 			else:

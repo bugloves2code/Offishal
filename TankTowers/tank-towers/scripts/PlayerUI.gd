@@ -72,14 +72,13 @@ func _on_menu_pressed() -> void:
 	var ShopPanel = $ShopPanel
 	var SellShopPanel = $SellShopPanel
 	var SettingsPanel = $SettingsPanel
-	var TankUI = get_tree().get_root().get_node("Main/Tank UI - CanvasLayer")
 	
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
 	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
 		MenuPanel.visible = true
-		TankUI.visible = false
+		UiManager.CloseAllFishUI()
 		menuButton.text = "X"
 	else:
 		MenuPanel.visible = false
@@ -205,7 +204,7 @@ func _on_BuyButton_pressed(item, instance):
 		PlayerManager.marineLifeInventory.append(fish_instance)
 		
 		# Reload the UI
-		ReloadAllUI()
+		UiManager.ReloadAllUI()
 		
 ## _on_BuyPlantButton_pressed
 ## Buy Button for Plant
@@ -224,7 +223,7 @@ func _on_BuyPlantButton_pressed(item, instance):
 		PlayerManager.marineLifeInventory.append(plant_instance)
 		
 		# Reload the UI
-		ReloadAllUI()
+		UiManager.ReloadAllUI()
 
 ## ReloadShopUI
 ## clears shop and adds current shop
@@ -250,15 +249,6 @@ func ReloadSellShopUI():
 		
 	# Reload the ShopStock items
 	LoadSellShop()
-
-## ReloadAllUI
-## Calls all functions that reload UI.
-func ReloadAllUI():
-	#print("CALLED")
-	ReloadSellShopUI()
-	ReloadShopUI()
-	ShowPlayerLevel()
-	drag_drop_menu.populate_hbox_container()
 
 ## ShowPlayerLevel
 ## gets player level and displays it
