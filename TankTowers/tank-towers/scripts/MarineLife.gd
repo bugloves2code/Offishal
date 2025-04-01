@@ -43,6 +43,8 @@ class_name MarineLife
 
 @export var sell_price: int = 1
 
+var harvestStatus: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()

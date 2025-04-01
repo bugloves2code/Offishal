@@ -83,27 +83,27 @@ func show_ui_panel(tank) -> void:
 	
 ## OnAddFishPressed 
 ## this function adds a fish to the tank
-func OnAddFishPressed(tank):
-	if tank.fishList.size() < tank.fishCapacity:
-		## Bloop AudioStreamPlayer must be a child of
-		## this script node for this to work
-		$Bloop.play();
-		
-		## print("Bro we adding fish")
-		## print(tank.tankName)
-		#var fishInstance = "res://scenes/Fish.tscn"
-		tank.AddFish(SpawnManager.SpawnFish(tank))
-		ReloadUI(tank)
-	else:
-		## Bloop, but pitched down
-		## - Definitely could name these nodes better, 
-		##   but for now, I prioritize the funny for my sanity
-		$Bleep.play();
-		
-		## Print needed for now
-		## will need to be UI later
-		
-		print("Too many Fish")
+#func OnAddFishPressed(tank):
+	#if tank.fishList.size() < tank.fishCapacity:
+		### Bloop AudioStreamPlayer must be a child of
+		### this script node for this to work
+		#$Bloop.play();
+		#
+		### print("Bro we adding fish")
+		### print(tank.tankName)
+		##var fishInstance = "res://scenes/Fish.tscn"
+		#tank.AddFish(SpawnManager.SpawnFish(tank))
+		#ReloadUI(tank)
+	#else:
+		### Bloop, but pitched down
+		### - Definitely could name these nodes better, 
+		###   but for now, I prioritize the funny for my sanity
+		#$Bleep.play();
+		#
+		### Print needed for now
+		### will need to be UI later
+		#
+		#print("Too many Fish")
 
 ## OnAddPlantPressed is the function that processes when the UI button
 ## Add Plant is pressed

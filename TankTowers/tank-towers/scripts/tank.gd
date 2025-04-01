@@ -59,7 +59,9 @@ func AddFish(fishInstance):
 		
 	if fishList.size() < fishCapacity:
 		fishList.append(fishInstance)
-		SpawnManager.SpawnFish(self)
+		var fishspawned = SpawnManager.SpawnFish(self)
+		fishspawned.fishname = get_random_fish_name()
+		self.add_child(fishspawned)
 		$Bloop.play()
 		## emit signal for adding fish
 		emit_signal("addFish")
@@ -72,16 +74,7 @@ func AddFish(fishInstance):
 		#print("Tank is full of fish")
 	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
 		
-	
-## RemoveFish
-## This method checks in a given fish is inside the fishList
-## if so it will take it out of the list and I believe delete it
-## from memory 
-func RemoveFish(fishInstance):
-	if fishInstance in fishList:
-		fishList.erase(fishInstance)
-		fishInstance.queue_free()
-		print("Removed Fish")
+
 		
 ## AddPlant
 ## This method checks if ther is room in the tank to add a plant
@@ -101,15 +94,6 @@ func AddPlant(plantInstance):
 		
 	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
 	
-## RemoveFish
-## This method checks in a given plant is inside the plantList
-## if so it will take it out of the list and I believe delete it
-## from memory 
-func RemovePlant(plantInstance):
-	if plantInstance in plantList:
-		plantList.erase(plantInstance)
-		plantInstance.queue_free()
-		print("Removed Plant")
 
 ## HarvestTank
 ## This method harvests the fish and plants in tank and adds
@@ -136,53 +120,53 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			Ui_Panel.ReloadUI(self)
 			Ui_Panel.show_ui_panel(self)
 		
-## tank_pressed is the function that checks the input of the player if they are
-## touch the tank it will allow UI to show up if the player is not scrolling
-func tank_pressed(event: InputEvent) -> void:
-	# Print the type of event being processed
-	#print("Event type:", event.get_class())
-	# Handle mouse button or touch press events
-	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		# For mouse input, ensure it's a left click and not a scroll event
-		if event is InputEventMouseButton:
-			#print("Mouse button event - Button index:", event.button_index, "Pressed:", event.is_pressed())
-			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-				# Store the initial click position
-				initial_click_position = make_input_local(event).position
-				#print("Left mouse button pressed - Initial position:", initial_click_position)
-			elif event is InputEventScreenTouch:
-				if event.is_pressed():
-					initial_click_position = make_input_local(event).position
-					#print("Touch pressed - Initial position:", initial_click_position)
-			
-## _input detects all input to better seperate if the player is 
-## trying to scroll or access the UI panel
-func _input(event: InputEvent) -> void:
-	# Handle mouse motion or touch drag events
-	if event is InputEventMouseMotion or event is InputEventScreenDrag:
-		#print("Motion/Drag event detected")
-		#print("Initial click position: ", initial_click_position)
-		#print("Event Position: ", event.position)
-		if initial_click_position != Vector2.ZERO:  # Only check if there's an initial position
-			var local_event_position = make_input_local(event).position
-			var distance_moved = initial_click_position.distance_to(local_event_position)
-			#print("Distance moved: ", distance_moved)
-			if distance_moved > movement_threshold:
-				initial_click_position = Vector2.ZERO # Reset to prevent UI display
-				#print("Movement detected - UI display canceled")
-	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed()) or (event is InputEventScreenTouch and not event.is_pressed()):
-			if initial_click_position != Vector2.ZERO:
-				#print("No significant movement - showing UI")
-				var Main = get_tree().current_scene
-				var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
-				if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
-					Ui_Panel.ReloadUI(self)
-					Ui_Panel.show_ui_panel(self)
-			else:
-				#print("Significant movement detected earlier - UI display canceled")
-				initial_click_position = Vector2.ZERO
-			initial_click_position = Vector2.ZERO
+### tank_pressed is the function that checks the input of the player if they are
+### touch the tank it will allow UI to show up if the player is not scrolling
+#func tank_pressed(event: InputEvent) -> void:
+	## Print the type of event being processed
+	##print("Event type:", event.get_class())
+	## Handle mouse button or touch press events
+	#if event is InputEventMouseButton or event is InputEventScreenTouch:
+		## For mouse input, ensure it's a left click and not a scroll event
+		#if event is InputEventMouseButton:
+			##print("Mouse button event - Button index:", event.button_index, "Pressed:", event.is_pressed())
+			#if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				## Store the initial click position
+				#initial_click_position = make_input_local(event).position
+				##print("Left mouse button pressed - Initial position:", initial_click_position)
+			#elif event is InputEventScreenTouch:
+				#if event.is_pressed():
+					#initial_click_position = make_input_local(event).position
+					##print("Touch pressed - Initial position:", initial_click_position)
+			#
+### _input detects all input to better seperate if the player is 
+### trying to scroll or access the UI panel
+#func _input(event: InputEvent) -> void:
+	## Handle mouse motion or touch drag events
+	#if event is InputEventMouseMotion or event is InputEventScreenDrag:
+		##print("Motion/Drag event detected")
+		##print("Initial click position: ", initial_click_position)
+		##print("Event Position: ", event.position)
+		#if initial_click_position != Vector2.ZERO:  # Only check if there's an initial position
+			#var local_event_position = make_input_local(event).position
+			#var distance_moved = initial_click_position.distance_to(local_event_position)
+			##print("Distance moved: ", distance_moved)
+			#if distance_moved > movement_threshold:
+				#initial_click_position = Vector2.ZERO # Reset to prevent UI display
+				##print("Movement detected - UI display canceled")
+	#if event is InputEventMouseButton or event is InputEventScreenTouch:
+		#if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed()) or (event is InputEventScreenTouch and not event.is_pressed()):
+			#if initial_click_position != Vector2.ZERO:
+				##print("No significant movement - showing UI")
+				#var Main = get_tree().current_scene
+				#var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
+				#if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
+					#Ui_Panel.ReloadUI(self)
+					#Ui_Panel.show_ui_panel(self)
+			#else:
+				##print("Significant movement detected earlier - UI display canceled")
+				#initial_click_position = Vector2.ZERO
+			#initial_click_position = Vector2.ZERO
 
 ## _on_harvest_timeout
 ## Stops the harvest timer and sets the harvestStatus to true
@@ -230,3 +214,58 @@ func _drop_data(_pos, data):
 			dragDrop.populate_hbox_container()
 		
 		data.queue_free()
+
+func get_random_fish_name() -> String:
+	var fish_names = [
+		# Species-inspired
+		"Bubbles the Betta",
+		"Finley the Flounder",
+		"Goldie the Goldfish",
+		"Stripes the Clownfish",
+		"Sunny the Angelfish",
+		"Sparky the Tetra",
+		"Gillbert the Grouper",
+		"Pearl the Parrotfish",
+		"Sapphire the Tang",
+		"Marlin the Moorish Idol",
+
+		# Punny names
+		"Fin Diesel",
+		"Swim Shady",
+		"Gill Clinton",
+		"Anchovy Hopkins",
+		"Cod Stewart",
+		"Tuna Turner",
+		"Salmon Rushdie",
+		"Koi Pondsmith",
+		"Sir Swims-a-Lot",
+		"Bass Pro",
+
+		# Whimsical/creative
+		"Azure Waveglider",
+		"Coral Dancer",
+		"Sapphire Finflicker",
+		"Moonlight Drifter",
+		"Seafoam Sparkle",
+		"Neptune's Whisper",
+		"Abyssal Glimmer",
+		"Tidal Twirler",
+		"Poseidon's Prize",
+		"Nimble Nibbler",
+
+		# Simple/popular
+		"Nemo",
+		"Dory",
+		"Bubbles",
+		"Sushi",
+		"Flash",
+		"Splash",
+		"Finley",
+		"Waverly",
+		"Azure",
+		"Coral"
+	]
+
+	# Randomly select a name from the list
+	var random_index = randi() % fish_names.size()
+	return fish_names[random_index]

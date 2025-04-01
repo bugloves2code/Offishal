@@ -12,6 +12,11 @@ var last_scroll = 0
 var parent_global_pos
 var collisionShape
 
+var fishname : String
+
+@export var FishUI : PackedScene
+var fish_ui_instance : CanvasLayer
+
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight
 	totalForce += StayInBoundsForce() * boundsWeight
@@ -21,9 +26,13 @@ func _ready() -> void:
 	# Prevent fish from colliding with each other, stopping them from
 	# flying off the top of the screen when they spawn at the same position
 	# Is this the best place for this line? I have no idea!
+	super._ready()
+	fish_ui_instance = FishUI.instantiate()
+	fish_ui_instance.loadFish(self)
+	add_child(fish_ui_instance)
+	fish_ui_instance.visible = false
 	collision_layer = 0;
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
-	super._ready()
 
 func adjustFishBounds() -> void:
 	var rectShape = collisionShape.shape as RectangleShape2D
@@ -50,5 +59,11 @@ func _process(delta: float) -> void:
 	super._process(delta)
 
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	print("Click")
+func fish_clicked(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+			if self.harvestStatus == false:
+				fish_ui_instance.loadFishUI()
+			else:
+				print("Harvest")
