@@ -1,8 +1,18 @@
+## Fish Friends
+## Last upadated 4/1/25 by Justin Ferreira
+## FishUI Script
+## - This Script describes how FishUI works
+## this script has an instance of fish and
+## displays its information properly and allows
+## player to interact with fish
+
 extends CanvasLayer
 
-
+## Holds actual Fish
 var fish : CharacterBody2D
 
+## Callables to attach functions
+## to buttons
 var _on_put_inventory: Callable
 var _close_ui: Callable
 
@@ -15,10 +25,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-	
+
+## loadFish
+## gets instance of the fish and assigns it
+## to the fish variable here to properly access
+## fish 
 func loadFish(fishInstance: CharacterBody2D):
 	fish = fishInstance
-	
+
+## loadFishUI
+## Takes all important information and displays it
+## on the FishUI
 func loadFishUI():
 	$Panel/FishNameLabel.text = fish.fishname
 	$Panel/AgeLabel.text ="Age: %s" % fish.age
@@ -38,6 +55,8 @@ func loadFishUI():
 		$Panel/CloseButton.pressed.connect(_close_ui)
 	self.visible = true
 	
+## PutInInventory
+## allows player to put fis back in their inventory
 func PutInInventory():
 	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
 	
@@ -47,10 +66,10 @@ func PutInInventory():
 	if tank_container:
 		for child in tank_container.get_children():
 			if child is Tank: # Ensure we're only checking Tank nodes
-				print(child.name)
+				print(child.tankName)
 				if child.get_children().has(fish):
-					# Remove from list
-					child.get_children().erase(fish)
+					if fish in child.fishList:
+						child.fishList.erase(fish)
 					if fish.get_parent() == child:
 						child.remove_child(fish)
 						
@@ -60,5 +79,7 @@ func PutInInventory():
 	
 	PlayerUI.ReloadAllUI()
 	
+## CloseUI
+## closes ui
 func CloseUI():
 	self.visible = false

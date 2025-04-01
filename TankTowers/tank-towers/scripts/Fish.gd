@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/5/25 by William Duprey
+## Last Updated: 4/1/25 by Justin Ferreira
 ## Fish Script
 ## - This node is a child of the MarineLife node, 
 ##   and the parent node for specific fish nodes.
@@ -7,14 +7,19 @@
 extends MarineLife
 class_name Fish
 
+
 var scrollContainer
 var last_scroll = 0
 var parent_global_pos
 var collisionShape
 
+## Fish Properties
 var fishname : String
 
+## Fish Ui Scene
 @export var FishUI : PackedScene
+
+## Fish Ui Instance
 var fish_ui_instance : CanvasLayer
 
 func _CalcSteeringForces() -> void:
@@ -23,14 +28,16 @@ func _CalcSteeringForces() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Prevent fish from colliding with each other, stopping them from
-	# flying off the top of the screen when they spawn at the same position
-	# Is this the best place for this line? I have no idea!
+	
 	super._ready()
+	# 
 	fish_ui_instance = FishUI.instantiate()
 	fish_ui_instance.loadFish(self)
 	add_child(fish_ui_instance)
 	fish_ui_instance.visible = false
+	# Prevent fish from colliding with each other, stopping them from
+	# flying off the top of the screen when they spawn at the same position
+	# Is this the best place for this line? I have no idea!
 	collision_layer = 0;
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 
@@ -58,12 +65,18 @@ func _process(delta: float) -> void:
 	adjustFishBounds()
 	super._process(delta)
 
-
+## fish_clicked
+## Allows user to access Fish UI when
+## Fish is clicked and not harvestable
+## when Fish is harvestable the harvest function
+## should be called
 func fish_clicked(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == false:
 				fish_ui_instance.loadFishUI()
+				PlayerManager.xp += 1
+				PlayerManager.money += 1
 			else:
 				print("Harvest")

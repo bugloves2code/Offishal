@@ -1,3 +1,8 @@
+## Fish Friends
+## Last upadated 4/1/25 by Justin Ferreira
+## Settings Label
+## Controls label under a slider so it displays correct number
+
 extends Label
 
 @export var slider: HSlider

@@ -1,3 +1,7 @@
+## Fish Friends
+## Last upadated 4/1/25 by Ayden Dueker
+## SpawnManager Script
+
 extends Node
 
 

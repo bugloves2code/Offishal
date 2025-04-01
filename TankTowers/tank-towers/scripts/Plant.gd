@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/4/25 by William Duprey
+## Last Updated: 4/1/25 by Ayden Dueker
 ## Plant Parent Script
 ## - This node is a child of the MarineLife node, 
 ##   and the parent node for specific plant nodes.

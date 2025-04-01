@@ -1,3 +1,7 @@
+## Fish Friends
+## Last Updated: 4/1/25 by Ayden Dueker
+## Music Player Script
+
 extends AudioStreamPlayer 
 
 func _ready():

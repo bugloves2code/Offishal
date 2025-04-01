@@ -26,8 +26,10 @@ shape = SubResource("CircleShape2D_newn4")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -62.0
+offset_top = -22.0
+offset_right = 61.0
+offset_bottom = 37.0
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="gui_input" from="Control" to="." method="fish_clicked"]
