@@ -12,6 +12,8 @@ var last_scroll = 0
 var parent_global_pos
 var collisionShape
 
+var plantType: ThEnums.FishSpecies
+
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight
 	totalForce += StayInBoundsForce() * boundsWeight

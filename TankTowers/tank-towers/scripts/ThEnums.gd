@@ -21,3 +21,15 @@ enum WaterType
 	Salt      = 0b0100, # 4
 	Any       = 0b0111  # 7
 }
+
+enum FishSpecies
+{
+	Guppy,
+	Clownfish
+}
+
+enum PlantSpecies
+{
+	Guppygrass,
+	Anemone
+}

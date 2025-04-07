@@ -20,6 +20,8 @@ class_name MarineLife
 ##   found that commenting / uncommenting the property will
 ##   usually get the inspector properly showing what it should
 
+var species : String
+
 ## The age of the marine life. Used to update its
 ## appearance as it ages, and track whether it
 ## is ready to be harvested.
