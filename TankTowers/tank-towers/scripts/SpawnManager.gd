@@ -1,3 +1,7 @@
+## Fish Friends
+## Last upadated 4/1/25 by Ayden Dueker
+## SpawnManager Script
+
 extends Node
 
 
@@ -42,7 +46,7 @@ func SpawnFish(tank: Tank) -> Fish:
 	var yMax = center.y + halfSize.y
 	
 	var fish : Fish = fishScene.instantiate()
-	tank.add_child(fish)
+	#tank.add_child(fish)
 	fish.xMin = xMin
 	fish.xMax = xMax
 	fish.yMin = yMin
@@ -57,6 +61,5 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	
+func _process(_delta: float) -> void:
 	pass

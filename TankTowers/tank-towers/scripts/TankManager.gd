@@ -1,10 +1,11 @@
 ## Fish Friends
-## Last upadated 2/20/25 by Justin Ferreira
+## Last upadated 4/1/25 by Justin Ferreira
 ## TankManager Script
 ## - this script holds all things that will need to be
 ## universally accessed about tanks 
 extends Node
 
+# signal that comes on when a tank is added
 signal tankAdded
 
 ## tank_scene 

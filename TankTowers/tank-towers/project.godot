@@ -25,6 +25,7 @@ TutorialManager="*res://scripts/TutorialManager.gd"
 SettingsManager="*res://scripts/SettingsManager.gd"
 MusicPlayer="*res://scripts/MusicPlayer.gd"
 Notifier="*res://scripts/Notifier.gd"
+UiManager="*res://scripts/UiManager.gd"
 
 [display]
 

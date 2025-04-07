@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last upadated 2/20/25 by Justin Ferreira
+## Last upadated 4/1/25 by Justin Ferreira
 ## Tank Script
 ## - This scrpt decribes the tank scene 
 ## the tank will hold fish and plants
@@ -39,27 +39,25 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
-signal addFish
-signal tankClicked
-## inititial_click_position is a Vextor2 which holds the click of the player 
-## to better handle when the player is trying to scroll and when they are accessing UI
-var initial_click_position: Vector2 = Vector2.ZERO
-
-## movement_threshold is the distance the player is allowed 
-## to move the mouse before it is considered that they are scrolling
-var movement_threshold: float = 10.0  # Adjust this value to control sensitivity
-
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
+	# DELETES FISHINSTANCE BECAUSE SPAWNER 
+	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
+	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
+	fishInstance.queue_free()
+	
 	if fishList.size() == 0 && plantList.size() == 0:
 		$Harvest.start()
 		
 	if fishList.size() < fishCapacity:
-		fishList.append(fishInstance)
-		SpawnManager.SpawnFish(self)
+		var fishspawned = SpawnManager.SpawnFish(self)
+		if fishspawned.fishname == "":
+			fishspawned.fishname = get_random_fish_name()
+		fishList.append(fishspawned)
+		self.add_child(fishspawned)
 		$Bloop.play()
 		## emit signal for adding fish
 		emit_signal("addFish")
@@ -70,18 +68,9 @@ func AddFish(fishInstance):
 		## this needs to be a print statement
 		## it should be a ui statment
 		#print("Tank is full of fish")
-	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
+	UiManager.ReloadAllUI()
 		
-	
-## RemoveFish
-## This method checks in a given fish is inside the fishList
-## if so it will take it out of the list and I believe delete it
-## from memory 
-func RemoveFish(fishInstance):
-	if fishInstance in fishList:
-		fishList.erase(fishInstance)
-		fishInstance.queue_free()
-		print("Removed Fish")
+
 		
 ## AddPlant
 ## This method checks if ther is room in the tank to add a plant
@@ -99,17 +88,8 @@ func AddPlant(plantInstance):
 		## it should be a ui statment
 		print("Tank is full")
 		
-	get_tree().current_scene.get_node("PlayerUI").ReloadAllUI()
+	UiManager.ReloadAllUI()
 	
-## RemoveFish
-## This method checks in a given plant is inside the plantList
-## if so it will take it out of the list and I believe delete it
-## from memory 
-func RemovePlant(plantInstance):
-	if plantInstance in plantList:
-		plantList.erase(plantInstance)
-		plantInstance.queue_free()
-		print("Removed Plant")
 
 ## HarvestTank
 ## This method harvests the fish and plants in tank and adds
@@ -118,71 +98,9 @@ func RemovePlant(plantInstance):
 func HarvestTank():
 	PlayerManager.money += fishList.size() + plantList.size()
 	PlayerManager.xp += 1
-	## print(PlayerManager.money)
 	harvestStatus = false
 	$Harvest.start()
 	$Sprite2D.material.set_shader_parameter("onOff", 0.0);
-
-
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if Input.is_action_just_pressed("click"):
-		## emit signal for tutorial
-		emit_signal("tankClicked")
-		#print("Clicked")
-		var Main = get_parent()
-		var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
-		if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
-			## print("UI?")
-			Ui_Panel.ReloadUI(self)
-			Ui_Panel.show_ui_panel(self)
-		
-## tank_pressed is the function that checks the input of the player if they are
-## touch the tank it will allow UI to show up if the player is not scrolling
-func tank_pressed(event: InputEvent) -> void:
-	# Print the type of event being processed
-	#print("Event type:", event.get_class())
-	# Handle mouse button or touch press events
-	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		# For mouse input, ensure it's a left click and not a scroll event
-		if event is InputEventMouseButton:
-			#print("Mouse button event - Button index:", event.button_index, "Pressed:", event.is_pressed())
-			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-				# Store the initial click position
-				initial_click_position = make_input_local(event).position
-				#print("Left mouse button pressed - Initial position:", initial_click_position)
-			elif event is InputEventScreenTouch:
-				if event.is_pressed():
-					initial_click_position = make_input_local(event).position
-					#print("Touch pressed - Initial position:", initial_click_position)
-			
-## _input detects all input to better seperate if the player is 
-## trying to scroll or access the UI panel
-func _input(event: InputEvent) -> void:
-	# Handle mouse motion or touch drag events
-	if event is InputEventMouseMotion or event is InputEventScreenDrag:
-		#print("Motion/Drag event detected")
-		#print("Initial click position: ", initial_click_position)
-		#print("Event Position: ", event.position)
-		if initial_click_position != Vector2.ZERO:  # Only check if there's an initial position
-			var local_event_position = make_input_local(event).position
-			var distance_moved = initial_click_position.distance_to(local_event_position)
-			#print("Distance moved: ", distance_moved)
-			if distance_moved > movement_threshold:
-				initial_click_position = Vector2.ZERO # Reset to prevent UI display
-				#print("Movement detected - UI display canceled")
-	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		if(event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed()) or (event is InputEventScreenTouch and not event.is_pressed()):
-			if initial_click_position != Vector2.ZERO:
-				#print("No significant movement - showing UI")
-				var Main = get_tree().current_scene
-				var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
-				if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
-					Ui_Panel.ReloadUI(self)
-					Ui_Panel.show_ui_panel(self)
-			else:
-				#print("Significant movement detected earlier - UI display canceled")
-				initial_click_position = Vector2.ZERO
-			initial_click_position = Vector2.ZERO
 
 ## _on_harvest_timeout
 ## Stops the harvest timer and sets the harvestStatus to true
@@ -197,6 +115,9 @@ func _on_harvest_timeout() -> void:
 	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
 		Ui_Panel.ReloadUI(self)
 
+## _can_drop_data
+## checks to seee if data is acceptable to be dropped here
+## also if tank has room for it
 func _can_drop_data(_pos,data):
 	if data is Node:
 		if data is Fish && fishList.size() < fishCapacity:
@@ -208,10 +129,10 @@ func _can_drop_data(_pos,data):
 		
 		return false
 
+## _drop_data
+## checks if data dropped is a Fish or plant that can be
+## added to the tank
 func _drop_data(_pos, data):
-	#print("Inventory before drop: ", PlayerManager.marineLifeInventory.size())
-	#print("Fish instance ID being dropped: ", data.get_instance_id())
-	#print("Fish instance IDs in inventory: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
 	if data is Node:
 		
 		if data is Fish && !(fishList.size() >= fishCapacity):
@@ -221,12 +142,66 @@ func _drop_data(_pos, data):
 		
 		PlayerManager.marineLifeInventory.erase(data)
 		
-		#print("Inventory before after: ", PlayerManager.marineLifeInventory.size())
-		#print("Fish instance IDs in inventory after drop: ", PlayerManager.marineLifeInventory.map(func(fish): return fish.get_instance_id()))
-		
 		var Main = get_tree().current_scene
 		var dragDrop = Main.get_node("DragDropMenu")
 		if dragDrop and dragDrop.has_method("populate_hbox_container"):
 			dragDrop.populate_hbox_container()
 		
 		data.queue_free()
+
+## get_random_fish_name
+## gives fish a random name
+func get_random_fish_name() -> String:
+	var fish_names = [
+		# Species-inspired
+		"Bubbles the Betta",
+		"Finley the Flounder",
+		"Goldie the Goldfish",
+		"Stripes the Clownfish",
+		"Sunny the Angelfish",
+		"Sparky the Tetra",
+		"Gillbert the Grouper",
+		"Pearl the Parrotfish",
+		"Sapphire the Tang",
+		"Marlin the Moorish Idol",
+
+		# Punny names
+		"Fin Diesel",
+		"Swim Shady",
+		"Gill Clinton",
+		"Anchovy Hopkins",
+		"Cod Stewart",
+		"Tuna Turner",
+		"Salmon Rushdie",
+		"Koi Pondsmith",
+		"Sir Swims-a-Lot",
+		"Bass Pro",
+
+		# Whimsical/creative
+		"Azure Waveglider",
+		"Coral Dancer",
+		"Sapphire Finflicker",
+		"Moonlight Drifter",
+		"Seafoam Sparkle",
+		"Neptune's Whisper",
+		"Abyssal Glimmer",
+		"Tidal Twirler",
+		"Poseidon's Prize",
+		"Nimble Nibbler",
+
+		# Simple/popular
+		"Nemo",
+		"Dory",
+		"Bubbles",
+		"Sushi",
+		"Flash",
+		"Splash",
+		"Finley",
+		"Waverly",
+		"Azure",
+		"Coral"
+	]
+
+	# Randomly select a name from the list
+	var random_index = randi() % fish_names.size()
+	return fish_names[random_index]

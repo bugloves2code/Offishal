@@ -1,3 +1,7 @@
+## Fish Friends
+## Last Updated: 4/1/25 by Ayden Dueker
+## Physics object Script
+
 extends CharacterBody2D
 class_name PhysicsObject
 

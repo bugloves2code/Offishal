@@ -51,6 +51,6 @@ func onAddFish():
 	showStep("step4")
 	tutorialFinished = true
 
-func _on_label_gui_input(event: InputEvent) -> void:
+func _on_label_gui_input(_event: InputEvent) -> void:
 	if (tutorialFinished == true):
 		tutorialLabel.hide()

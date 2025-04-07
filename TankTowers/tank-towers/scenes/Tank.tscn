@@ -80,5 +80,4 @@ offset_bottom = 13.0
 text = "Test Text"
 horizontal_alignment = 1
 
-[connection signal="gui_input" from="." to="." method="tank_pressed"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

@@ -23,3 +23,11 @@ texture = ExtResource("1_batkw")
 visibility_layer = 2
 position = Vector2(1, 40)
 shape = SubResource("RectangleShape2D_8ssdr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="gui_input" from="Control" to="." method="plant_clicked"]

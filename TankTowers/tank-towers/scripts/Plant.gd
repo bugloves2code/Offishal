@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/4/25 by William Duprey
+## Last Updated: 4/1/25 by Ayden Dueker
 ## Plant Parent Script
 ## - This node is a child of the MarineLife node, 
 ##   and the parent node for specific plant nodes.
@@ -30,3 +30,14 @@ func _process(delta: float) -> void:
 		#counter += 10
 		#timePassed = 0
 		#print(counter)
+
+
+func plant_clicked(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
+			if self.harvestStatus == false:
+				PlayerManager.xp += 1
+				PlayerManager.money += 1
+			else:
+				print("Harvest")

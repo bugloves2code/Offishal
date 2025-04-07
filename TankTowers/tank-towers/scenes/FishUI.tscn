@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://lv1lhpkxx8qt"]
+
+[ext_resource type="Script" path="res://scripts/FishUI.gd" id="1_rab0q"]
+
+[node name="FishUI" type="CanvasLayer"]
+script = ExtResource("1_rab0q")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 1.0
+offset_top = 879.0
+offset_right = 577.0
+offset_bottom = 981.0
+
+[node name="FishNameLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 1.0
+offset_right = 446.0
+offset_bottom = 24.0
+text = "Fish Name"
+horizontal_alignment = 1
+
+[node name="FishPediaButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 60.0
+offset_right = 569.0
+offset_bottom = 99.0
+text = "Fishpedia"
+
+[node name="PutinInventoryButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 61.0
+offset_right = 144.0
+offset_bottom = 98.0
+text = " Put in Inventory"
+
+[node name="AgeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 31.0
+offset_right = 219.0
+offset_bottom = 54.0
+text = "Age"
+horizontal_alignment = 1
+
+[node name="HarvestTimeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 31.0
+offset_right = 443.0
+offset_bottom = 54.0
+text = "Harvest Time"
+
+[node name="TypeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 30.0
+offset_right = 307.0
+offset_bottom = 53.0
+text = "Type"
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 65.0
+offset_right = 367.0
+offset_bottom = 102.0
+text = "Close"

@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/4/25 by William Duprey
+## Last Updated: 4/1/25 by Justin Ferreira
 ## MarineLife Parent Script
 ## - This node is the parent class for fish and plant nodes,
 ##   and contains properties and methods that each need
@@ -43,7 +43,15 @@ var species : String
 ##   and typed arrays are possible, and the syntax is below.
 @export var compatible : Array[MarineLife];
 
+## sell_price
+## this is how much money the player will earn
+## from selling this MarineLife
 @export var sell_price: int = 1
+
+## harvestStatus
+## this is a bool that indicates when
+## a MarineLife is ready to be harvested
+var harvestStatus: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,3 +1,7 @@
+## Fish Friends
+## Last Updated: 4/1/25 by Ayden Dueker
+## Music Player Script
+
 extends AudioStreamPlayer 
 
 func _ready():
@@ -11,5 +15,5 @@ func _on_music_finished():
 	play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

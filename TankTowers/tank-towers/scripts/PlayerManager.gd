@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last Updated: 2/16/25 by William Duprey
+## Last Updated: 4/1/25 by Justin Ferreira
 ## PlayerManager Autoload Script
 ## - This script controls the player's stats and inventory.
 
@@ -74,8 +74,12 @@ var tankInventory: Array;
 var fish_scene = preload("res://scenes/Fish.tscn")
 var plant_scene = preload("res://scenes/Plant.tscn")
 
+## is_dragging
+## variable that tracks if player is dragging something
 var is_dragging = false
 
+## current_dragged_item
+## saves infomation about MarineLife being dragged
 var current_dragged_item: MarineLife = null
 
 
@@ -89,7 +93,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if xp / level == 5:
 		Levelup()
 
@@ -112,10 +116,13 @@ func RemoveMarineLife(index: int) -> MarineLife:
 	# Can throw an exception -- good! Let it!
 	return marineLifeInventory.pop_at(index);
 	
+## Levelup
+## This function updates all the stats the player gets
+## when they level up
 func Levelup():
 	Notifier.push_notification("Level Up!")
 	level += 1
 	var PlayerUI = get_tree().get_root().get_node("Main/PlayerUI")
 	PlayerUI.StockShop()
-	PlayerUI.ReloadAllUI()
+	UiManager.ReloadAllUI()
 	
