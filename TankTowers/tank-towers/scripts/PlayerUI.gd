@@ -204,11 +204,13 @@ func _on_BuyButton_pressed(item, instance):
 		# Remove the item from ShopStock
 		
 		var fish_instance = instance as ShopItem
+		var fish
 		if fish_instance.Species == ThEnums.FishSpecies.Guppy:
 			## this will change to a different scene in the future
-			var fish = FishScene.instantiate()
+			fish = FishScene.instantiate() as Fish
+			fish.fishType = ThEnums.FishSpecies.Guppy
 		# Add a fish to the PlayerInventory
-		PlayerManager.marineLifeInventory.append(fish_instance)
+		PlayerManager.marineLifeInventory.append(fish)
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()
