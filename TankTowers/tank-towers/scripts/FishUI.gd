@@ -69,8 +69,6 @@ func PutInInventory():
 						child.fishList.erase(fish)
 					if fish.get_parent() == child:
 						child.remove_child(fish)
-					if self in UiManager.FishUIs:
-						UiManager.FishUIs.erase(self)
 						
 
 		# Optional: Remove from scene tree if parented to tank
