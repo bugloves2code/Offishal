@@ -18,10 +18,7 @@ var plantType: ThEnums.FishSpecies
 var fishname : String
 
 ## Fish Ui Scene
-@export var FishUI : PackedScene
-
-## Fish Ui Instance
-var fish_ui_instance : CanvasLayer
+@export var FishUI : CanvasLayer
 
 func _CalcSteeringForces() -> void:
 	totalForce += Wander(wanderTime, wanderRadius) * wanderWeight
@@ -32,14 +29,10 @@ func _ready() -> void:
 	
 	super._ready()
 	# 
-	fish_ui_instance = FishUI.instantiate()
-	UiManager.FishUIs.append(fish_ui_instance)
-	fish_ui_instance.loadFish(self)
-	add_child(fish_ui_instance)
-	fish_ui_instance.visible = false
 	# Prevent fish from colliding with each other, stopping them from
 	# flying off the top of the screen when they spawn at the same position
 	# Is this the best place for this line? I have no idea!
+	FishUI = UiManager.FishUI
 	collision_layer = 0;
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 
@@ -79,8 +72,8 @@ func fish_clicked(event: InputEvent) -> void:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == false:
-				fish_ui_instance.loadFishUI()
-				UiManager.CloseAllFishUIBut(fish_ui_instance)
+				FishUI.loadFish(self)
+				FishUI.loadFishUI()
 				PlayerManager.xp += 1
 				PlayerManager.money += 1
 			else:
