@@ -197,7 +197,6 @@ func _on_BuyButton_pressed(item, instance):
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
-		ShopStock.erase(item)
 		
 		# Add a fish to the PlayerInventory
 		var fish_instance = FishScene.instantiate()
@@ -216,7 +215,6 @@ func _on_BuyPlantButton_pressed(item, instance):
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
-		PlantShopStock.erase(item)
 		
 		# Add a fish to the PlayerInventory
 		var plant_instance = PlantScene.instantiate()
@@ -310,7 +308,8 @@ func _on_mute_toggled(toggled):
 ## StockShop
 ## Fills Shop with everything from Stock
 func StockShop():
-	for i in range(0,PlayerManager.level * 2):
-		ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-		PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	
+		
 	
