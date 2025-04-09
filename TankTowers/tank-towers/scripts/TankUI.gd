@@ -29,7 +29,7 @@ func OnHarvestTankPressed(tank):
 ## the scene
 func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
-	UiManager.CloseAllFishUI()
+	UiManager.CloseFishUI()
 	if PlayerManager.money >= 5:
 		if TankManager.tankList.size() < TankManager.tankCapacity:
 			## This sound effect makes me want the tank to fall

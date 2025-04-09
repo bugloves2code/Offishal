@@ -1,15 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0ha7w6j3tk05"]
+[gd_scene load_steps=4 format=3 uid="uid://d0ha7w6j3tk05"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_6kk0x"]
 [ext_resource type="Texture2D" uid="uid://6ucanyw07b7p" path="res://assets/guppy.PNG" id="2_1f3kr"]
-[ext_resource type="PackedScene" uid="uid://lv1lhpkxx8qt" path="res://scenes/FishUI.tscn" id="2_17t73"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
 radius = 64.0078
 
 [node name="Fish" type="CharacterBody2D"]
 script = ExtResource("1_6kk0x")
-FishUI = ExtResource("2_17t73")
 maxSpeed = 50
 wanderRadius = 20.0
 boundsWeight = 100.0
