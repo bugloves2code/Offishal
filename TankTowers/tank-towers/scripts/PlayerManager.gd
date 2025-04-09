@@ -122,7 +122,8 @@ func RemoveMarineLife(index: int) -> MarineLife:
 func Levelup():
 	Notifier.push_notification("Level Up!")
 	level += 1
-	UiManager.ReloadAllUI()
 	if(PlayerManager.level == 5):
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/download.jpg"), "price": 1})
+	UiManager.ReloadAllUI()
+	
 	
