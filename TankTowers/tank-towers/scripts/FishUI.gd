@@ -70,6 +70,7 @@ func PutInInventory():
 					if fish.get_parent() == child:
 						child.remove_child(fish)
 						
+						
 
 		# Optional: Remove from scene tree if parented to tank
 		
