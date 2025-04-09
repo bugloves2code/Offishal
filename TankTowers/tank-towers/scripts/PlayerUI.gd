@@ -125,7 +125,9 @@ func _on_back_button_pressed() -> void:
 func LoadShop():
 	for item in ShopStock:
 		# Instantiate the ShopItem scene
-		var instance = ShopItem.instantiate()
+		var instance = ShopItem.instantiate() as ShopItem
+		
+		instance.Species = ThEnums.FishSpecies.Guppy
 		
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
@@ -145,7 +147,10 @@ func LoadShop():
 	
 	for item in PlantShopStock:
 		# Instantiate the ShopItem scene
-		var instance = ShopItem.instantiate()
+		var instance = ShopItem.instantiate() as ShopItem
+		
+		## when a new shop item is made, set the species to plant and then the type of plant
+		instance.Species = ThEnums.PlantSpecies.Guppygrass
 		
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
@@ -199,8 +204,11 @@ func _on_BuyButton_pressed(item, instance):
 		# Remove the item from ShopStock
 		ShopStock.erase(item)
 		
+		var fish_instance = instance as ShopItem
+		if fish_instance.Species == ThEnums.FishSpecies.Guppy:
+			## this will change to a different scene in the future
+			var fish = FishScene.instantiate()
 		# Add a fish to the PlayerInventory
-		var fish_instance = FishScene.instantiate()
 		PlayerManager.marineLifeInventory.append(fish_instance)
 		
 		# Reload the UI
