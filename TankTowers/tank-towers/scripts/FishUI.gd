@@ -59,7 +59,7 @@ func loadFishUI():
 ## allows player to put fis back in their inventory
 func PutInInventory():
 	PlayerManager.AddMarineLife(fish)
-
+	UiManager.CloseFishUI()
 	var tank_container = get_tree().get_root().get_node("Main/Control/ScrollContainer/VBoxContainer")
 	if tank_container:
 		for child in tank_container.get_children():
