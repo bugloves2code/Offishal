@@ -34,6 +34,8 @@ var FishScene = preload("res://scenes/Fish.tscn")
 
 var PlantScene = preload("res://scenes/Plant.tscn")
 
+var ClownFishScene = preload("res://scenes/ClownFish.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gets Player Level
@@ -127,7 +129,7 @@ func LoadShop():
 		# Instantiate the ShopItem scene
 		var instance = ShopItem.instantiate() as ShopItem
 		
-		instance.Species = ThEnums.FishSpecies.Guppy
+		
 		
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
@@ -150,7 +152,7 @@ func LoadShop():
 		var instance = ShopItem.instantiate() as ShopItem
 		
 		## when a new shop item is made, set the species to plant and then the type of plant
-		instance.Species = ThEnums.PlantSpecies.Guppygrass
+		##instance.Species = ThEnums.PlantSpecies.Guppygrass
 		
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
@@ -203,12 +205,17 @@ func _on_BuyButton_pressed(item, instance):
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
 		
-		var fish_instance = instance as ShopItem
+		##var fish_instance = item as ShopItem
+		##print(fish_instance["Species"], item["Species"], instance["Species"])
 		var fish
-		if fish_instance.Species == ThEnums.FishSpecies.Guppy:
+		if item["Species"] == ThEnums.FishSpecies.Guppy:
 			## this will change to a different scene in the future
 			fish = FishScene.instantiate() as Fish
-			fish.fishType = ThEnums.FishSpecies.Guppy
+			fish.Species = ThEnums.FishSpecies.Guppy
+		elif item["Species"] == ThEnums.FishSpecies.Clownfish:
+			fish = ClownFishScene.instantiate() as Fish
+			fish.Species = ThEnums.FishSpecies.Clownfish
+			
 		# Add a fish to the PlayerInventory
 		PlayerManager.marineLifeInventory.append(fish)
 		
@@ -318,8 +325,8 @@ func _on_mute_toggled(toggled):
 ## StockShop
 ## Fills Shop with everything from Stock
 func StockShop():
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1})
+	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1, "Species": ThEnums.PlantSpecies.Guppygrass})
 	
 		
 	

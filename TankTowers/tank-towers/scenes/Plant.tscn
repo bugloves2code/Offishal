@@ -9,6 +9,11 @@ size = Vector2(38.5, 3)
 [node name="Plant" type="CharacterBody2D"]
 collision_layer = 64
 script = ExtResource("1_4m1de")
+age = null
+harvestAge = null
+waterType = null
+sell_price = null
+maxSpeed = null
 wanderTime = 0.0
 wanderRadius = 0.0
 wanderWeight = 0.0

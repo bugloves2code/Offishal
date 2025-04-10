@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://blnlgirchpy8e"]
+
+[ext_resource type="Texture2D" uid="uid://cui3c3067jn0v" path="res://assets/anemone.png" id="1_37v6f"]
+[ext_resource type="Script" path="res://scripts/Plant.gd" id="1_wd775"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyokx"]
+size = Vector2(38.5, 3)
+
+[node name="Anemone" type="CharacterBody2D"]
+script = ExtResource("1_wd775")
+age = null
+harvestAge = null
+waterType = null
+sell_price = null
+maxSpeed = null
+wanderTime = null
+wanderRadius = null
+wanderWeight = null
+boundsWeight = null
+isMoving = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.111464, 0.166107)
+texture = ExtResource("1_37v6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 2
+position = Vector2(1, 40)
+shape = SubResource("RectangleShape2D_fyokx")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

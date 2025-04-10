@@ -123,7 +123,7 @@ func Levelup():
 	Notifier.push_notification("Level Up!")
 	level += 1
 	if(PlayerManager.level == 5):
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/download.jpg"), "price": 1})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
 	UiManager.ReloadAllUI()
 	
 	

@@ -13,7 +13,7 @@ var last_scroll = 0
 var parent_global_pos
 var collisionShape
 
-var fishType: ThEnums.FishSpecies
+var Species: ThEnums.FishSpecies
 ## Fish Properties
 var fishname : String
 
