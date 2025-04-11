@@ -81,7 +81,7 @@ func AddPlant(plantInstance):
 		
 	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
-		SpawnManager.SpawnPlant(self)
+		SpawnManager.SpawnPlant(self, plantInstance)
 		## print("Added plant")
 	else:
 		## this needs to be a print statement

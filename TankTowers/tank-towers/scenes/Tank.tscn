@@ -49,7 +49,6 @@ offset_right = 274.0
 offset_bottom = 135.0
 mouse_filter = 1
 script = ExtResource("1_ickdv")
-tank_type = null
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(277, 102)

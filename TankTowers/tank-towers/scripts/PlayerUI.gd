@@ -36,6 +36,8 @@ var PlantScene = preload("res://scenes/Plant.tscn")
 
 var ClownFishScene = preload("res://scenes/ClownFish.tscn")
 
+var AnemoneScene = preload("res://scenes/Anemone.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gets Player Level
@@ -233,9 +235,17 @@ func _on_BuyPlantButton_pressed(item, instance):
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
 		
+		var plant
+		if item["Species"] == ThEnums.PlantSpecies.Guppygrass:
+			plant = PlantScene.instantiate() as Plant
+			plant.Species = ThEnums.PlantSpecies.Guppygrass
+		elif item["Species"] == ThEnums.PlantSpecies.Anemone:
+			plant = AnemoneScene.instantiate() as Plant
+			plant.Species = ThEnums.PlantSpecies.Anemone
+		
 		# Add a fish to the PlayerInventory
-		var plant_instance = PlantScene.instantiate()
-		PlayerManager.marineLifeInventory.append(plant_instance)
+		##var plant_instance = PlantScene.instantiate()
+		PlayerManager.marineLifeInventory.append(plant)
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()

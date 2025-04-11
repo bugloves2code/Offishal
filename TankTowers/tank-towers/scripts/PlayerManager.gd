@@ -124,6 +124,7 @@ func Levelup():
 	level += 1
 	if(PlayerManager.level == 5):
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
 	UiManager.ReloadAllUI()
 	
 	

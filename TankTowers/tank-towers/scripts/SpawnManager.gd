@@ -8,6 +8,7 @@ extends Node
 @export var fishScene: PackedScene
 @export var plantScene : PackedScene
 @export var clownFishScene : PackedScene
+@export var anemoneScene : PackedScene
 
 var plantPositions: Array = [
 Vector2(110, 180), 
@@ -21,8 +22,19 @@ Vector2(355, 180),
 Vector2(390, 180), 
 Vector2(425, 180)]
 
-func SpawnPlant(tank: Tank) -> Plant:
-	var plant : Plant = plantScene.instantiate()
+func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
+	var plant
+	if instance.Species == ThEnums.PlantSpecies.Guppygrass:
+		plant = plantScene.instantiate()
+		plant.Species = ThEnums.PlantSpecies.Guppygrass
+		##fish.fishname = instance.fishname
+	elif instance.Species == ThEnums.PlantSpecies.Anemone:
+		plant = anemoneScene.instantiate()
+		plant.Species = ThEnums.PlantSpecies.Anemone
+		##fish.fishname = instance.fishname
+		
+	instance.queue_free()
+	
 	tank.add_child(plant)
 	plant.position = plantPositions[tank.plantList.size() - 1]
 	return plant
@@ -70,6 +82,7 @@ func _ready() -> void:
 	fishScene = load("res://scenes/Fish.tscn")
 	plantScene = load("res://scenes/Plant.tscn")
 	clownFishScene = load("res://scenes/ClownFish.tscn")
+	anemoneScene = load("res://scenes/Anemone.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
