@@ -38,28 +38,30 @@ text = " Put in Inventory"
 
 [node name="AgeLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 179.0
-offset_top = 31.0
-offset_right = 219.0
-offset_bottom = 54.0
+offset_left = 79.0
+offset_top = 32.0
+offset_right = 119.0
+offset_bottom = 55.0
 text = "Age"
 horizontal_alignment = 1
 
 [node name="HarvestTimeLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 340.0
-offset_top = 31.0
-offset_right = 443.0
-offset_bottom = 54.0
+offset_left = 412.0
+offset_top = 32.0
+offset_right = 515.0
+offset_bottom = 55.0
 text = "Harvest Time"
+horizontal_alignment = 1
 
 [node name="TypeLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 267.0
-offset_top = 30.0
-offset_right = 307.0
-offset_bottom = 53.0
+offset_left = 269.0
+offset_top = 32.0
+offset_right = 309.0
+offset_bottom = 55.0
 text = "Type"
+horizontal_alignment = 1
 
 [node name="CloseButton" type="Button" parent="Panel"]
 layout_mode = 0

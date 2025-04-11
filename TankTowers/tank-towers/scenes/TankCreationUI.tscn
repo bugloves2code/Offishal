@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dksf32ultwbsm"]
+
+[node name="TankCreationUI" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 2.0
+offset_top = 76.0
+offset_right = 578.0
+offset_bottom = 249.0
+
+[node name="TankTypeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 67.0
+offset_right = 126.0
+offset_bottom = 90.0
+text = "Tank Type: "
+
+[node name="FreshWaterCheckBox" type="CheckBox" parent="Panel"]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 68.0
+offset_right = 279.0
+offset_bottom = 92.0
+
+[node name="Freshwater" type="Label" parent="Panel/FreshWaterCheckBox"]
+layout_mode = 0
+offset_left = -96.0
+offset_right = -2.0
+offset_bottom = 23.0
+text = "Fresh Water"
+
+[node name="SaltwaterCheckBox" type="CheckBox" parent="Panel"]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 70.0
+offset_right = 452.0
+offset_bottom = 94.0
+
+[node name="Saltwater" type="Label" parent="Panel/SaltwaterCheckBox"]
+layout_mode = 0
+offset_left = -96.0
+offset_right = -2.0
+offset_bottom = 23.0
+text = "Salt Water"
+
+[node name="Tankname" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 7.0
+offset_right = 322.0
+offset_bottom = 30.0
+text = "Tank name"
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 128.0
+offset_right = 169.0
+offset_bottom = 162.0
+text = "Create Tank"
+
+[node name="PriceLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 97.0
+offset_right = 310.0
+offset_bottom = 120.0
+text = "$Price"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 126.0
+offset_right = 504.0
+offset_bottom = 159.0
+text = "Cancel"
