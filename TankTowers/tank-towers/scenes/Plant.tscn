@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://daygy35j0jnhk"]
+[gd_scene load_steps=6 format=3 uid="uid://daygy35j0jnhk"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_4m1de"]
 [ext_resource type="Texture2D" uid="uid://uxsd2rryiv17" path="res://assets/guppyGrass.PNG" id="1_batkw"]
+[ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_gnw6g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asgl7"]
+resource_local_to_scene = true
+shader = ExtResource("2_gnw6g")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ssdr"]
 size = Vector2(38.5, 3)
@@ -16,6 +22,7 @@ boundsWeight = 0.0
 isMoving = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_asgl7")
 scale = Vector2(0.0936867, 0.132214)
 texture = ExtResource("1_batkw")
 
@@ -32,4 +39,8 @@ offset_top = -40.0
 offset_right = 38.0
 offset_bottom = 44.0
 
+[node name="Harvest" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="gui_input" from="Control" to="." method="plant_clicked"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

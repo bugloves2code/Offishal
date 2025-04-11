@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0ha7w6j3tk05"]
+[gd_scene load_steps=6 format=3 uid="uid://d0ha7w6j3tk05"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_6kk0x"]
 [ext_resource type="Texture2D" uid="uid://6ucanyw07b7p" path="res://assets/guppy.PNG" id="2_1f3kr"]
+[ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_r622j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v42x8"]
+resource_local_to_scene = true
+shader = ExtResource("2_r622j")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
 radius = 64.0078
@@ -13,6 +19,7 @@ wanderRadius = 20.0
 boundsWeight = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_v42x8")
 position = Vector2(0, -1)
 rotation = -0.401426
 scale = Vector2(-0.25, 0.25)
@@ -29,5 +36,9 @@ offset_top = -22.0
 offset_right = 61.0
 offset_bottom = 37.0
 
+[node name="Harvest" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="gui_input" from="Control" to="." method="fish_clicked"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
