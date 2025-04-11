@@ -72,15 +72,20 @@ func fish_clicked(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			if self.harvestStatus == false:
-				FishUI.loadFish(self)
-				FishUI.loadFishUI()
-			else:
-				PlayerManager.xp += 1
-				PlayerManager.money += 1
+			if self.harvestStatus == true:
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 				$Harvest.start()
 				self.harvestStatus = false
+				if self.Species == ThEnums.FishSpecies.Guppy:
+					PlayerManager.xp += 1
+					PlayerManager.money += 1
+				elif self.Species == ThEnums.FishSpecies.Clownfish:
+					PlayerManager.xp += 3
+					PlayerManager.money += 3
+			else:
+				FishUI.loadFish(self)
+				FishUI.loadFishUI()
+				
 
 #When the harvest timer goes off
 func _on_harvest_timeout() -> void:

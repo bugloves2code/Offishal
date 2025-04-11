@@ -38,11 +38,15 @@ func plant_clicked(event: InputEvent) -> void:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == true:
-				PlayerManager.xp += 1
-				PlayerManager.money += 1
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 				$Harvest.start()
 				self.harvestStatus = false
+				if self.Species == ThEnums.PlantSpecies.Guppygrass:
+					PlayerManager.xp += 1
+					PlayerManager.money += 1
+				elif self.Species == ThEnums.PlantSpecies.Anemone:
+					PlayerManager.xp += 3
+					PlayerManager.money += 3
 
 #When the harvest timer goes off
 func _on_harvest_timeout() -> void:
