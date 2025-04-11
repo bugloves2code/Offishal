@@ -33,3 +33,10 @@ enum PlantSpecies
 	Guppygrass,
 	Anemone
 }
+
+func get_species_name(species_value: int) -> String:
+	match species_value:
+		0: return "Guppy"
+		1: return "ClownFish"
+		_: return "Unkown"
+		

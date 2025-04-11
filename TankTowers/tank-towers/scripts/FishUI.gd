@@ -39,6 +39,7 @@ func loadFish(fishInstance: CharacterBody2D):
 func loadFishUI():
 	$Panel/FishNameLabel.text = fish.fishname
 	$Panel/AgeLabel.text ="Age: %s" % fish.age
+	$Panel/TypeLabel.text = ThEnums.get_species_name(fish.Species)
 	if _on_put_inventory:
 		$Panel/PutinInventoryButton.pressed.disconnect(_on_put_inventory)
 		_on_put_inventory = func(): PutInInventory()
