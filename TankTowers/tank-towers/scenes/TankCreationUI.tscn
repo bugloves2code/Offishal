@@ -1,6 +1,15 @@
-[gd_scene format=3 uid="uid://dksf32ultwbsm"]
+[gd_scene load_steps=2 format=3 uid="uid://dksf32ultwbsm"]
 
-[node name="TankCreationUI" type="CanvasLayer"]
+[ext_resource type="Script" path="res://scripts/TankCreationUI.gd" id="1_ids51"]
+
+[node name="TankCreationUI" type="CanvasLayer" node_paths=PackedStringArray("SaltwaterCheckbox", "FreshwaterCheckbox", "PriceLabel", "TankNameLabel", "CreateTankButton", "CancelButton")]
+script = ExtResource("1_ids51")
+SaltwaterCheckbox = NodePath("Panel/SaltwaterCheckBox")
+FreshwaterCheckbox = NodePath("Panel/FreshWaterCheckBox")
+PriceLabel = NodePath("Panel/PriceLabel")
+TankNameLabel = NodePath("Panel/Tankname")
+CreateTankButton = NodePath("Panel/CreateTankButton")
+CancelButton = NodePath("Panel/CancelButton")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 2.0
@@ -52,7 +61,7 @@ offset_right = 322.0
 offset_bottom = 30.0
 text = "Tank name"
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="CreateTankButton" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 68.0
 offset_top = 128.0
@@ -68,10 +77,15 @@ offset_right = 310.0
 offset_bottom = 120.0
 text = "$Price"
 
-[node name="Button2" type="Button" parent="Panel"]
+[node name="CancelButton" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 415.0
 offset_top = 126.0
 offset_right = 504.0
 offset_bottom = 159.0
 text = "Cancel"
+
+[connection signal="toggled" from="Panel/FreshWaterCheckBox" to="." method="_on_fresh_water_check_box_toggled"]
+[connection signal="toggled" from="Panel/SaltwaterCheckBox" to="." method="_on_saltwater_check_box_toggled"]
+[connection signal="pressed" from="Panel/CreateTankButton" to="." method="_on_create_tank_button_pressed"]
+[connection signal="pressed" from="Panel/CancelButton" to="." method="_on_cancel_button_pressed"]

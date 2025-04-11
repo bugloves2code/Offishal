@@ -12,14 +12,19 @@ var PlayerUI
 # Holder for Tank Drag Drop UI
 var TankDragDrop
 
-# List of Fish UI that will be created
+# Fish UI
 var FishUI
+
+#TankCreationUI
+var TankCreationUI
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerUI =  get_tree().get_root().get_node("Main/PlayerUI")
 	TankDragDrop = get_tree().get_root().get_node("Main/DragDropMenu")
 	FishUI = get_tree().get_root().get_node("Main/FishUI")
+	TankCreationUI = get_tree().get_root().get_node("Main/TankCreationUI")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,3 +47,6 @@ func ReloadAllUI():
 func CloseFishUI():
 		if FishUI:
 			FishUI.visible = false
+			
+func ShowTankCreationUI():
+	TankCreationUI.visible = true
