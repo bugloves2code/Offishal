@@ -51,3 +51,6 @@ func CloseFishUI():
 			
 func ShowTankCreationUI():
 	TankCreationUI.visible = true
+	
+func CloseTankCreationUI():
+	TankCreationUI.visible = false

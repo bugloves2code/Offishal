@@ -83,6 +83,7 @@ func _on_menu_pressed() -> void:
 	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
 		MenuPanel.visible = true
 		UiManager.CloseFishUI()
+		UiManager.CloseTankCreationUI()
 		menuButton.text = "X"
 	else:
 		MenuPanel.visible = false
