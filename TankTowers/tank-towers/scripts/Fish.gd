@@ -35,6 +35,7 @@ func _ready() -> void:
 	FishUI = UiManager.FishUI
 	collision_layer = 0;
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
+	$Harvest.start()
 
 func adjustFishBounds() -> void:
 	var rectShape = collisionShape.shape as RectangleShape2D
@@ -74,7 +75,19 @@ func fish_clicked(event: InputEvent) -> void:
 			if self.harvestStatus == false:
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()
+			else:
 				PlayerManager.xp += 1
 				PlayerManager.money += 1
-			else:
-				print("Harvest")
+				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
+				$Harvest.start()
+				self.harvestStatus = false
+
+#When the harvest timer goes off
+func _on_harvest_timeout() -> void:
+	$Harvest.stop()
+	self.harvestStatus = true
+	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.

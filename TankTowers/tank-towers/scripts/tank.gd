@@ -49,9 +49,6 @@ func AddFish(fishInstance):
 	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
 	fishInstance.queue_free()
 	
-	if fishList.size() == 0 && plantList.size() == 0:
-		$Harvest.start()
-		
 	if fishList.size() < fishCapacity:
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
@@ -75,10 +72,7 @@ func AddFish(fishInstance):
 ## AddPlant
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
-func AddPlant(plantInstance):
-	if fishList.size() == 0 && plantList.size() == 0:
-		$Harvest.start()
-		
+func AddPlant(plantInstance):	
 	if plantList.size() < plantCapacity:
 		plantList.append(plantInstance)
 		SpawnManager.SpawnPlant(self, plantInstance)
@@ -89,31 +83,6 @@ func AddPlant(plantInstance):
 		print("Tank is full")
 		
 	UiManager.ReloadAllUI()
-	
-
-## HarvestTank
-## This method harvests the fish and plants in tank and adds
-## money based on the number of fish and plants in the tank
-## and resets the harvest timer and harvestStatus
-func HarvestTank():
-	PlayerManager.money += fishList.size() + plantList.size()
-	PlayerManager.xp += 1
-	harvestStatus = false
-	$Harvest.start()
-	$Sprite2D.material.set_shader_parameter("onOff", 0.0);
-
-## _on_harvest_timeout
-## Stops the harvest timer and sets the harvestStatus to true
-## Resets the UI so that the harvest button becomes valid
-func _on_harvest_timeout() -> void:
-	harvestStatus = true
-	$Harvest.stop()
-	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
-	
-	var Main = get_tree().current_scene
-	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
-	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
-		Ui_Panel.ReloadUI(self)
 
 ## _can_drop_data
 ## checks to seee if data is acceptable to be dropped here
