@@ -66,8 +66,7 @@ offset_left = 125.0
 offset_top = 546.0
 offset_right = 444.0
 offset_bottom = 698.0
-text = "Create Tank
-$5"
+text = "Create Tank"
 
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 

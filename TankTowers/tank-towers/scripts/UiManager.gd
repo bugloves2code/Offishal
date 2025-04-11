@@ -40,6 +40,7 @@ func ReloadAllUI():
 	PlayerUI.ReloadShopUI()
 	PlayerUI.ShowPlayerLevel()
 	TankDragDrop.populate_hbox_container()
+	TankCreationUI.ReloadTankCreationUI()
 	
 ## CloseAllFishUIBut
 ## closes all FishUI except the one passed

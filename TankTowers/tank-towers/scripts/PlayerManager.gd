@@ -12,7 +12,7 @@ extends Node
 ## - I would have preferred this to be an unsigned integer
 ##   to not have to worry about negative currency, but
 ##   can you take a wild guess what GDScript doesn't have?
-@export var money: int = 10000000;
+@export var money: int = 10;
 
 ## The player's maximum currency.
 ## - There should probably be a maximum just so there's
@@ -69,6 +69,8 @@ var marineLifeInventory: Array[MarineLife];
 ##   this is just a regular, untyped array.
 var tankInventory: Array;
 
+var currentTankPrice
+
 
 ## Testing variables
 var fish_scene = preload("res://scenes/Fish.tscn")
@@ -120,11 +122,19 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## This function updates all the stats the player gets
 ## when they level up
 func Levelup():
-	Notifier.push_notification("Level Up!")
 	level += 1
 	if(PlayerManager.level == 5):
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		Notifier.push_notification("LEVEL UP! NEW FISH AND PLANT UNLOCKED")
+	else:
+		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()
+	
+func UpdateTankPrice(higherprice: bool):
+	if higherprice:
+		currentTankPrice = TankManager.tankList.size() * 5 + 15
+	else:
+		currentTankPrice = TankManager.tankList.size() * 5 + 5
 	
 	

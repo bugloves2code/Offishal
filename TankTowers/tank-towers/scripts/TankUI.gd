@@ -31,3 +31,4 @@ func _on_create_tank_button_pressed() -> void:
 	## print(tankList.size())
 	UiManager.CloseFishUI()
 	UiManager.ShowTankCreationUI()
+	UiManager.ReloadAllUI()

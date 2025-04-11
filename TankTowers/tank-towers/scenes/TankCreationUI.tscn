@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/TankCreationUI.gd" id="1_ids51"]
 
-[node name="TankCreationUI" type="CanvasLayer" node_paths=PackedStringArray("SaltwaterCheckbox", "FreshwaterCheckbox", "PriceLabel", "TankNameLabel", "CreateTankButton", "CancelButton")]
+[node name="TankCreationUI" type="CanvasLayer" node_paths=PackedStringArray("SaltwaterCheckbox", "FreshwaterCheckbox", "PriceLabel", "TankNameLabel", "NameLineEdit", "CreateTankButton", "CancelButton")]
 script = ExtResource("1_ids51")
 SaltwaterCheckbox = NodePath("Panel/SaltwaterCheckBox")
 FreshwaterCheckbox = NodePath("Panel/FreshWaterCheckBox")
 PriceLabel = NodePath("Panel/PriceLabel")
 TankNameLabel = NodePath("Panel/Tankname")
+NameLineEdit = NodePath("TankNameInput")
 CreateTankButton = NodePath("Panel/CreateTankButton")
 CancelButton = NodePath("Panel/CancelButton")
 
@@ -60,6 +61,7 @@ offset_top = 7.0
 offset_right = 322.0
 offset_bottom = 30.0
 text = "Tank name"
+horizontal_alignment = 1
 
 [node name="CreateTankButton" type="Button" parent="Panel"]
 layout_mode = 0
@@ -76,6 +78,7 @@ offset_top = 97.0
 offset_right = 310.0
 offset_bottom = 120.0
 text = "$Price"
+horizontal_alignment = 1
 
 [node name="CancelButton" type="Button" parent="Panel"]
 layout_mode = 0
@@ -85,7 +88,16 @@ offset_right = 504.0
 offset_bottom = 159.0
 text = "Cancel"
 
+[node name="TankNameInput" type="LineEdit" parent="."]
+offset_left = 228.0
+offset_top = 81.0
+offset_right = 341.0
+offset_bottom = 112.0
+alignment = 1
+
 [connection signal="toggled" from="Panel/FreshWaterCheckBox" to="." method="_on_fresh_water_check_box_toggled"]
 [connection signal="toggled" from="Panel/SaltwaterCheckBox" to="." method="_on_saltwater_check_box_toggled"]
+[connection signal="gui_input" from="Panel/Tankname" to="." method="_on_tankname_label_gui_input"]
 [connection signal="pressed" from="Panel/CreateTankButton" to="." method="_on_create_tank_button_pressed"]
 [connection signal="pressed" from="Panel/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="text_submitted" from="TankNameInput" to="." method="_on_tank_name_input_text_submitted"]
