@@ -88,9 +88,14 @@ func AddPlant(plantInstance):
 ## checks to seee if data is acceptable to be dropped here
 ## also if tank has room for it
 func _can_drop_data(_pos,data):
+	if fishList.size() >= fishCapacity:
+		Notifier.push_notification("TANK IS FULL OF FISH")
+	if plantList.size() >= fishCapacity:
+		Notifier.push_notification("TANK IS FULL OF PLANTS")
+		
+	
 	if data is Node:
 		if data is Fish && fishList.size() < fishCapacity:
-			#print("Drop allowed: Tank has space.")
 			return true
 		elif data is Plant && plantList.size() < plantCapacity:
 			return true
