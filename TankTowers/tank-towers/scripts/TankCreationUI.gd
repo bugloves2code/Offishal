@@ -38,8 +38,10 @@ func CreateTank():
 			
 			if saltwater == true:
 				new_instance.tank_type = ThEnums.WaterType.Salt
+				new_instance.get_node("Sprite2D").texture = load("res://assets/saltwatertank.png")
 			if freshwater == true:
 				new_instance.tank_type = ThEnums.WaterType.Fresh
+				new_instance.get_node("Sprite2D").texture = load("res://assets/tank.PNG")
 				
 
 			if TankManager.tankList.size() == 0:
