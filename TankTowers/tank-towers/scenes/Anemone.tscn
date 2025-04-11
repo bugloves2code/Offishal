@@ -5,6 +5,7 @@
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_bf1p8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_57xbu"]
+resource_local_to_scene = true
 shader = ExtResource("2_bf1p8")
 shader_parameter/onOff = 0.0
 
