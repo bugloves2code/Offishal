@@ -53,7 +53,7 @@ func AddFish(fishInstance):
 		$Harvest.start()
 		
 	if fishList.size() < fishCapacity:
-		var fishspawned = SpawnManager.SpawnFish(self)
+		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()
 		fishList.append(fishspawned)
