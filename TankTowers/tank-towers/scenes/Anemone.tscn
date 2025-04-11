@@ -15,6 +15,7 @@ size = Vector2(38.5, 3)
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_wd775")
+waterType = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_57xbu")

@@ -12,7 +12,7 @@ extends Node
 ## - I would have preferred this to be an unsigned integer
 ##   to not have to worry about negative currency, but
 ##   can you take a wild guess what GDScript doesn't have?
-@export var money: int = 10;
+@export var money: int = 10000000;
 
 ## The player's maximum currency.
 ## - There should probably be a maximum just so there's

@@ -10,15 +10,11 @@
 extends Control
 class_name Tank
 
-## WaterType is pulling the enum of WaterType from ThEnums.gd
-## unsure if there is a better way of doing this because ThEmnums.gd
-## is an Autoload 
-const WaterType = preload("res://scripts/ThEnums.gd").WaterType
 
 ## tank_type is where this tanks WaterType will be stored
 ## this is currently hardcoded and shown in inspector
 ## this will likely be chosen before tank creation
-@export var tank_type: WaterType = WaterType.Fresh
+@export var tank_type: ThEnums.WaterType
 
 ## fishCapacity is the amount of fish allowed in this tank
 var fishCapacity = 10
@@ -92,7 +88,15 @@ func _can_drop_data(_pos,data):
 		Notifier.push_notification("TANK IS FULL OF FISH")
 	if plantList.size() >= fishCapacity:
 		Notifier.push_notification("TANK IS FULL OF PLANTS")
-		
+	
+	
+	if data.waterType != ThEnums.WaterType.Fresh && self.tank_type == ThEnums.WaterType.Fresh:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
+	
+	elif data.waterType != ThEnums.WaterType.Salt && self.tank_type == ThEnums.WaterType.Salt:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
 	
 	if data is Node:
 		if data is Fish && fishList.size() < fishCapacity:

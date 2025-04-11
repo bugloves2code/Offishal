@@ -16,10 +16,8 @@ extends Node
 ##   that the "Any" type is a union of all the other values. 
 enum WaterType
 { 
-	Fresh     = 0b0001, # 1 
-	Brackish  = 0b0010, # 2
-	Salt      = 0b0100, # 4
-	Any       = 0b0111  # 7
+	Fresh, # 1 
+	Salt
 }
 
 enum FishSpecies
