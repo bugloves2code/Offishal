@@ -68,8 +68,6 @@ offset_right = 444.0
 offset_bottom = 698.0
 text = "Create Tank"
 
-[node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
-
 [node name="DragDropMenu" parent="." instance=ExtResource("5_bmkks")]
 
 [node name="FishUI" parent="." instance=ExtResource("6_8n0oa")]
@@ -77,5 +75,7 @@ visible = false
 
 [node name="TankCreationUI" parent="." instance=ExtResource("7_mmrkm")]
 visible = false
+
+[node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]

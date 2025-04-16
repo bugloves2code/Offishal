@@ -40,6 +40,7 @@ var AnemoneScene = preload("res://scenes/Anemone.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("HELLO FROM PLAYERUI")
 	# Gets Player Level
 	ShowPlayerLevel()
 	# Load current values
@@ -336,7 +337,7 @@ func _on_mute_toggled(toggled):
 ## StockShop
 ## Fills Shop with everything from Stock
 func StockShop():
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
+	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
 	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1, "Species": ThEnums.PlantSpecies.Guppygrass})
 	
 		
