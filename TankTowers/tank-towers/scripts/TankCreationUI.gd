@@ -54,11 +54,6 @@ func CreateTank():
 				new_instance.tank_type = ThEnums.WaterType.Fresh
 				new_instance.get_node("Sprite2D").texture = load("res://assets/tank.PNG")
 				
-
-			if TankManager.tankList.size() == 0:
-				new_instance.position = Vector2(290,800)
-			else:
-				new_instance.position = Vector2(290, 800 + (TankManager.tankList.size() * 200))
 			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
 			new_instance.get_node("TankLabel").text = new_instance.tankName
 			TankManager.tankList.append(new_instance)
@@ -112,6 +107,7 @@ func _on_create_tank_button_pressed() -> void:
 	CreateTank()
 	if freshwater != null && PlayerManager.money >= PlayerManager.currentTankPrice:
 		self.visible = false
+	UiManager.ShowInventory()
 	UiManager.ReloadAllUI()
 	
 

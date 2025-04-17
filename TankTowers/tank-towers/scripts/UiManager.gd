@@ -54,3 +54,14 @@ func ShowTankCreationUI():
 	
 func CloseTankCreationUI():
 	TankCreationUI.visible = false
+	
+func ShowInventory():
+	TankDragDrop.visible = true
+	PlayerUI.ShowIventorySort()
+	
+func CloseInventory():
+	TankDragDrop.visible = false
+	PlayerUI.CloseInventorySort()
+	
+func CloseShop():
+	PlayerUI.CloseShop()

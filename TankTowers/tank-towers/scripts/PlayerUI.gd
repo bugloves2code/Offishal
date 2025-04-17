@@ -66,7 +66,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	## makes sure money stays consistent with any changes
-	$Panel/MoenyCount.text = str(PlayerManager.money)
+	$MoneyPanel/MoenyCount.text = str(PlayerManager.money)
 
 
 ## _on_menu_pressed
@@ -138,7 +138,7 @@ func LoadShop():
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
 		#print(image)
-		var price = instance.get_node("GridContainer/Price")
+		var price = instance.get_node("GridContainer/Price")  
 		#print(price)
 		var buyButton = instance.get_node("GridContainer/BuyButton")
 		
@@ -149,7 +149,7 @@ func LoadShop():
 		buyButton.connect("pressed", Callable(self, "_on_BuyButton_pressed").bind(item, instance))
 		
 		# Add the instance to the HBoxContainer
-		$ShopPanel/ScrollContainer/HBoxContainer.add_child(instance)
+		$ShopScrollContainer/HBoxContainer.add_child(instance)
 	
 	for item in PlantShopStock:
 		# Instantiate the ShopItem scene
@@ -171,7 +171,7 @@ func LoadShop():
 		# Connect the BuyButton to a function
 		buyButton.connect("pressed", Callable(self, "_on_BuyPlantButton_pressed").bind(item, instance))
 		
-		$ShopPanel/PlantScrollContainer/HBoxContainer.add_child(instance)
+		$ShopScrollContainer/HBoxContainer.add_child(instance)
 		
 ## LoadSellShop
 ## Loads Sell Shop UI
@@ -259,8 +259,8 @@ func ReloadShopUI():
 	# Clear existing children in the HBoxContainer
 	for child in $ShopPanel/ScrollContainer/HBoxContainer.get_children():
 		child.queue_free()
-	
-	for child in $ShopPanel/PlantScrollContainer/HBoxContainer.get_children():
+		
+	for child in $ShopScrollContainer/HBoxContainer.get_children():
 		child.queue_free()
 		
 	# Reload the ShopStock items
@@ -280,7 +280,7 @@ func ReloadSellShopUI():
 ## ShowPlayerLevel
 ## gets player level and displays it
 func ShowPlayerLevel():
-	var LevelLabel = $Panel/LevelLabel
+	var LevelLabel = $LevelPanel/LevelLabel
 	LevelLabel.text = "Level: %s" % PlayerManager.level
 	
 ## _on_sell_button_pressed
@@ -342,3 +342,28 @@ func StockShop():
 	
 		
 	
+
+
+func _on_inventory_pressed() -> void:
+	UiManager.ShowInventory()
+	UiManager.CloseFishUI()
+	UiManager.CloseTankCreationUI()
+	CloseShop()
+
+
+func _on_shop_pressed() -> void:
+	UiManager.CloseInventory()
+	UiManager.CloseFishUI()
+	UiManager.CloseTankCreationUI()
+	$ShopScrollContainer.visible = true
+	$Background.visible = true
+	
+func CloseShop():
+	$ShopScrollContainer.visible = false
+	$Background.visible = false
+	
+func ShowIventorySort():
+	$InventoryPanel.visible = true
+	
+func CloseInventorySort():
+	$InventoryPanel.visible = false

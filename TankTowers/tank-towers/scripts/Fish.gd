@@ -85,6 +85,8 @@ func fish_clicked(event: InputEvent) -> void:
 			else:
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()
+				UiManager.CloseInventory()
+				UiManager.CloseShop()
 				
 
 #When the harvest timer goes off
