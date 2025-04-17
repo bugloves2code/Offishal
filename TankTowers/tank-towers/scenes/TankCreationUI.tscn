@@ -13,25 +13,25 @@ CreateTankButton = NodePath("Panel/CreateTankButton")
 CancelButton = NodePath("Panel/CancelButton")
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = 2.0
-offset_top = 76.0
-offset_right = 578.0
-offset_bottom = 249.0
+offset_left = 1.0
+offset_top = 920.0
+offset_right = 577.0
+offset_bottom = 1024.0
 
 [node name="TankTypeLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 38.0
-offset_top = 67.0
-offset_right = 126.0
-offset_bottom = 90.0
+offset_left = 39.0
+offset_top = 30.0
+offset_right = 127.0
+offset_bottom = 53.0
 text = "Tank Type: "
 
 [node name="FreshWaterCheckBox" type="CheckBox" parent="Panel"]
 layout_mode = 0
-offset_left = 255.0
-offset_top = 68.0
-offset_right = 279.0
-offset_bottom = 92.0
+offset_left = 252.0
+offset_top = 32.0
+offset_right = 276.0
+offset_bottom = 56.0
 
 [node name="Freshwater" type="Label" parent="Panel/FreshWaterCheckBox"]
 layout_mode = 0
@@ -42,10 +42,10 @@ text = "Fresh Water"
 
 [node name="SaltwaterCheckBox" type="CheckBox" parent="Panel"]
 layout_mode = 0
-offset_left = 428.0
-offset_top = 70.0
-offset_right = 452.0
-offset_bottom = 94.0
+offset_left = 423.0
+offset_top = 33.0
+offset_right = 447.0
+offset_bottom = 57.0
 
 [node name="Saltwater" type="Label" parent="Panel/SaltwaterCheckBox"]
 layout_mode = 0
@@ -65,34 +65,34 @@ horizontal_alignment = 1
 
 [node name="CreateTankButton" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 128.0
-offset_right = 169.0
-offset_bottom = 162.0
+offset_left = 70.0
+offset_top = 65.0
+offset_right = 171.0
+offset_bottom = 99.0
 text = "Create Tank"
 
 [node name="PriceLabel" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 262.0
-offset_top = 97.0
-offset_right = 310.0
-offset_bottom = 120.0
+offset_left = 261.0
+offset_top = 53.0
+offset_right = 309.0
+offset_bottom = 76.0
 text = "$Price"
 horizontal_alignment = 1
 
 [node name="CancelButton" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 415.0
-offset_top = 126.0
-offset_right = 504.0
-offset_bottom = 159.0
+offset_left = 416.0
+offset_top = 68.0
+offset_right = 505.0
+offset_bottom = 101.0
 text = "Cancel"
 
 [node name="TankNameInput" type="LineEdit" parent="."]
-offset_left = 228.0
-offset_top = 81.0
-offset_right = 341.0
-offset_bottom = 112.0
+offset_left = 222.0
+offset_top = 922.0
+offset_right = 335.0
+offset_bottom = 953.0
 alignment = 1
 
 [connection signal="toggled" from="Panel/FreshWaterCheckBox" to="." method="_on_fresh_water_check_box_toggled"]

@@ -7,9 +7,9 @@ script = ExtResource("1_rab0q")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 1.0
-offset_top = 879.0
+offset_top = 920.0
 offset_right = 577.0
-offset_bottom = 981.0
+offset_bottom = 1022.0
 
 [node name="FishNameLabel" type="Label" parent="Panel"]
 layout_mode = 0
