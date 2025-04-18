@@ -82,3 +82,4 @@ func PutInInventory():
 ## closes ui
 func CloseUI():
 	self.visible = false
+	UiManager.ShowInventory()

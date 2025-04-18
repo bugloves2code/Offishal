@@ -28,7 +28,8 @@ func OnHarvestTankPressed(tank):
 ## Creat Tank Button and processes if a tank can be made and then adds it to
 ## the scene
 func _on_create_tank_button_pressed() -> void:
-	## print(tankList.size())
 	UiManager.CloseFishUI()
 	UiManager.ShowTankCreationUI()
 	UiManager.ReloadAllUI()
+	UiManager.CloseInventory()
+	UiManager.CloseShop()
