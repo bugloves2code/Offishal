@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=14 format=3 uid="uid://drn71bam3c4bg"]
 
 [ext_resource type="Texture2D" uid="uid://blalccixuhlqo" path="res://assets/wood1.png" id="1_pknq4"]
 [ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cc635125djwmg" path="res://scenes/PlayerUI.tscn" id="3_p3gy6"]
 [ext_resource type="PackedScene" uid="uid://dacg7efk2pt4" path="res://scenes/DragDropMenu.tscn" id="5_bmkks"]
 [ext_resource type="PackedScene" uid="uid://lv1lhpkxx8qt" path="res://scenes/FishUI.tscn" id="6_8n0oa"]
+[ext_resource type="Script" path="res://scripts/FileIO/SaverLoader.gd" id="7_ut05g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -68,6 +69,22 @@ offset_bottom = 698.0
 text = "Create Tank
 $5"
 
+[node name="SaveButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 255.0
+offset_right = 487.0
+offset_bottom = 338.0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 373.0
+offset_top = 348.0
+offset_right = 499.0
+offset_bottom = 447.0
+text = "Load"
+
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
 
 [node name="DragDropMenu" parent="." instance=ExtResource("5_bmkks")]
@@ -75,4 +92,9 @@ $5"
 [node name="FishUI" parent="." instance=ExtResource("6_8n0oa")]
 visible = false
 
+[node name="SaverLoader" type="Node" parent="."]
+script = ExtResource("7_ut05g")
+
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/SaveButton" to="SaverLoader" method="SaveGame"]
+[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/LoadButton" to="SaverLoader" method="LoadGame"]
