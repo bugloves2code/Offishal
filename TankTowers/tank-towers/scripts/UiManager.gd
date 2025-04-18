@@ -26,6 +26,7 @@ func _ready() -> void:
 	TankDragDrop = get_tree().get_root().get_node("Main/DragDropMenu")
 	FishUI = get_tree().get_root().get_node("Main/FishUI")
 	TankCreationUI = get_tree().get_root().get_node("Main/TankCreationUI")
+	CloseAllBottomUI()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,3 +67,14 @@ func CloseInventory():
 	
 func CloseShop():
 	PlayerUI.CloseShop()
+	
+func CloseAllBottomUI():
+	PlayerUI.CloseShop()
+	TankDragDrop.visible = false
+	PlayerUI.CloseInventorySort()
+	PlayerUI.CloseMenuPanel()
+	
+func ShowAllBottomUI():
+	PlayerUI.ShowMenuPanel()
+	TankDragDrop.visible = true
+	

@@ -369,3 +369,11 @@ func ShowIventorySort():
 	
 func CloseInventorySort():
 	$InventoryPanel.visible = false
+	
+func CloseMenuPanel():
+	$Panel.visible = false
+	$InventoryPanel.visible = false
+	
+func ShowMenuPanel():
+	$Panel.visible = true
+	$InventoryPanel.visible = true

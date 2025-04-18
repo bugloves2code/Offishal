@@ -39,6 +39,7 @@ VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_ypcss")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_ximmp")
 
 [node name="PlayerUI" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1_f37m1")
 
 [node name="Background" type="Panel" parent="."]
