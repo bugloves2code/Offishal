@@ -4,6 +4,7 @@
 ## - This Script is used to display things the player
 ## needs to interact with
 extends Node
+signal shopPressed
 
 ## Arrays for the Fish Shop and Plant Shop
 var ShopStock: Array;
@@ -352,6 +353,7 @@ func _on_inventory_pressed() -> void:
 
 
 func _on_shop_pressed() -> void:
+	emit_signal("shopPressed")
 	UiManager.CloseInventory()
 	UiManager.CloseFishUI()
 	UiManager.CloseTankCreationUI()

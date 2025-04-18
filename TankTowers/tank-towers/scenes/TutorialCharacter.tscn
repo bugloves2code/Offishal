@@ -3,47 +3,35 @@
 [ext_resource type="Texture2D" uid="uid://djqecllqgeodn" path="res://assets/supercooldude.PNG" id="1_n1811"]
 [ext_resource type="Texture2D" uid="uid://c4vnk14lcclnt" path="res://assets/textbox.PNG" id="2_13xbj"]
 
-[sub_resource type="Animation" id="Animation_wuu3p"]
-resource_name = "slide_in"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.5, 2),
-"update": 0,
-"values": [Vector2(-158, 839), Vector2(421, 839)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-
 [sub_resource type="Animation" id="Animation_wmqhq"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-158, 839)]
+"values": [Vector2(-575, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wuu3p"]
+resource_name = "slide_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(-575, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_rhyk5"]
@@ -52,26 +40,14 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(2, 0.5),
+"transitions": PackedFloat32Array(0.5, 2),
 "update": 0,
-"values": [Vector2(421, 839), Vector2(-156, 839)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
+"values": [Vector2(0, 0), Vector2(-575, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_57hg5"]
@@ -82,18 +58,19 @@ _data = {
 }
 
 [node name="TutorialCharacter" type="Control"]
+z_index = 4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -575.0
-offset_right = -1151.0
-offset_bottom = -1024.0
+offset_right = -576.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-158, 839)
+position = Vector2(421, 839)
 scale = Vector2(0.390464, 0.390464)
 texture = ExtResource("1_n1811")
 

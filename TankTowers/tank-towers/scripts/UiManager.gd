@@ -22,6 +22,7 @@ var TankCreationUI
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerUI =  get_tree().get_root().get_node("Main/PlayerUI")
+	print(PlayerUI)
 	TankDragDrop = get_tree().get_root().get_node("Main/DragDropMenu")
 	FishUI = get_tree().get_root().get_node("Main/FishUI")
 	TankCreationUI = get_tree().get_root().get_node("Main/TankCreationUI")
