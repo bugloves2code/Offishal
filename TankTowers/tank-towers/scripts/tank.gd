@@ -35,6 +35,7 @@ var harvestStatus = false
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+signal addFish
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
@@ -52,8 +53,9 @@ func AddFish(fishInstance):
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
 		$Bloop.play()
-		## emit signal for adding fish
+		## emit signal for adding fish	
 		emit_signal("addFish")
+		print(self)
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())

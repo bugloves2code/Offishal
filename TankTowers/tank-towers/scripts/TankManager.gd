@@ -22,5 +22,5 @@ var tankList: Array = []
 var tankCapacity = 20
 
 func _process(delta: float) -> void:
-	if (tankList.size() == 1):
+	if (tankList.size() >= 1):
 		emit_signal("tankAdded")

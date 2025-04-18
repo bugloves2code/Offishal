@@ -1,12 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://drn71bam3c4bg"]
+[gd_scene load_steps=17 format=3 uid="uid://drn71bam3c4bg"]
 
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_ivy4i"]
 [ext_resource type="Texture2D" uid="uid://blalccixuhlqo" path="res://assets/wood1.png" id="1_pknq4"]
-[ext_resource type="PackedScene" uid="uid://vcwwpvbuyd3h" path="res://scenes/TutorialScenes/Tutorial.tscn" id="2_1savc"]
 [ext_resource type="PackedScene" uid="uid://djlpjokh8cvll" path="res://scenes/TankUI.tscn" id="2_nto52"]
 [ext_resource type="PackedScene" uid="uid://cc635125djwmg" path="res://scenes/PlayerUI.tscn" id="3_p3gy6"]
 [ext_resource type="PackedScene" uid="uid://dacg7efk2pt4" path="res://scenes/DragDropMenu.tscn" id="5_bmkks"]
 [ext_resource type="PackedScene" uid="uid://lv1lhpkxx8qt" path="res://scenes/FishUI.tscn" id="6_8n0oa"]
 [ext_resource type="PackedScene" uid="uid://dksf32ultwbsm" path="res://scenes/TankCreationUI.tscn" id="7_mmrkm"]
+[ext_resource type="Script" path="res://scripts/TutorialManager.gd" id="8_t44bm"]
+[ext_resource type="PackedScene" uid="uid://bcmggxqftf2f3" path="res://scenes/TutorialCharacter.tscn" id="9_5knk2"]
+[ext_resource type="Script" path="res://scripts/TutorialOverlay.gd" id="10_vkydt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -27,13 +30,13 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_7s786")
 
 [node name="Main" type="Node2D"]
 position = Vector2(8, 9)
+script = ExtResource("1_ivy4i")
+tutorial_manager = NodePath("TutorialManager")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(498.5, 520.5)
 scale = Vector2(2.17773, 2.17773)
 texture = ExtResource("1_pknq4")
-
-[node name="Tutorial" parent="." instance=ExtResource("2_1savc")]
 
 [node name="Tank UI - CanvasLayer" parent="." instance=ExtResource("2_nto52")]
 
@@ -77,5 +80,22 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
+
+[node name="TutorialManager" type="Node" parent="."]
+script = ExtResource("8_t44bm")
+tutorial_overlay = NodePath("../TutorialCharacter")
+
+[node name="TutorialCharacter" parent="." instance=ExtResource("9_5knk2")]
+z_index = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 1.0
+offset_bottom = -4.0
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("10_vkydt")
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]

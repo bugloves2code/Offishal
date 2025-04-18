@@ -7,6 +7,7 @@
 extends MarineLife
 class_name Fish
 
+signal fishClicked
 
 var scrollContainer
 var last_scroll = 0
@@ -75,6 +76,7 @@ func fish_clicked(event: InputEvent) -> void:
 			if self.harvestStatus == true:
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 				$Harvest.start()
+				emit_signal("fishClicked")
 				self.harvestStatus = false
 				if self.Species == ThEnums.FishSpecies.Guppy:
 					PlayerManager.xp += 1
