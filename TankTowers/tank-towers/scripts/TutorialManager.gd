@@ -56,6 +56,7 @@ func _start_step():
 	var step = steps[current_step]  
 	overlay.show_tutorial(step.instruction_text)
 	waiting_for_action = false
+	
 	#var source = get_node(step.signal_source) 
 	#source.connect(step.signal_name, Callable(self, "_on_step_completed")) 
 
@@ -63,6 +64,7 @@ func _on_tutorial_acknowledged():
 	if waiting_for_action:
 		return
 	overlay.hide_tutorial()
+	UiManager.ShowAllBottomUI()
 	waiting_for_action = true
 	if current_step >= steps.size()-1:
 		emit_signal("tutorial_complete")
@@ -78,6 +80,7 @@ func _on_tutorial_acknowledged():
 
 func _on_step_completed():
 	##print("step completed")
+	UiManager.CloseAllBottomUI()
 	var step = steps[current_step]
 	var source = get_node(step.signal_source)
 	if source.is_connected(step.signal_name, Callable(self, "_on_step_completed")):

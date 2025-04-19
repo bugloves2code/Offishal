@@ -19,6 +19,7 @@ var saltwater = null
 
 var freshwater = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	NameLineEdit.hide()
@@ -32,6 +33,9 @@ func _process(delta: float) -> void:
 	
 	
 func CreateTank():
+	if PlayerManager.currentTankPrice == null:
+		Notifier.push_notification("SELECT A TANK TYPE")
+		return
 	if PlayerManager.money >= PlayerManager.currentTankPrice:
 		if TankManager.tankList.size() < TankManager.tankCapacity:
 			## This sound effect makes me want the tank to fall
@@ -57,6 +61,8 @@ func CreateTank():
 			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
 			new_instance.get_node("TankLabel").text = new_instance.tankName
 			TankManager.tankList.append(new_instance)
+			UiManager.ShowInventory()
+			self.visible = false
 
 			if vbox_node:
 				## print("main found")
@@ -64,11 +70,19 @@ func CreateTank():
 				#if TankManager.tankList.size() == 1:
 					#vbox_node.move_child(new_instance, TankManager.tankList.size())
 				#print(TankManager.tankList.size())
+				
+				# Wait for layout to update
 				vbox_node.move_child(new_instance, 1)
+				await get_tree().process_frame
+
+				# Ensure the new tank is fully visible
+				get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
+
 				## print(tankList.size())
 			PlayerManager.money -= PlayerManager.currentTankPrice
 	else:
 		Notifier.push_notification("YOU DON'T HAVE ENOUGH $")
+		
 			
 ## get_random_tank_name is currently a placeholder function so each tank
 ## has a random name and is easier to see what tank you're working with
@@ -101,37 +115,41 @@ func get_random_tank_name() -> String:
 func _on_cancel_button_pressed() -> void:
 	ReloadTankCreationUI()
 	self.visible = false
+	UiManager.ShowInventory()
 
 
 func _on_create_tank_button_pressed() -> void:
 	CreateTank()
-	if freshwater != null && PlayerManager.money >= PlayerManager.currentTankPrice:
+	if freshwater != null && PlayerManager.money >= PlayerManager.currentTankPrice :
 		self.visible = false
-	UiManager.ShowInventory()
+		return
 	UiManager.ReloadAllUI()
 	
 
 
 func _on_fresh_water_check_box_toggled(toggled_on: bool) -> void:
-	PlayerManager.UpdateTankPrice(false)
-	if toggled_on:
-		PriceLabel.text = str("$",PlayerManager.currentTankPrice)
-		# Untoggle Saltwater if Freshwater is toggled
-		SaltwaterCheckbox.button_pressed = false
-	# Update variables to match checkbox states
-	freshwater = toggled_on
-	saltwater = SaltwaterCheckbox.button_pressed
-	
+	_update_tank_type(toggled_on, false)
 
 func _on_saltwater_check_box_toggled(toggled_on: bool) -> void:
-	PlayerManager.UpdateTankPrice(true)
-	if toggled_on:
-		PriceLabel.text = str("$",PlayerManager.currentTankPrice)
-		# Untoggle Freshwater if Saltwater is toggled
-		FreshwaterCheckbox.button_pressed = false
-	# Update variables to match checkbox states
-	saltwater = toggled_on
-	freshwater = FreshwaterCheckbox.button_pressed	
+	_update_tank_type(false, toggled_on)
+
+func _update_tank_type(is_freshwater: bool, is_saltwater: bool) -> void:
+	freshwater = is_freshwater
+	saltwater = is_saltwater
+
+	# Ensure only one checkbox is active
+	FreshwaterCheckbox.set_pressed_no_signal(is_freshwater)
+	SaltwaterCheckbox.set_pressed_no_signal(is_saltwater)
+
+	# Update price based on tank type
+	if freshwater or saltwater:
+		PlayerManager.UpdateTankPrice(saltwater)
+		PriceLabel.text = "$%s" % PlayerManager.currentTankPrice
+	else:
+		freshwater = null
+		saltwater = null
+		PlayerManager.currentTankPrice = null
+		PriceLabel.text = "$0"
 	
 func ReloadTankCreationUI():
 	NameLineEdit.text = ""  # Clear the LineEdit text
@@ -139,7 +157,7 @@ func ReloadTankCreationUI():
 	NameLineEdit.hide()  # Hide the LineEdit
 	TankNameLabel.show()  # Show the label
 	
-	$Panel/PriceLabel.text = "$"
+	$Panel/PriceLabel.text = "$0"
 	$Panel/SaltwaterCheckBox.button_pressed = false
 	$Panel/FreshWaterCheckBox.button_pressed = false
 	freshwater = null
