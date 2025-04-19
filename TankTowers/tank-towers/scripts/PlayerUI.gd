@@ -41,7 +41,6 @@ var AnemoneScene = preload("res://scenes/Anemone.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("HELLO FROM PLAYERUI")
 	# Gets Player Level
 	ShowPlayerLevel()
 	# Load current values
@@ -362,7 +361,6 @@ func _on_shop_pressed() -> void:
 func CloseShop():
 	$ShopScrollContainer.visible = false
 	$Background.visible = false
-	$SellPanel.visible = false
 	
 func ShowInventorySort():
 	$InventoryPanel.visible = true
