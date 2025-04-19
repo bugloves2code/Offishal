@@ -61,7 +61,7 @@ func _ready() -> void:
 	
 	## Loads the UI for the Shop section
 	LoadShop()
-	LoadSellShop()
+	#LoadSellShop()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -82,15 +82,13 @@ func _on_menu_pressed() -> void:
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
-	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
+	if MenuPanel && not MenuPanel.visible && not SettingsPanel.visible:
 		MenuPanel.visible = true
 		UiManager.CloseFishUI()
 		UiManager.CloseTankCreationUI()
 		menuButton.text = "X"
 	else:
 		MenuPanel.visible = false
-		ShopPanel.visible = false
-		SellShopPanel.visible = false
 		SettingsPanel.visible = false
 		menuButton.text = "Menu"
 
@@ -176,25 +174,25 @@ func LoadShop():
 		
 ## LoadSellShop
 ## Loads Sell Shop UI
-func LoadSellShop():
-	for child in grid_container.get_children():
-		child.queue_free()
-	
-	await get_tree().process_frame
-	
-	for item in PlayerManager.marineLifeInventory:
-		var drag_drop_instance = drag_drop_scene.instantiate()
-		
-		#Access the Sprite2D node from the Fish Scene
-		var item_sprite = item.get_node("Sprite2D")
-		
-		#Set the texture of the DragDrop scene to the fish's texture
-		if item_sprite and item_sprite.texture:
-			#print("Fish has get texture")
-			drag_drop_instance.texture = item_sprite.texture
-		drag_drop_instance.drag_info = item
-			
-		grid_container.add_child(drag_drop_instance)
+#func LoadSellShop():
+	#for child in grid_container.get_children():
+		#child.queue_free()
+	#
+	#await get_tree().process_frame
+	#
+	#for item in PlayerManager.marineLifeInventory:
+		#var drag_drop_instance = drag_drop_scene.instantiate()
+		#
+		##Access the Sprite2D node from the Fish Scene
+		#var item_sprite = item.get_node("Sprite2D")
+		#
+		##Set the texture of the DragDrop scene to the fish's texture
+		#if item_sprite and item_sprite.texture:
+			##print("Fish has get texture")
+			#drag_drop_instance.texture = item_sprite.texture
+		#drag_drop_instance.drag_info = item
+			#
+		#grid_container.add_child(drag_drop_instance)
 
 ## Buy Butttons
 
@@ -203,6 +201,7 @@ func LoadSellShop():
 ## Buy Button for Fish
 ## allows player to get new fish in their inventory
 func _on_BuyButton_pressed(item, instance):
+	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
@@ -226,11 +225,14 @@ func _on_BuyButton_pressed(item, instance):
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()
+	else:
+		Notifier.push_notification("YOU CANNOT AFFORD THIS")
 		
 ## _on_BuyPlantButton_pressed
 ## Buy Button for Plant
 ## allows player to get new plant in their inventory
 func _on_BuyPlantButton_pressed(item, instance):
+	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
@@ -252,15 +254,13 @@ func _on_BuyPlantButton_pressed(item, instance):
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()
+	else:
+		Notifier.push_notification("YOU CANNOT AFFORD THIS")
 
 ## ReloadShopUI
 ## clears shop and adds current shop
 ## to it
-func ReloadShopUI():
-	# Clear existing children in the HBoxContainer
-	for child in $ShopPanel/ScrollContainer/HBoxContainer.get_children():
-		child.queue_free()
-		
+func ReloadShopUI():		
 	for child in $ShopScrollContainer/HBoxContainer.get_children():
 		child.queue_free()
 		
@@ -270,13 +270,13 @@ func ReloadShopUI():
 ## ReloadSellShopUI
 ## clears up sell shop and adds current inventory
 ## to the sell shop area
-func ReloadSellShopUI():
-	# Clear existing children in the HBoxContainer
-	for child in $SellShopPanel/ScrollContainer/GridContainer.get_children():
-		child.queue_free()
-		
-	# Reload the ShopStock items
-	LoadSellShop()
+#func ReloadSellShopUI():
+	## Clear existing children in the HBoxContainer
+	#for child in $SellShopPanel/ScrollContainer/GridContainer.get_children():
+		#child.queue_free()
+		#
+	## Reload the ShopStock items
+	##LoadSellShop()
 
 ## ShowPlayerLevel
 ## gets player level and displays it
@@ -346,29 +346,31 @@ func StockShop():
 
 
 func _on_inventory_pressed() -> void:
-	UiManager.ShowInventory()
-	UiManager.CloseFishUI()
-	UiManager.CloseTankCreationUI()
-	CloseShop()
+	if PlayerManager.marineLifeInventory.size() == 0:
+		ShowShop()
+		Notifier.push_notification("INVENTORY IS EMPTY")
+	else:
+		UiManager.ShowInventory()
+		UiManager.CloseFishUI()
+		UiManager.CloseTankCreationUI()
+		CloseShop()
 
 
 func _on_shop_pressed() -> void:
-	emit_signal("shopPressed")
-	UiManager.CloseInventory()
-	UiManager.CloseFishUI()
-	UiManager.CloseTankCreationUI()
-	$ShopScrollContainer.visible = true
-	$Background.visible = true
+	ShowShop()
 	
 func CloseShop():
 	$ShopScrollContainer.visible = false
 	$Background.visible = false
+	$SellPanel.visible = false
 	
-func ShowIventorySort():
+func ShowInventorySort():
 	$InventoryPanel.visible = true
+	$SellPanel.visible = true
 	
 func CloseInventorySort():
 	$InventoryPanel.visible = false
+	$SellPanel.visible = false
 	
 func CloseMenuPanel():
 	$Panel.visible = false
@@ -377,3 +379,11 @@ func CloseMenuPanel():
 func ShowMenuPanel():
 	$Panel.visible = true
 	$InventoryPanel.visible = true
+	$SellPanel.visible = true
+	
+func ShowShop():
+	UiManager.CloseInventory()
+	UiManager.CloseFishUI()
+	UiManager.CloseTankCreationUI()
+	$ShopScrollContainer.visible = true
+	$Background.visible = true

@@ -87,12 +87,16 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("HELLO from playermanager")
-	for i in range(2):
-		var fish_instance = fish_scene.instantiate()
-		marineLifeInventory.append(fish_instance)
-	for i in range(2):
-		marineLifeInventory.append(plant_scene.instantiate())
+	#if(PlayerManager.level >= 5):
+		#UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
+		#UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		#UiManager.SaltWaterUnlock()
+	if level == 1:
+		for i in range(2):
+			var fish_instance = fish_scene.instantiate()
+			marineLifeInventory.append(fish_instance)
+		for i in range(2):
+			marineLifeInventory.append(plant_scene.instantiate())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -124,10 +128,11 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## when they level up
 func Levelup():
 	level += 1
-	if(PlayerManager.level == 5):
+	if(PlayerManager.level == 5):	
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
-		Notifier.push_notification("LEVEL UP! NEW FISH AND PLANT UNLOCKED")
+		UiManager.SaltWaterUnlock()
+		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
 		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()

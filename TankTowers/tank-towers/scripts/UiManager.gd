@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 ## except for UI that is updated within their process function
 ## and give it a refresh so it is up to date with player experience
 func ReloadAllUI():
-	PlayerUI.ReloadSellShopUI()
+	#PlayerUI.ReloadSellShopUI()
 	PlayerUI.ReloadShopUI()
 	PlayerUI.ShowPlayerLevel()
 	TankDragDrop.populate_hbox_container()
@@ -58,8 +58,12 @@ func CloseTankCreationUI():
 	TankCreationUI.visible = false
 	
 func ShowInventory():
-	TankDragDrop.visible = true
-	PlayerUI.ShowIventorySort()
+	if PlayerManager.marineLifeInventory.size() == 0:
+		PlayerUI.ShowShop()
+		Notifier.push_notification("INVENTORY IS EMPTY")
+	else:
+		TankDragDrop.visible = true
+		PlayerUI.ShowInventorySort()
 	
 func CloseInventory():
 	TankDragDrop.visible = false
@@ -71,10 +75,15 @@ func CloseShop():
 func CloseAllBottomUI():
 	PlayerUI.CloseShop()
 	TankDragDrop.visible = false
+	CloseFishUI()
 	PlayerUI.CloseInventorySort()
 	PlayerUI.CloseMenuPanel()
 	
 func ShowAllBottomUI():
 	PlayerUI.ShowMenuPanel()
-	TankDragDrop.visible = true
+	PlayerUI.CloseShop()
+	ShowInventory()
+	
+func SaltWaterUnlock():
+	TankCreationUI.SaltwaterCheckbox.visible = true
 	

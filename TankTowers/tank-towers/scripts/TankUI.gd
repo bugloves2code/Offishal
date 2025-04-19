@@ -16,13 +16,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
-## OnHarvestTankPressed this is the function that allows for the player to harvest
-## all things that are harvestable in the tank this will probably become mutiple
-## functions in the future
-func OnHarvestTankPressed(tank):
-	## If the tank can be harvested call the harvest function
-	if(tank.harvestStatus):
-		tank.HarvestTank()
 
 ## _on_create_tank_button_pressed is the function that is attached to the 
 ## Creat Tank Button and processes if a tank can be made and then adds it to

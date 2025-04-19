@@ -28,10 +28,6 @@ var fishList: Array = []
 ## plantList is an array which holds what plants are in the tank
 var plantList: Array = []
 
-## harvestStatus is a bool which will turn true when it is time to harvest
-## Might need one for each fish and plant
-var harvestStatus = false
-
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
@@ -64,6 +60,8 @@ func AddFish(fishInstance):
 		## it should be a ui statment
 		#print("Tank is full of fish")
 	UiManager.ReloadAllUI()
+	if PlayerManager.marineLifeInventory.size() == 0:
+		UiManager.ShowInventory()
 		
 
 		
@@ -121,6 +119,9 @@ func _drop_data(_pos, data):
 			AddPlant(data)
 		
 		PlayerManager.marineLifeInventory.erase(data)
+		if PlayerManager.marineLifeInventory.size() == 0:
+			UiManager.ShowInventory()
+			
 		
 		var Main = get_tree().current_scene
 		var dragDrop = Main.get_node("DragDropMenu")
