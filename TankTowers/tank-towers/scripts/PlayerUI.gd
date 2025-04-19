@@ -392,11 +392,12 @@ func ShowShop():
 	
 func FillFishPediaStartPage():
 	var fishpedialist = []
-	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG"})
-	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG"})
+	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
+	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "facts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups."})
+	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "10 seconds", "facts": ""})
 	if PlayerManager.level >= 5:
-		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png"})
-		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png"})
+		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png","watertype": "Salt", "harvesttime": "", "facts": ""})
+		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png","watertype": "Salt", "harvesttime": "", "facts": ""})
 	
 	var grid_container = $FishPediaStartPanel/GridContainer
 	var details_panel = $DetailsPanel  # Reference to the single panel
@@ -410,16 +411,18 @@ func FillFishPediaStartPage():
 		details_panel.visible = false
 		
 	grid_container.columns = 4 # Adjust as needed
-	grid_container.add_theme_constant_override("h_separation", 10)
-	grid_container.add_theme_constant_override("v_separation", 10)
+	grid_container.add_theme_constant_override("h_separation", 40)
+	grid_container.add_theme_constant_override("v_separation", 40)
 
 	# Add items to the GridContainer
 	for item in fishpedialist:
 		# Create a Button as the main clickable element
 		var button = Button.new()
 		button.flat = true  # Optional: Removes default button background
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER  # Changed to prevent over-expansion
+		button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		button.custom_minimum_size = Vector2(100, 130)  # Smaller button size
+		
 		
 
 		# Create a VBoxContainer to stack image and label
@@ -462,6 +465,9 @@ func show_details_panel(item: Dictionary, panel: Panel) -> void:
 		# Update panel content
 		$DetailsPanel/Name.text = item.type
 		$DetailsPanel/Image.texture = load(item.image)
+		$DetailsPanel/WaterTypeVariableLabel.text = item.watertype
+		$DetailsPanel/HarvestTimeVariableLabel.text = item.harvesttime
+		$DetailsPanel/InterestingFactsLabel.text = item.facts
 		
 		# Show the panel
 		panel.visible = true

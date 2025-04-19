@@ -364,7 +364,6 @@ offset_bottom = 771.0
 columns = 4
 
 [node name="DetailsPanel" type="Panel" parent="."]
-visible = false
 offset_left = 5.0
 offset_top = 52.0
 offset_right = 569.0
@@ -396,6 +395,56 @@ theme_override_font_sizes/font_size = 30
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WaterTypeStaticLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 228.0
+offset_right = 141.0
+offset_bottom = 261.0
+theme_override_font_sizes/font_size = 20
+text = "Water Type: "
+
+[node name="HarvestTimeStaticLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 266.0
+offset_right = 141.0
+offset_bottom = 299.0
+theme_override_font_sizes/font_size = 20
+text = "Harvest Time: "
+
+[node name="WaterTypeVariableLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 227.0
+offset_right = 266.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 20
+text = "Water Type"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HarvestTimeVariableLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 264.0
+offset_right = 293.0
+offset_bottom = 297.0
+theme_override_font_sizes/font_size = 20
+text = "Harvest Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InterestingFactsLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 324.0
+offset_right = 545.0
+offset_bottom = 752.0
+theme_override_font_sizes/font_size = 20
+text = "Interesting Facts"
+autowrap_mode = 3
 
 [connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Panel/Shop" to="." method="_on_shop_pressed"]
