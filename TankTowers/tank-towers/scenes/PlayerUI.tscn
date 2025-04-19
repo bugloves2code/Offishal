@@ -307,6 +307,7 @@ offset_bottom = 58.0
 text = "Drag Here to Sell"
 
 [node name="PriceLabel" type="Label" parent="SellPanel/Control"]
+visible = false
 layout_mode = 0
 offset_left = 112.0
 offset_top = 88.0
