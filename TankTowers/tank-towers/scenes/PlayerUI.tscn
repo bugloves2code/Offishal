@@ -61,7 +61,7 @@ offset_right = 567.0
 offset_bottom = 36.0
 text = "Menu"
 
-[node name="Shop" type="Button" parent="Panel"]
+[node name="Shop" type="Button" parent="Panel" groups=["TutorialGlowObjects"]]
 layout_mode = 0
 offset_left = 172.0
 offset_top = 5.0
