@@ -43,6 +43,7 @@ var AnemoneScene = preload("res://scenes/Anemone.tscn")
 func _ready() -> void:
 	# Gets Player Level
 	ShowPlayerLevel()
+	FillFishPediaStartPage()
 	# Load current values
 	master_slider.value = SettingsManager.settings.audio.master_volume
 	music_slider.value = SettingsManager.settings.audio.music_volume
@@ -74,14 +75,14 @@ func _process(_delta: float) -> void:
 func _on_menu_pressed() -> void:
 	#print("Menu clicked")
 	var MenuPanel = $MenuPanel
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
 	var SettingsPanel = $SettingsPanel
+	var FishPeidaPanel = $FishPediaStartPanel
+	var DetailsPanel = $DetailsPanel
 	
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
-	if MenuPanel && not MenuPanel.visible && not SettingsPanel.visible:
+	if MenuPanel && not MenuPanel.visible && not SettingsPanel.visible && not FishPeidaPanel.visible && not DetailsPanel.visible:
 		MenuPanel.visible = true
 		UiManager.CloseFishUI()
 		UiManager.CloseTankCreationUI()
@@ -89,6 +90,8 @@ func _on_menu_pressed() -> void:
 	else:
 		MenuPanel.visible = false
 		SettingsPanel.visible = false
+		FishPeidaPanel.visible = false
+		DetailsPanel.visible = false
 		menuButton.text = "Menu"
 
 ## _on_shop_pressed
@@ -102,7 +105,8 @@ func _on_shop_button_pressed() -> void:
 ## _on_fish_pedia_button_pressed
 ## handles when fishpedia button is clicked
 func _on_fish_pedia_button_pressed() -> void:
-	print("FishPeida Clicked")
+	$FishPediaStartPanel.visible = true
+	$MenuPanel.visible = false
 
 ## _on_ settings_button_pressed
 ## handles when settings button is clicked
@@ -115,11 +119,13 @@ func _on_settings_button_pressed() -> void:
 ## _on_back_button_pressed
 ## brings you back to the menu
 func _on_back_button_pressed() -> void:
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
+	var FishPediaPanel = $FishPediaStartPanel
+	var DetailsPanel = $DetailsPanel
 	var MenuPanel = $MenuPanel
 	var SettingsPanel = $SettingsPanel
+	FishPediaPanel.visible = false
 	SettingsPanel.visible = false
+	DetailsPanel.visible = false
 	MenuPanel.visible = true
 	
 ## LoadShop
@@ -383,3 +389,84 @@ func ShowShop():
 	UiManager.CloseTankCreationUI()
 	$ShopScrollContainer.visible = true
 	$Background.visible = true
+	
+func FillFishPediaStartPage():
+	var fishpedialist = []
+	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG"})
+	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG"})
+	if PlayerManager.level >= 5:
+		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png"})
+		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png"})
+	
+	var grid_container = $FishPediaStartPanel/GridContainer
+	var details_panel = $DetailsPanel  # Reference to the single panel
+
+	# Clear existing children in GridContainer
+	for child in grid_container.get_children():
+		child.queue_free()
+
+	# Ensure the details panel is hidden initially
+	if details_panel:
+		details_panel.visible = false
+		
+	grid_container.columns = 4 # Adjust as needed
+	grid_container.add_theme_constant_override("h_separation", 10)
+	grid_container.add_theme_constant_override("v_separation", 10)
+
+	# Add items to the GridContainer
+	for item in fishpedialist:
+		# Create a Button as the main clickable element
+		var button = Button.new()
+		button.flat = true  # Optional: Removes default button background
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		
+
+		# Create a VBoxContainer to stack image and label
+		var vbox = VBoxContainer.new()
+		vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+		vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+		# Create TextureRect for the image
+		var texture_rect = TextureRect.new()
+		texture_rect.texture = load(item.image)
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+		texture_rect.custom_minimum_size = Vector2(100, 100)  # Adjust size as needed
+
+		# Create Label for the type
+		var label = Label.new()
+		label.text = item.type
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+		# Add TextureRect and Label to VBoxContainer
+		vbox.add_child(texture_rect)
+		vbox.add_child(label)
+
+		# Add VBoxContainer to Button
+		button.add_child(vbox)
+
+		# Connect button's pressed signal to show the panel with item details
+		button.pressed.connect(func():
+			show_details_panel(item, details_panel)
+		)
+
+		# Add Button to GridContainer
+		grid_container.add_child(button)
+
+# Function to show the details panel with the selected item's data
+func show_details_panel(item: Dictionary, panel: Panel) -> void:
+	$FishPediaStartPanel.visible = false
+	if panel:
+		# Update panel content
+		$DetailsPanel/Name.text = item.type
+		$DetailsPanel/Image.texture = load(item.image)
+		
+		# Show the panel
+		panel.visible = true
+
+
+func _on_fish_pedia_back_button_pressed() -> void:
+	$DetailsPanel.visible = false
+	$FishPediaStartPanel.visible = true

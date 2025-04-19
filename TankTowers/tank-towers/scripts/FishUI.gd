@@ -16,14 +16,27 @@ var fish : CharacterBody2D
 var _on_put_inventory: Callable
 var _close_ui: Callable
 
+@onready var harvest_timer_label: Label = $Panel/HarvestTimeLabel
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	if harvest_timer_label:
+		harvest_timer_label.text = "Harvest Time: --"
+		harvest_timer_label.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if fish and self.visible and harvest_timer_label:
+	# Update the timer label if the fish is not harvestable
+		var harvest_timer = fish.get_node("Harvest") as Timer
+		if harvest_timer and not fish.harvestStatus:
+			var time_left = harvest_timer.time_left
+			harvest_timer_label.text = "Harvest Time: %.1f s" % time_left
+			harvest_timer_label.visible = true
+		else:
+			harvest_timer_label.text = "Harvest Time: Ready"
+			harvest_timer_label.visible = true
 	
 
 ## loadFish
@@ -40,6 +53,16 @@ func loadFishUI():
 	$Panel/FishNameLabel.text = fish.fishname
 	$Panel/AgeLabel.text ="Age: %s" % fish.age
 	$Panel/TypeLabel.text = ThEnums.get_species_name(fish.Species)
+	
+	if harvest_timer_label:
+		var harvest_timer = fish.get_node("Harvest") as Timer
+		if harvest_timer and not fish.harvestStatus:
+			harvest_timer_label.text = "Harvest Time: %.1f s" % harvest_timer.time_left
+			harvest_timer_label.visible = true
+		else:
+			harvest_timer_label.text = "Harvest Time: Ready"
+			harvest_timer_label.visible = true
+	
 	if _on_put_inventory:
 		$Panel/PutinInventoryButton.pressed.disconnect(_on_put_inventory)
 		_on_put_inventory = func(): PutInInventory()

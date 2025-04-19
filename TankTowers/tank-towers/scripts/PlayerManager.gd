@@ -136,6 +136,7 @@ func Levelup():
 	else:
 		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()
+	UiManager.PlayerUI.FillFishPediaStartPage()
 	
 func UpdateTankPrice(higherprice: bool):
 	if higherprice:
