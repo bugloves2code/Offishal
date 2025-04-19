@@ -119,8 +119,6 @@ func _on_back_button_pressed() -> void:
 	var SellShopPanel = $SellShopPanel
 	var MenuPanel = $MenuPanel
 	var SettingsPanel = $SettingsPanel
-	ShopPanel.visible = false
-	SellShopPanel.visible = false
 	SettingsPanel.visible = false
 	MenuPanel.visible = true
 	
