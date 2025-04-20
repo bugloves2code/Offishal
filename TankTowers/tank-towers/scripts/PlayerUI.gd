@@ -152,7 +152,7 @@ func LoadShop():
 		
 		# Set the texture and price
 		image.texture = item.texture
-		price.text = str(item.price)
+		price.text = str(item.price, "$")
 		# Connect the BuyButton to a function
 		buyButton.connect("pressed", Callable(self, "_on_BuyButton_pressed").bind(item, instance))
 		
@@ -175,7 +175,7 @@ func LoadShop():
 		
 		# Set the texture and price
 		image.texture = item.texture
-		price.text = str(item.price)
+		price.text = str(item.price, "$")
 		# Connect the BuyButton to a function
 		buyButton.connect("pressed", Callable(self, "_on_BuyPlantButton_pressed").bind(item, instance))
 		
@@ -228,6 +228,7 @@ func _on_BuyButton_pressed(item, instance):
 		elif item["Species"] == ThEnums.FishSpecies.Clownfish:
 			fish = ClownFishScene.instantiate() as Fish
 			fish.Species = ThEnums.FishSpecies.Clownfish
+			fish.sell_price = 5
 			
 		# Add a fish to the PlayerInventory
 		PlayerManager.marineLifeInventory.append(fish)
@@ -256,6 +257,7 @@ func _on_BuyPlantButton_pressed(item, instance):
 		elif item["Species"] == ThEnums.PlantSpecies.Anemone:
 			plant = AnemoneScene.instantiate() as Plant
 			plant.Species = ThEnums.PlantSpecies.Anemone
+			plant.sell_price = 10
 		
 		# Add a fish to the PlayerInventory
 		##var plant_instance = PlantScene.instantiate()
@@ -293,21 +295,6 @@ func ShowPlayerLevel():
 	var LevelLabel = $LevelPanel/LevelLabel
 	LevelLabel.text = "Level: %s" % PlayerManager.level
 	
-## _on_sell_button_pressed
-## Switches to Sell screen when button pressed
-func _on_sell_button_pressed() -> void:
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
-	ShopPanel.visible = false
-	SellShopPanel.visible = true
-
-## _on_buy_button_pressed
-## Switches to Buy screen when button pressed
-func _on_buy_button_pressed() -> void:
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
-	ShopPanel.visible = true
-	SellShopPanel.visible = false
 	
 ## _on_master_volume_changed
 ## handles master volume value when slider is used
@@ -348,7 +335,7 @@ func _on_mute_toggled(toggled):
 ## Fills Shop with everything from Stock
 func StockShop():
 	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1, "Species": ThEnums.PlantSpecies.Guppygrass})
+	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
 	
 		
 	
@@ -524,7 +511,8 @@ func create_stylebox(color: Color) -> StyleBoxFlat:
 func upgrades():
 	var upgrades = []
 	#upgrades.append({"title": "", "image": ,"desc": "", "price": , "func": })
-	
+	if $SellPanel/SellAllButton.visible == false:
+		upgrades.append({"title": "Sell All", "image": "res://icon.svg","desc": "A new button that allows you to sell all in inventory", "price": 10, "func": Callable(self, "_on_sell_all_purchased") })
 	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
 	
 	var upgrade_container = $UpgradesPanel/VBoxContainer
@@ -569,25 +557,21 @@ func upgrades():
 		
 		for worker in PlayerManager.workers:
 			var hbox = HBoxContainer.new()
-			hbox.set("theme_override_constants/separation", 10)
+			hbox.set("theme_override_constants/separation", 20)
 
 			# Create TextureRect for the image
 			var texture_rect = TextureRect.new()
 			texture_rect.texture = load("res://icon.svg")
-			texture_rect.custom_minimum_size = Vector2(64, 64)
 			texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 			texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+			texture_rect.size = Vector2(20,20)
 			hbox.add_child(texture_rect)
-
-			# Create VBoxContainer for text
-			var vbox = VBoxContainer.new()
-			vbox.set("theme_override_constants/separation", 5)
 
 			# Title
 			var title_label = Label.new()
 			title_label.text = "Worker"
 			title_label.set("theme_override_font_sizes/font_size", 18)
-			vbox.add_child(title_label)
+			hbox.add_child(title_label)
 
 			# Description
 			var desc_label = Label.new()
@@ -595,14 +579,19 @@ func upgrades():
 			desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 			desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 			desc_label.custom_minimum_size = Vector2(200, 0)
-			vbox.add_child(desc_label)
+			hbox.add_child(desc_label)
 
+			var workerHarvests = Label.new()
+			workerHarvests.text = "Total Harvests: %d" % worker.harvestedMarineLife
+			workerHarvests.set("theme_override_font_sizes/font_size", 18)
+			hbox.add_child(workerHarvests)
 			# Price
-			var price_label = Label.new()
-			price_label.text = "Price: %d" % (worker.level * 100)
-			vbox.add_child(price_label)
-
-			hbox.add_child(vbox)
+			var button = Button.new()
+			button.text = "Price: %d" % (worker.level * 100)
+			hbox.add_child(button)
+			
+			button.pressed.connect(worker.upgradeWorker)
+			
 			worker_container.add_child(hbox) # Add to worker_container, not scroll_container directly
 	
 		scroll_container.add_child(worker_container)
@@ -647,3 +636,34 @@ func upgrades():
 	upgrades_scroll.add_child(UpgradesVbox)
 	upgrade_container.add_child(upgrades_scroll)
 		
+
+
+func _on_sell_all_button_mouse_entered() -> void:
+	var allSellMoney: int
+	for item in PlayerManager.marineLifeInventory:
+		allSellMoney += item.sell_price 
+	
+	$SellPanel/SellAllButton.text = "Sell All: %d" % allSellMoney
+
+
+func _on_sell_all_button_mouse_exited() -> void:
+	$SellPanel/SellAllButton.text = "Sell All" 
+
+
+func _on_sell_all_button_pressed() -> void:
+	$SellPanel/SellAllButton.text = "Sell All"
+	
+	for item in PlayerManager.marineLifeInventory:
+		PlayerManager.money += item.sell_price
+		item.queue_free()
+		
+	PlayerManager.marineLifeInventory = []
+	UiManager.ReloadAllUI()
+
+func _on_sell_all_purchased():
+	if PlayerManager.money >= 10:
+		$SellPanel/SellAllButton.visible = true
+		PlayerManager.money -= 10
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")

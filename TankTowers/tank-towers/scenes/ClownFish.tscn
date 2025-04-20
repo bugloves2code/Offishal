@@ -17,6 +17,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_3trmk")
 waterType = 1
+sell_price = 5
 maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

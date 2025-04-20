@@ -120,6 +120,7 @@ func makeWorkTimer():
 		push_error("Timer not initialized")
 		
 func upgradeWorker():
-	level += 1
-	timetoharvest = 11 - level
-	makeWorkTimer()
+	if PlayerManager.money >= level * 100:
+		level += 1
+		timetoharvest = 11 - level
+		makeWorkTimer()

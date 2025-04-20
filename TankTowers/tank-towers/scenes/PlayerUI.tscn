@@ -116,6 +116,15 @@ text = "Price: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SellAllButton" type="Button" parent="SellPanel"]
+visible = false
+layout_mode = 0
+offset_left = 42.0
+offset_top = 100.0
+offset_right = 199.0
+offset_bottom = 152.0
+text = "Sell All in Inventory"
+
 [node name="Background" type="Panel" parent="."]
 visible = false
 offset_left = 1.0
@@ -340,6 +349,7 @@ offset_right = 576.0
 offset_bottom = 872.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UpgradesPanel"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 129.0
 offset_right = 566.0
@@ -363,6 +373,7 @@ offset_right = 560.0
 offset_bottom = 830.0
 
 [node name="TextureRect" type="TextureRect" parent="UpgradesPanel/UpgradeitemPanel"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = 9.0
 offset_right = 59.0
@@ -521,6 +532,10 @@ theme_override_font_sizes/font_size = 20
 text = "Interesting Facts"
 autowrap_mode = 3
 
+[connection signal="focus_entered" from="SellPanel/SellAllButton" to="." method="_on_sell_all_button_focus_entered"]
+[connection signal="mouse_entered" from="SellPanel/SellAllButton" to="." method="_on_sell_all_button_mouse_entered"]
+[connection signal="mouse_exited" from="SellPanel/SellAllButton" to="." method="_on_sell_all_button_mouse_exited"]
+[connection signal="pressed" from="SellPanel/SellAllButton" to="." method="_on_sell_all_button_pressed"]
 [connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Panel/Shop" to="." method="_on_shop_pressed"]
 [connection signal="pressed" from="Panel/Upgrades" to="." method="_on_upgrades_pressed"]
