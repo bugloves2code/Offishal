@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc635125djwmg"]
+[gd_scene load_steps=17 format=3 uid="uid://cc635125djwmg"]
 
 [ext_resource type="Script" path="res://scripts/PlayerUI.gd" id="1_f37m1"]
 [ext_resource type="Script" path="res://scripts/SellPanel.gd" id="2_vvt7t"]
 [ext_resource type="Script" path="res://scripts/SettingsLabel.gd" id="3_koabv"]
+[ext_resource type="Texture2D" uid="uid://c7jaus42q3sp6" path="res://icon.svg" id="4_fwy1x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7xcx"]
 
@@ -20,6 +21,23 @@ HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_tin0n")
 HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_nvtmf")
 HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_82ttx")
 HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_i8gpx")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8voj1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osvrr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s64xw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lrrd5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vqmmp"]
+
+[sub_resource type="Theme" id="Theme_mlnat"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_8voj1")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_osvrr")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_s64xw")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_lrrd5")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_vqmmp")
 
 [node name="PlayerUI" type="CanvasLayer"]
 layer = 0
@@ -236,7 +254,6 @@ text = "Level: 1"
 horizontal_alignment = 1
 
 [node name="ShopScrollContainer" type="ScrollContainer" parent="."]
-visible = false
 offset_left = 4.0
 offset_top = 922.0
 offset_right = 575.0
@@ -330,6 +347,50 @@ offset_bottom = 63.0
 text = "Upgrades"
 horizontal_alignment = 1
 
+[node name="UpgradeitemPanel" type="Panel" parent="UpgradesPanel"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 117.0
+offset_right = 557.0
+offset_bottom = 184.0
+
+[node name="TextureRect" type="TextureRect" parent="UpgradesPanel/UpgradeitemPanel"]
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 59.0
+offset_bottom = 56.0
+texture = ExtResource("4_fwy1x")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="UpgradesPanel/UpgradeitemPanel"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 15.0
+offset_right = 538.0
+offset_bottom = 51.0
+text = "Buy : 10$"
+
+[node name="UpgradeTitleLabel" type="Label" parent="UpgradesPanel/UpgradeitemPanel"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 12.0
+offset_right = 151.0
+offset_bottom = 52.0
+text = "Worker"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeDescription" type="Label" parent="UpgradesPanel/UpgradeitemPanel"]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 4.0
+offset_right = 457.0
+offset_bottom = 64.0
+text = "A worker will harvest fish and plants for you once every 10 seconds"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="FishPediaStartPanel" type="Panel" parent="."]
 visible = false
 offset_left = 5.0
@@ -355,15 +416,21 @@ text = "FishPedia"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="FishPediaStartPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="FishPediaStartPanel"]
 layout_mode = 0
-offset_left = 3.0
+offset_left = 17.0
 offset_top = 126.0
-offset_right = 561.0
-offset_bottom = 771.0
+offset_right = 563.0
+offset_bottom = 807.0
+theme = SubResource("Theme_mlnat")
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="FishPediaStartPanel/ScrollContainer"]
+layout_mode = 2
 columns = 4
 
 [node name="DetailsPanel" type="Panel" parent="."]
+visible = false
 offset_left = 5.0
 offset_top = 52.0
 offset_right = 569.0
@@ -448,6 +515,7 @@ autowrap_mode = 3
 
 [connection signal="pressed" from="Panel/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="Panel/Shop" to="." method="_on_shop_pressed"]
+[connection signal="pressed" from="Panel/Upgrades" to="." method="_on_upgrades_pressed"]
 [connection signal="pressed" from="Panel/Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="MenuPanel/FishPediaButton" to="." method="_on_fish_pedia_button_pressed"]
 [connection signal="pressed" from="MenuPanel/SettingsButton" to="." method="_on_settings_button_pressed"]
@@ -455,5 +523,6 @@ autowrap_mode = 3
 [connection signal="value_changed" from="SettingsPanel/MusicSlider" to="." method="_on_music_volume_changed"]
 [connection signal="value_changed" from="SettingsPanel/SFXSlider" to="." method="_on_sfx_volume_changed"]
 [connection signal="pressed" from="SettingsPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="UpgradesPanel/UpgradeitemPanel/Button" to="." method="_on_worker_upgrade_purchase"]
 [connection signal="pressed" from="FishPediaStartPanel/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="DetailsPanel/FishPediaBackButton" to="." method="_on_fish_pedia_back_button_pressed"]

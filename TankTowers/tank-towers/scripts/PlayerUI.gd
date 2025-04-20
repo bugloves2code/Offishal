@@ -395,11 +395,12 @@ func FillFishPediaStartPage():
 	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
 	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "facts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups."})
 	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "10 seconds", "facts": ""})
+	
 	if PlayerManager.level >= 5:
 		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png","watertype": "Salt", "harvesttime": "", "facts": ""})
 		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png","watertype": "Salt", "harvesttime": "", "facts": ""})
 	
-	var grid_container = $FishPediaStartPanel/GridContainer
+	var grid_container = $FishPediaStartPanel/ScrollContainer/GridContainer
 	var details_panel = $DetailsPanel  # Reference to the single panel
 
 	# Clear existing children in GridContainer
@@ -476,3 +477,17 @@ func show_details_panel(item: Dictionary, panel: Panel) -> void:
 func _on_fish_pedia_back_button_pressed() -> void:
 	$DetailsPanel.visible = false
 	$FishPediaStartPanel.visible = true
+
+
+func _on_worker_upgrade_purchase() -> void:
+	print("Worker purchased")
+	var workerscene = load("res://scenes/Worker.tscn")
+	var worker = workerscene.instantiate()
+	worker.timetoharvest = 10
+	get_tree().current_scene.add_child(worker)
+	worker.makeWorkTimer()
+	PlayerManager.workers.append(worker)
+
+
+func _on_upgrades_pressed() -> void:
+	$UpgradesPanel.visible = !$UpgradesPanel.visible

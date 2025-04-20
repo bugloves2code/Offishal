@@ -64,6 +64,8 @@ const levelMax: int = 99;
 ##   thing in GDScript? I don't know.
 var marineLifeInventory: Array[MarineLife];
 
+var workers: Array
+
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
 ##   this is just a regular, untyped array.
