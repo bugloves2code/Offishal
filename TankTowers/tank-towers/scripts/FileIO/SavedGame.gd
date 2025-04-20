@@ -30,7 +30,7 @@ extends Resource
 ## - Instead of making a SavedFish or SavedPlant
 ##   resource, they share the same exact data
 ##   that needs to be shared, I just use a common resource.
-@export var fishList:Array[SavedMarineLife];
+@export var fishList:Array; #[Array[SavedMarineLife]];
 
 ## An array of SavedMarineLife resources,
 ## one for each plant in a tank.

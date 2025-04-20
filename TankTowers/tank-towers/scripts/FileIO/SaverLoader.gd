@@ -41,23 +41,23 @@ func SaveGame():
 	var savedGame:SavedGame = SavedGame.new();
 	
 	# Initialize the fishList and plantList variables to empty arrays
-	#savedGame.fishList = [];
-	#savedGame.plantList = [];
+	savedGame.fishList = [];
+	savedGame.plantList = [];
 	
 	# Loop through each tank, and add data to SavedGame
 	for tank:Tank in TankManager.tankList:		
 		# Push an empty array for this tank's fish objects
-		#savedGame.fishList.push_back([]);
+		savedGame.fishList.push_back([]);
 		
 		# Loop through the current tank's fish
-		#for fish:Fish in tank.fishList:
+		for fish:Fish in tank.fishList:
 			# Add the fish to the tank's corresponding array
 			# - TODO: This is giving me some error about fish
 			#   being null, and when debugging, it sure was.
 			#   So, I'm not sure where the fish are actually
 			#   being stored, since it doesn't seem to be inside
 			#   the Tank's fishList.
-			#savedGame.fishList[savedGame.tankCount].push_back(fish);
+			savedGame.fishList[savedGame.tankCount].push_back(fish);
 		
 		# Repeat same process as above but for plants
 		#savedGame.plantList.push_back([]);

@@ -25,3 +25,8 @@ extends Resource
 ##   but that doesn't seem to be an accessible field.
 ##   All we have is whether the timer has finished.
 @export var harvestStatus: bool;
+
+## The path to the scene of the MarineLife
+## - With different fish / plant scenes (guppy, clownfish, etc.),
+##   this seems like the best way to do this.
+@export var scenePath: String;
