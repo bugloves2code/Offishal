@@ -486,13 +486,17 @@ func _on_fish_pedia_back_button_pressed() -> void:
 
 
 func _on_worker_upgrade_purchase() -> void:
-	print("Worker purchased")
-	var workerscene = load("res://scenes/Worker.tscn")
-	var worker = workerscene.instantiate()
-	worker.timetoharvest = 10
-	get_tree().current_scene.add_child(worker)
-	worker.makeWorkTimer()
-	PlayerManager.workers.append(worker)
+	if PlayerManager.money >= 50:
+		var workerscene = load("res://scenes/Worker.tscn")
+		var worker = workerscene.instantiate()
+		worker.timetoharvest = 10
+		get_tree().current_scene.add_child(worker)
+		worker.makeWorkTimer()
+		PlayerManager.workers.append(worker)
+		PlayerManager.money -= 50
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
 
 
 func _on_upgrades_pressed() -> void:
@@ -505,6 +509,7 @@ func _on_upgrades_pressed() -> void:
 	$Panel/Menu.remove_theme_stylebox_override("hover")
 	$Panel/Menu.remove_theme_stylebox_override("pressed")
 	$Panel/Menu.text = "Menu"
+	upgrades()
 	
 func create_stylebox(color: Color) -> StyleBoxFlat:
 	var style = StyleBoxFlat.new()
@@ -514,3 +519,131 @@ func create_stylebox(color: Color) -> StyleBoxFlat:
 	style.corner_radius_bottom_left = 5
 	style.corner_radius_bottom_right = 5
 	return style
+
+
+func upgrades():
+	var upgrades = []
+	#upgrades.append({"title": "", "image": ,"desc": "", "price": , "func": })
+	
+	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
+	
+	var upgrade_container = $UpgradesPanel/VBoxContainer
+	
+	for child in upgrade_container.get_children():
+		child.queue_free()
+		
+	var upgrades_scroll = ScrollContainer.new()
+	upgrades_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	upgrades_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	upgrades_scroll.follow_focus = true
+	upgrades_scroll.scroll_horizontal = false
+	upgrades_scroll.scroll_vertical = true # Only horizontal scrolling
+		
+	# Create a Theme to hide the scrollbar
+	var theme = Theme.new()
+	# Set the scrollbar style to be invisible
+	var empty_style = StyleBoxEmpty.new()
+	theme.set_stylebox("scroll", "VScrollBar", empty_style)
+	theme.set_stylebox("scroll", "HScrollBar", empty_style)
+	upgrades_scroll.theme = theme
+	
+	var UpgradesVbox = VBoxContainer.new()
+	UpgradesVbox.set("theme_override_constants/separation", 30)
+	
+
+	
+	if PlayerManager.workers.size() >= 1:
+		var scroll_container = ScrollContainer.new()
+		scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		scroll_container.follow_focus = true
+		scroll_container.scroll_horizontal = false
+		scroll_container.scroll_vertical = true
+
+		scroll_container.theme = theme
+
+		var worker_container = VBoxContainer.new()
+		worker_container.name = "WorkerContainer"
+		worker_container.set("theme_override_constants/separation", 20)
+		worker_container.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		
+		for worker in PlayerManager.workers:
+			var hbox = HBoxContainer.new()
+			hbox.set("theme_override_constants/separation", 10)
+
+			# Create TextureRect for the image
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load("res://icon.svg")
+			texture_rect.custom_minimum_size = Vector2(64, 64)
+			texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+			texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+			hbox.add_child(texture_rect)
+
+			# Create VBoxContainer for text
+			var vbox = VBoxContainer.new()
+			vbox.set("theme_override_constants/separation", 5)
+
+			# Title
+			var title_label = Label.new()
+			title_label.text = "Worker"
+			title_label.set("theme_override_font_sizes/font_size", 18)
+			vbox.add_child(title_label)
+
+			# Description
+			var desc_label = Label.new()
+			desc_label.text = "Make time to harvest %d seconds" % (worker.timetoharvest - 1)
+			desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+			desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			desc_label.custom_minimum_size = Vector2(200, 0)
+			vbox.add_child(desc_label)
+
+			# Price
+			var price_label = Label.new()
+			price_label.text = "Price: %d" % (worker.level * 100)
+			vbox.add_child(price_label)
+
+			hbox.add_child(vbox)
+			worker_container.add_child(hbox) # Add to worker_container, not scroll_container directly
+	
+		scroll_container.add_child(worker_container)
+		upgrade_container.add_child(scroll_container)
+	
+	for upgrade in upgrades:
+		
+		var hbox = HBoxContainer.new()
+		hbox.set("theme_override_constants/separation", 20)
+		# Create TextureRect for the image
+		var texture_rect = TextureRect.new()
+		texture_rect.texture = load(upgrade.image)
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+		texture_rect.size = Vector2(20,20)
+		hbox.add_child(texture_rect)
+		
+		# Title
+		var title_label = Label.new()
+		title_label.text = upgrade.title
+		title_label.set("theme_override_font_sizes/font_size", 18)
+		hbox.add_child(title_label)
+		
+		# Description
+		var desc_label = Label.new()
+		desc_label.text = upgrade.desc
+		desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		desc_label.custom_minimum_size = Vector2(300, 0) # Adjust width as needed
+		hbox.add_child(desc_label)
+		
+		# Price
+		var button = Button.new()
+		button.text = "Buy: %d$" % upgrade.price
+		hbox.add_child(button)
+		
+		
+		button.pressed.connect(upgrade.func)
+		
+		UpgradesVbox.add_child(hbox)
+	
+	upgrades_scroll.add_child(UpgradesVbox)
+	upgrade_container.add_child(upgrades_scroll)
+		

@@ -9,6 +9,10 @@ var checkedtankslist = []
 var checkedfishlist = []
 var checkedplantlist = []
 
+var level = 1
+
+var harvestedMarineLife = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer = Timer.new()
@@ -59,6 +63,7 @@ func work():
 						elif plant.Species == ThEnums.PlantSpecies.Anemone:
 							PlayerManager.xp += 3
 							PlayerManager.money += 3
+						harvestedMarineLife += 1
 					return
 	else:
 		for fish in selectedtank.fishList:
@@ -74,6 +79,7 @@ func work():
 					elif fish.Species == ThEnums.FishSpecies.Clownfish:
 						PlayerManager.xp += 3
 						PlayerManager.money += 3
+					harvestedMarineLife += 1
 				return
 				
 	
@@ -112,3 +118,8 @@ func makeWorkTimer():
 		# Debug
 	else:
 		push_error("Timer not initialized")
+		
+func upgradeWorker():
+	level += 1
+	timetoharvest = 11 - level
+	makeWorkTimer()
