@@ -37,12 +37,9 @@ signal addFish
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
-	# DELETES FISHINSTANCE BECAUSE SPAWNER 
-	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
-	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
-	fishInstance.queue_free()
 	
 	if fishList.size() < fishCapacity:
+		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()
@@ -58,6 +55,12 @@ func AddFish(fishInstance):
 		## this needs to be a print statement
 		## it should be a ui statment
 		#print("Tank is full of fish")
+		
+	# DELETES FISHINSTANCE BECAUSE SPAWNER 
+	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
+	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
+	fishInstance.queue_free()
+	
 	UiManager.ReloadAllUI()
 	if PlayerManager.marineLifeInventory.size() == 0:
 		UiManager.ShowInventory()

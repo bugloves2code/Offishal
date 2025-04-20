@@ -40,7 +40,7 @@ offset_right = 38.0
 offset_bottom = 44.0
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 60.0
 
 [connection signal="gui_input" from="Control" to="." method="plant_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
