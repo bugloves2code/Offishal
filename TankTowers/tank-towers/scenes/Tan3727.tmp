@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://dksf32ultwbsm"]
+
+[ext_resource type="Script" path="res://scripts/TankCreationUI.gd" id="1_ids51"]
+
+[node name="TankCreationUI" type="CanvasLayer" node_paths=PackedStringArray("SaltwaterCheckbox", "FreshwaterCheckbox", "PriceLabel", "TankNameLabel", "NameLineEdit", "CreateTankButton", "CancelButton")]
+script = ExtResource("1_ids51")
+SaltwaterCheckbox = NodePath("Panel/SaltwaterCheckBox")
+FreshwaterCheckbox = NodePath("Panel/FreshWaterCheckBox")
+PriceLabel = NodePath("Panel/PriceLabel")
+TankNameLabel = NodePath("Panel/Tankname")
+NameLineEdit = NodePath("TankNameInput")
+CreateTankButton = NodePath("Panel/CreateTankButton")
+CancelButton = NodePath("Panel/CancelButton")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 2.0
+offset_top = 76.0
+offset_right = 578.0
+offset_bottom = 249.0
+
+[node name="TankTypeLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 67.0
+offset_right = 126.0
+offset_bottom = 90.0
+text = "Tank Type: "
+
+[node name="FreshWaterCheckBox" type="CheckBox" parent="Panel"]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 68.0
+offset_right = 279.0
+offset_bottom = 92.0
+
+[node name="Freshwater" type="Label" parent="Panel/FreshWaterCheckBox"]
+layout_mode = 0
+offset_left = -96.0
+offset_right = -2.0
+offset_bottom = 23.0
+text = "Fresh Water"
+
+[node name="SaltwaterCheckBox" type="CheckBox" parent="Panel"]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 70.0
+offset_right = 452.0
+offset_bottom = 94.0
+
+[node name="Saltwater" type="Label" parent="Panel/SaltwaterCheckBox"]
+layout_mode = 0
+offset_left = -96.0
+offset_right = -2.0
+offset_bottom = 23.0
+text = "Salt Water"
+
+[node name="Tankname" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 7.0
+offset_right = 322.0
+offset_bottom = 30.0
+text = "Tank name"
+horizontal_alignment = 1
+
+[node name="CreateTankButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 128.0
+offset_right = 169.0
+offset_bottom = 162.0
+text = "Create Tank"
+
+[node name="PriceLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 97.0
+offset_right = 310.0
+offset_bottom = 120.0
+text = "$Price"
+horizontal_alignment = 1
+
+[node name="CancelButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 126.0
+offset_right = 504.0
+offset_bottom = 159.0
+text = "Cancel"
+
+[node name="TankNameInput" type="LineEdit" parent="."]
+offset_left = 228.0
+offset_top = 81.0
+offset_right = 341.0
+offset_bottom = 112.0
+alignment = 1
+
+[connection signal="toggled" from="Panel/FreshWaterCheckBox" to="." method="_on_fresh_water_check_box_toggled"]
+[connection signal="toggled" from="Panel/SaltwaterCheckBox" to="." method="_on_saltwater_check_box_toggled"]
+[connection signal="gui_input" from="Panel/Tankname" to="." method="_on_tankname_label_gui_input"]
+[connection signal="pressed" from="Panel/CreateTankButton" to="." method="_on_create_tank_button_pressed"]
+[connection signal="pressed" from="Panel/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="text_submitted" from="TankNameInput" to="." method="_on_tank_name_input_text_submitted"]

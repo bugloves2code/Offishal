@@ -4,6 +4,7 @@
 ## - This Script is used to display things the player
 ## needs to interact with
 extends Node
+signal shopPressed
 
 ## Arrays for the Fish Shop and Plant Shop
 var ShopStock: Array;
@@ -42,6 +43,7 @@ var AnemoneScene = preload("res://scenes/Anemone.tscn")
 func _ready() -> void:
 	# Gets Player Level
 	ShowPlayerLevel()
+	FillFishPediaStartPage()
 	# Load current values
 	master_slider.value = SettingsManager.settings.audio.master_volume
 	music_slider.value = SettingsManager.settings.audio.music_volume
@@ -59,13 +61,13 @@ func _ready() -> void:
 	
 	## Loads the UI for the Shop section
 	LoadShop()
-	LoadSellShop()
+	#LoadSellShop()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	## makes sure money stays consistent with any changes
-	$Panel/MoenyCount.text = str(PlayerManager.money)
+	$MoneyPanel/MoenyCount.text = str(PlayerManager.money)
 
 
 ## _on_menu_pressed
@@ -73,23 +75,30 @@ func _process(_delta: float) -> void:
 func _on_menu_pressed() -> void:
 	#print("Menu clicked")
 	var MenuPanel = $MenuPanel
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
 	var SettingsPanel = $SettingsPanel
+	var FishPeidaPanel = $FishPediaStartPanel
+	var DetailsPanel = $DetailsPanel
+	var UpgradesPanel = $UpgradesPanel
 	
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
-	if MenuPanel && not MenuPanel.visible && not ShopPanel.visible && not SellShopPanel.visible && not SettingsPanel.visible:
+	if MenuPanel && not MenuPanel.visible && not SettingsPanel.visible && not FishPeidaPanel.visible && not DetailsPanel.visible:
 		MenuPanel.visible = true
-		UiManager.CloseFishUI()
+		UpgradesPanel.visible = false
 		menuButton.text = "X"
+		menuButton.add_theme_stylebox_override("normal", create_stylebox(Color.RED))
+		menuButton.add_theme_stylebox_override("hover", create_stylebox(Color.DARK_RED))
+		menuButton.add_theme_stylebox_override("pressed", create_stylebox(Color.CRIMSON))
 	else:
 		MenuPanel.visible = false
-		ShopPanel.visible = false
-		SellShopPanel.visible = false
 		SettingsPanel.visible = false
+		FishPeidaPanel.visible = false
+		DetailsPanel.visible = false
 		menuButton.text = "Menu"
+		menuButton.remove_theme_stylebox_override("normal")
+		menuButton.remove_theme_stylebox_override("hover")
+		menuButton.remove_theme_stylebox_override("pressed")
 
 ## _on_shop_pressed
 ## handles when shop button is clicked
@@ -102,7 +111,8 @@ func _on_shop_button_pressed() -> void:
 ## _on_fish_pedia_button_pressed
 ## handles when fishpedia button is clicked
 func _on_fish_pedia_button_pressed() -> void:
-	print("FishPeida Clicked")
+	$FishPediaStartPanel.visible = true
+	$MenuPanel.visible = false
 
 ## _on_ settings_button_pressed
 ## handles when settings button is clicked
@@ -115,13 +125,13 @@ func _on_settings_button_pressed() -> void:
 ## _on_back_button_pressed
 ## brings you back to the menu
 func _on_back_button_pressed() -> void:
-	var ShopPanel = $ShopPanel
-	var SellShopPanel = $SellShopPanel
+	var FishPediaPanel = $FishPediaStartPanel
+	var DetailsPanel = $DetailsPanel
 	var MenuPanel = $MenuPanel
 	var SettingsPanel = $SettingsPanel
-	ShopPanel.visible = false
-	SellShopPanel.visible = false
+	FishPediaPanel.visible = false
 	SettingsPanel.visible = false
+	DetailsPanel.visible = false
 	MenuPanel.visible = true
 	
 ## LoadShop
@@ -136,7 +146,7 @@ func LoadShop():
 		# Access the nodes in the instance
 		var image = instance.get_node("GridContainer/Image")
 		#print(image)
-		var price = instance.get_node("GridContainer/Price")
+		var price = instance.get_node("GridContainer/Price")  
 		#print(price)
 		var buyButton = instance.get_node("GridContainer/BuyButton")
 		
@@ -147,7 +157,7 @@ func LoadShop():
 		buyButton.connect("pressed", Callable(self, "_on_BuyButton_pressed").bind(item, instance))
 		
 		# Add the instance to the HBoxContainer
-		$ShopPanel/ScrollContainer/HBoxContainer.add_child(instance)
+		$ShopScrollContainer/HBoxContainer.add_child(instance)
 	
 	for item in PlantShopStock:
 		# Instantiate the ShopItem scene
@@ -169,29 +179,29 @@ func LoadShop():
 		# Connect the BuyButton to a function
 		buyButton.connect("pressed", Callable(self, "_on_BuyPlantButton_pressed").bind(item, instance))
 		
-		$ShopPanel/PlantScrollContainer/HBoxContainer.add_child(instance)
+		$ShopScrollContainer/HBoxContainer.add_child(instance)
 		
 ## LoadSellShop
 ## Loads Sell Shop UI
-func LoadSellShop():
-	for child in grid_container.get_children():
-		child.queue_free()
-	
-	await get_tree().process_frame
-	
-	for item in PlayerManager.marineLifeInventory:
-		var drag_drop_instance = drag_drop_scene.instantiate()
-		
-		#Access the Sprite2D node from the Fish Scene
-		var item_sprite = item.get_node("Sprite2D")
-		
-		#Set the texture of the DragDrop scene to the fish's texture
-		if item_sprite and item_sprite.texture:
-			#print("Fish has get texture")
-			drag_drop_instance.texture = item_sprite.texture
-		drag_drop_instance.drag_info = item
-			
-		grid_container.add_child(drag_drop_instance)
+#func LoadSellShop():
+	#for child in grid_container.get_children():
+		#child.queue_free()
+	#
+	#await get_tree().process_frame
+	#
+	#for item in PlayerManager.marineLifeInventory:
+		#var drag_drop_instance = drag_drop_scene.instantiate()
+		#
+		##Access the Sprite2D node from the Fish Scene
+		#var item_sprite = item.get_node("Sprite2D")
+		#
+		##Set the texture of the DragDrop scene to the fish's texture
+		#if item_sprite and item_sprite.texture:
+			##print("Fish has get texture")
+			#drag_drop_instance.texture = item_sprite.texture
+		#drag_drop_instance.drag_info = item
+			#
+		#grid_container.add_child(drag_drop_instance)
 
 ## Buy Butttons
 
@@ -200,6 +210,7 @@ func LoadSellShop():
 ## Buy Button for Fish
 ## allows player to get new fish in their inventory
 func _on_BuyButton_pressed(item, instance):
+	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
@@ -223,11 +234,14 @@ func _on_BuyButton_pressed(item, instance):
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()
+	else:
+		Notifier.push_notification("YOU CANNOT AFFORD THIS")
 		
 ## _on_BuyPlantButton_pressed
 ## Buy Button for Plant
 ## allows player to get new plant in their inventory
 func _on_BuyPlantButton_pressed(item, instance):
+	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
@@ -249,16 +263,14 @@ func _on_BuyPlantButton_pressed(item, instance):
 		
 		# Reload the UI
 		UiManager.ReloadAllUI()
+	else:
+		Notifier.push_notification("YOU CANNOT AFFORD THIS")
 
 ## ReloadShopUI
 ## clears shop and adds current shop
 ## to it
-func ReloadShopUI():
-	# Clear existing children in the HBoxContainer
-	for child in $ShopPanel/ScrollContainer/HBoxContainer.get_children():
-		child.queue_free()
-	
-	for child in $ShopPanel/PlantScrollContainer/HBoxContainer.get_children():
+func ReloadShopUI():		
+	for child in $ShopScrollContainer/HBoxContainer.get_children():
 		child.queue_free()
 		
 	# Reload the ShopStock items
@@ -267,18 +279,18 @@ func ReloadShopUI():
 ## ReloadSellShopUI
 ## clears up sell shop and adds current inventory
 ## to the sell shop area
-func ReloadSellShopUI():
-	# Clear existing children in the HBoxContainer
-	for child in $SellShopPanel/ScrollContainer/GridContainer.get_children():
-		child.queue_free()
-		
-	# Reload the ShopStock items
-	LoadSellShop()
+#func ReloadSellShopUI():
+	## Clear existing children in the HBoxContainer
+	#for child in $SellShopPanel/ScrollContainer/GridContainer.get_children():
+		#child.queue_free()
+		#
+	## Reload the ShopStock items
+	##LoadSellShop()
 
 ## ShowPlayerLevel
 ## gets player level and displays it
 func ShowPlayerLevel():
-	var LevelLabel = $Panel/LevelLabel
+	var LevelLabel = $LevelPanel/LevelLabel
 	LevelLabel.text = "Level: %s" % PlayerManager.level
 	
 ## _on_sell_button_pressed
@@ -335,8 +347,303 @@ func _on_mute_toggled(toggled):
 ## StockShop
 ## Fills Shop with everything from Stock
 func StockShop():
-	ShopStock.append({"texture": preload("res://assets/guppy.png"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
+	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
 	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 1, "Species": ThEnums.PlantSpecies.Guppygrass})
 	
 		
 	
+
+
+func _on_inventory_pressed() -> void:
+	if PlayerManager.marineLifeInventory.size() == 0:
+		ShowShop()
+		Notifier.push_notification("INVENTORY IS EMPTY")
+	else:
+		UiManager.ShowInventory()
+		UiManager.CloseFishUI()
+		UiManager.CloseTankCreationUI()
+		CloseShop()
+
+
+func _on_shop_pressed() -> void:
+	ShowShop()
+	
+func CloseShop():
+	$ShopScrollContainer.visible = false
+	$Background.visible = false
+	
+func ShowInventorySort():
+	$InventoryPanel.visible = true
+	$SellPanel.visible = true
+	
+func CloseInventorySort():
+	$InventoryPanel.visible = false
+	$SellPanel.visible = false
+	
+func CloseMenuPanel():
+	$Panel.visible = false
+	$InventoryPanel.visible = false
+	
+func ShowMenuPanel():
+	$Panel.visible = true
+	$InventoryPanel.visible = true
+	$SellPanel.visible = true
+	
+func ShowShop():
+	UiManager.CloseInventory()
+	UiManager.CloseFishUI()
+	UiManager.CloseTankCreationUI()
+	$ShopScrollContainer.visible = true
+	$Background.visible = true
+	
+func FillFishPediaStartPage():
+	var fishpedialist = []
+	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
+	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "facts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups."})
+	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "10 seconds", "facts": ""})
+	
+	if PlayerManager.level >= 5:
+		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png","watertype": "Salt", "harvesttime": "", "facts": ""})
+		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png","watertype": "Salt", "harvesttime": "", "facts": ""})
+	
+	var grid_container = $FishPediaStartPanel/ScrollContainer/GridContainer
+	var details_panel = $DetailsPanel  # Reference to the single panel
+
+	# Clear existing children in GridContainer
+	for child in grid_container.get_children():
+		child.queue_free()
+
+	# Ensure the details panel is hidden initially
+	if details_panel:
+		details_panel.visible = false
+		
+	grid_container.columns = 4 # Adjust as needed
+	grid_container.add_theme_constant_override("h_separation", 40)
+	grid_container.add_theme_constant_override("v_separation", 40)
+
+	# Add items to the GridContainer
+	for item in fishpedialist:
+		# Create a Button as the main clickable element
+		var button = Button.new()
+		button.flat = true  # Optional: Removes default button background
+		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER  # Changed to prevent over-expansion
+		button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		button.custom_minimum_size = Vector2(100, 130)  # Smaller button size
+		
+		
+
+		# Create a VBoxContainer to stack image and label
+		var vbox = VBoxContainer.new()
+		vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+		vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+		# Create TextureRect for the image
+		var texture_rect = TextureRect.new()
+		texture_rect.texture = load(item.image)
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+		texture_rect.custom_minimum_size = Vector2(100, 100)  # Adjust size as needed
+
+		# Create Label for the type
+		var label = Label.new()
+		label.text = item.type
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+		# Add TextureRect and Label to VBoxContainer
+		vbox.add_child(texture_rect)
+		vbox.add_child(label)
+
+		# Add VBoxContainer to Button
+		button.add_child(vbox)
+
+		# Connect button's pressed signal to show the panel with item details
+		button.pressed.connect(func():
+			show_details_panel(item, details_panel)
+		)
+
+		# Add Button to GridContainer
+		grid_container.add_child(button)
+
+# Function to show the details panel with the selected item's data
+func show_details_panel(item: Dictionary, panel: Panel) -> void:
+	$FishPediaStartPanel.visible = false
+	if panel:
+		# Update panel content
+		$DetailsPanel/Name.text = item.type
+		$DetailsPanel/Image.texture = load(item.image)
+		$DetailsPanel/WaterTypeVariableLabel.text = item.watertype
+		$DetailsPanel/HarvestTimeVariableLabel.text = item.harvesttime
+		$DetailsPanel/InterestingFactsLabel.text = item.facts
+		
+		# Show the panel
+		panel.visible = true
+
+
+func _on_fish_pedia_back_button_pressed() -> void:
+	$DetailsPanel.visible = false
+	$FishPediaStartPanel.visible = true
+
+
+func _on_worker_upgrade_purchase() -> void:
+	if PlayerManager.money >= 50:
+		var workerscene = load("res://scenes/Worker.tscn")
+		var worker = workerscene.instantiate()
+		worker.timetoharvest = 10
+		get_tree().current_scene.add_child(worker)
+		worker.makeWorkTimer()
+		PlayerManager.workers.append(worker)
+		PlayerManager.money -= 50
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+
+
+func _on_upgrades_pressed() -> void:
+	$UpgradesPanel.visible = !$UpgradesPanel.visible
+	$MenuPanel.visible = false
+	$SettingsPanel.visible = false
+	$FishPediaStartPanel.visible = false
+	$DetailsPanel.visible = false
+	$Panel/Menu.remove_theme_stylebox_override("normal")
+	$Panel/Menu.remove_theme_stylebox_override("hover")
+	$Panel/Menu.remove_theme_stylebox_override("pressed")
+	$Panel/Menu.text = "Menu"
+	upgrades()
+	
+func create_stylebox(color: Color) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	style.corner_radius_top_left = 5
+	style.corner_radius_top_right = 5
+	style.corner_radius_bottom_left = 5
+	style.corner_radius_bottom_right = 5
+	return style
+
+
+func upgrades():
+	var upgrades = []
+	#upgrades.append({"title": "", "image": ,"desc": "", "price": , "func": })
+	
+	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
+	
+	var upgrade_container = $UpgradesPanel/VBoxContainer
+	
+	for child in upgrade_container.get_children():
+		child.queue_free()
+		
+	var upgrades_scroll = ScrollContainer.new()
+	upgrades_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	upgrades_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	upgrades_scroll.follow_focus = true
+	upgrades_scroll.scroll_horizontal = false
+	upgrades_scroll.scroll_vertical = true # Only horizontal scrolling
+		
+	# Create a Theme to hide the scrollbar
+	var theme = Theme.new()
+	# Set the scrollbar style to be invisible
+	var empty_style = StyleBoxEmpty.new()
+	theme.set_stylebox("scroll", "VScrollBar", empty_style)
+	theme.set_stylebox("scroll", "HScrollBar", empty_style)
+	upgrades_scroll.theme = theme
+	
+	var UpgradesVbox = VBoxContainer.new()
+	UpgradesVbox.set("theme_override_constants/separation", 30)
+	
+
+	
+	if PlayerManager.workers.size() >= 1:
+		var scroll_container = ScrollContainer.new()
+		scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		scroll_container.follow_focus = true
+		scroll_container.scroll_horizontal = false
+		scroll_container.scroll_vertical = true
+
+		scroll_container.theme = theme
+
+		var worker_container = VBoxContainer.new()
+		worker_container.name = "WorkerContainer"
+		worker_container.set("theme_override_constants/separation", 20)
+		worker_container.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		
+		for worker in PlayerManager.workers:
+			var hbox = HBoxContainer.new()
+			hbox.set("theme_override_constants/separation", 10)
+
+			# Create TextureRect for the image
+			var texture_rect = TextureRect.new()
+			texture_rect.texture = load("res://icon.svg")
+			texture_rect.custom_minimum_size = Vector2(64, 64)
+			texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+			texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+			hbox.add_child(texture_rect)
+
+			# Create VBoxContainer for text
+			var vbox = VBoxContainer.new()
+			vbox.set("theme_override_constants/separation", 5)
+
+			# Title
+			var title_label = Label.new()
+			title_label.text = "Worker"
+			title_label.set("theme_override_font_sizes/font_size", 18)
+			vbox.add_child(title_label)
+
+			# Description
+			var desc_label = Label.new()
+			desc_label.text = "Make time to harvest %d seconds" % (worker.timetoharvest - 1)
+			desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+			desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			desc_label.custom_minimum_size = Vector2(200, 0)
+			vbox.add_child(desc_label)
+
+			# Price
+			var price_label = Label.new()
+			price_label.text = "Price: %d" % (worker.level * 100)
+			vbox.add_child(price_label)
+
+			hbox.add_child(vbox)
+			worker_container.add_child(hbox) # Add to worker_container, not scroll_container directly
+	
+		scroll_container.add_child(worker_container)
+		upgrade_container.add_child(scroll_container)
+	
+	for upgrade in upgrades:
+		
+		var hbox = HBoxContainer.new()
+		hbox.set("theme_override_constants/separation", 20)
+		# Create TextureRect for the image
+		var texture_rect = TextureRect.new()
+		texture_rect.texture = load(upgrade.image)
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
+		texture_rect.size = Vector2(20,20)
+		hbox.add_child(texture_rect)
+		
+		# Title
+		var title_label = Label.new()
+		title_label.text = upgrade.title
+		title_label.set("theme_override_font_sizes/font_size", 18)
+		hbox.add_child(title_label)
+		
+		# Description
+		var desc_label = Label.new()
+		desc_label.text = upgrade.desc
+		desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		desc_label.custom_minimum_size = Vector2(300, 0) # Adjust width as needed
+		hbox.add_child(desc_label)
+		
+		# Price
+		var button = Button.new()
+		button.text = "Buy: %d$" % upgrade.price
+		hbox.add_child(button)
+		
+		
+		button.pressed.connect(upgrade.func)
+		
+		UpgradesVbox.add_child(hbox)
+	
+	upgrades_scroll.add_child(UpgradesVbox)
+	upgrade_container.add_child(upgrades_scroll)
+		

@@ -20,6 +20,10 @@ func _ready() -> void:
 	wanderWeight = 0
 	boundsWeight = 0
 	super._ready()
+	$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+	if $Harvest.wait_time < 10:
+		$Harvest.wait_time = 10
+	$Harvest.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,13 +35,29 @@ func _process(delta: float) -> void:
 		#timePassed = 0
 		#print(counter)
 
-
+#When the plant is ready to be harvested
 func plant_clicked(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			if self.harvestStatus == false:
-				PlayerManager.xp += 1
-				PlayerManager.money += 1
-			else:
-				print("Harvest")
+			if self.harvestStatus == true:
+				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
+				$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+				if $Harvest.wait_time < 10:
+					$Harvest.wait_time = 10
+				$Harvest.start()
+				self.harvestStatus = false
+				if self.Species == ThEnums.PlantSpecies.Guppygrass:
+					PlayerManager.xp += 1
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+					UiManager.ReloadAllUI()
+				elif self.Species == ThEnums.PlantSpecies.Anemone:
+					PlayerManager.xp += 3
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+					UiManager.ReloadAllUI()
+
+#When the harvest timer goes off
+func _on_harvest_timeout() -> void:
+	$Harvest.stop()
+	self.harvestStatus = true
+	$Sprite2D.material.set_shader_parameter("onOff", 1.0)

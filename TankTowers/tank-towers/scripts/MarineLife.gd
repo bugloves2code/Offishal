@@ -32,8 +32,7 @@ class_name MarineLife
 
 ## The type of water in which the marine life can live.
 ## - Defaults to fresh water to avoid warnings.
-@export var waterType : ThEnums.WaterType = ThEnums.WaterType.Fresh;
-
+@export var waterType: ThEnums.WaterType
 ## Other types of marine life that this marine life can
 ## comfortably live with. 
 ## - Note: I have no idea if polymorphism is even possible in GDScript.

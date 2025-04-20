@@ -12,14 +12,21 @@ var PlayerUI
 # Holder for Tank Drag Drop UI
 var TankDragDrop
 
-# List of Fish UI that will be created
+# Fish UI
 var FishUI
+
+#TankCreationUI
+var TankCreationUI
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerUI =  get_tree().get_root().get_node("Main/PlayerUI")
+	print(PlayerUI)
 	TankDragDrop = get_tree().get_root().get_node("Main/DragDropMenu")
 	FishUI = get_tree().get_root().get_node("Main/FishUI")
+	TankCreationUI = get_tree().get_root().get_node("Main/TankCreationUI")
+	CloseAllBottomUI()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,10 +38,11 @@ func _process(_delta: float) -> void:
 ## except for UI that is updated within their process function
 ## and give it a refresh so it is up to date with player experience
 func ReloadAllUI():
-	PlayerUI.ReloadSellShopUI()
+	#PlayerUI.ReloadSellShopUI()
 	PlayerUI.ReloadShopUI()
 	PlayerUI.ShowPlayerLevel()
 	TankDragDrop.populate_hbox_container()
+	TankCreationUI.ReloadTankCreationUI()
 	
 ## CloseAllFishUIBut
 ## closes all FishUI except the one passed
@@ -42,3 +50,40 @@ func ReloadAllUI():
 func CloseFishUI():
 		if FishUI:
 			FishUI.visible = false
+			
+func ShowTankCreationUI():
+	TankCreationUI.visible = true
+	
+func CloseTankCreationUI():
+	TankCreationUI.visible = false
+	
+func ShowInventory():
+	if PlayerManager.marineLifeInventory.size() == 0:
+		PlayerUI.ShowShop()
+		Notifier.push_notification("INVENTORY IS EMPTY")
+	else:
+		TankDragDrop.visible = true
+		PlayerUI.ShowInventorySort()
+	
+func CloseInventory():
+	TankDragDrop.visible = false
+	PlayerUI.CloseInventorySort()
+	
+func CloseShop():
+	PlayerUI.CloseShop()
+	
+func CloseAllBottomUI():
+	PlayerUI.CloseShop()
+	TankDragDrop.visible = false
+	CloseFishUI()
+	PlayerUI.CloseInventorySort()
+	PlayerUI.CloseMenuPanel()
+	
+func ShowAllBottomUI():
+	PlayerUI.ShowMenuPanel()
+	PlayerUI.CloseShop()
+	ShowInventory()
+	
+func SaltWaterUnlock():
+	TankCreationUI.SaltwaterCheckbox.visible = true
+	

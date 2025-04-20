@@ -7,6 +7,7 @@
 extends MarineLife
 class_name Fish
 
+signal fishClicked
 
 var scrollContainer
 var last_scroll = 0
@@ -35,6 +36,7 @@ func _ready() -> void:
 	FishUI = UiManager.FishUI
 	collision_layer = 0;
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
+	$Harvest.start()
 
 func adjustFishBounds() -> void:
 	var rectShape = collisionShape.shape as RectangleShape2D
@@ -71,10 +73,55 @@ func fish_clicked(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
-			if self.harvestStatus == false:
+			if self.harvestStatus == true:
+				emit_signal("fishClicked")
+				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
+				$Harvest.start()
+				self.harvestStatus = false
+				print(self.Species)
+				var fishScene
+				if self.Species == ThEnums.FishSpecies.Guppy:
+					print("This is a guppy")
+					fishScene = load("res://scenes/Fish.tscn").instantiate()
+					fishScene.Species = ThEnums.FishSpecies.Guppy
+					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+						self.get_parent().AddFish(fishScene)
+						PlayerManager.xp += 1
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+						else:
+							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+					else:
+						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+				elif self.Species == ThEnums.FishSpecies.Clownfish:
+					fishScene = load("res://scenes/ClownFish.tscn").instantiate()
+					fishScene.Species = ThEnums.FishSpecies.Clownfish
+					print("This is a clownfish")
+					print(fishScene)
+					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+						self.get_parent().AddFish(fishScene)
+						PlayerManager.xp += 5
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+						else:
+							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+					else:
+						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+				fishScene = null
+			else:
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()
-				PlayerManager.xp += 1
-				PlayerManager.money += 1
-			else:
-				print("Harvest")
+				UiManager.CloseInventory()
+				UiManager.CloseShop()
+				UiManager.CloseTankCreationUI()
+				
+
+#When the harvest timer goes off
+func _on_harvest_timeout() -> void:
+	$Harvest.stop()
+	self.harvestStatus = true
+	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.

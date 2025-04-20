@@ -64,10 +64,14 @@ const levelMax: int = 99;
 ##   thing in GDScript? I don't know.
 var marineLifeInventory: Array[MarineLife];
 
+var workers: Array
+
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
 ##   this is just a regular, untyped array.
 var tankInventory: Array;
+
+var currentTankPrice
 
 
 ## Testing variables
@@ -85,11 +89,16 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(2):
-		var fish_instance = fish_scene.instantiate()
-		marineLifeInventory.append(fish_instance)
-	for i in range(2):
-		marineLifeInventory.append(plant_scene.instantiate())
+	#if(PlayerManager.level >= 5):
+		#UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
+		#UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		#UiManager.SaltWaterUnlock()
+	if level == 1:
+		for i in range(2):
+			var fish_instance = fish_scene.instantiate()
+			marineLifeInventory.append(fish_instance)
+		for i in range(2):
+			marineLifeInventory.append(plant_scene.instantiate())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -120,11 +129,21 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## This function updates all the stats the player gets
 ## when they level up
 func Levelup():
-	Notifier.push_notification("Level Up!")
 	level += 1
-	if(PlayerManager.level == 5):
+	if(PlayerManager.level == 5):	
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.SaltWaterUnlock()
+		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
+	else:
+		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()
+	UiManager.PlayerUI.FillFishPediaStartPage()
+	
+func UpdateTankPrice(higherprice: bool):
+	if higherprice:
+		currentTankPrice = TankManager.tankList.size() * 5 + 15
+	else:
+		currentTankPrice = TankManager.tankList.size() * 5 + 5
 	
 	

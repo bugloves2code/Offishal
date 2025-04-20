@@ -10,15 +10,11 @@
 extends Control
 class_name Tank
 
-## WaterType is pulling the enum of WaterType from ThEnums.gd
-## unsure if there is a better way of doing this because ThEmnums.gd
-## is an Autoload 
-const WaterType = preload("res://scripts/ThEnums.gd").WaterType
 
 ## tank_type is where this tanks WaterType will be stored
 ## this is currently hardcoded and shown in inspector
 ## this will likely be chosen before tank creation
-@export var tank_type: WaterType = WaterType.Fresh
+@export var tank_type: ThEnums.WaterType
 
 ## fishCapacity is the amount of fish allowed in this tank
 var fishCapacity = 10
@@ -32,34 +28,25 @@ var fishList: Array = []
 ## plantList is an array which holds what plants are in the tank
 var plantList: Array = []
 
-## harvestStatus is a bool which will turn true when it is time to harvest
-## Might need one for each fish and plant
-var harvestStatus = false
-
 ## tankName is the name of the tank
 var tankName: String = "Awesome Tank"
 
+signal addFish
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
-	# DELETES FISHINSTANCE BECAUSE SPAWNER 
-	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
-	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
-	fishInstance.queue_free()
 	
-	if fishList.size() == 0 && plantList.size() == 0:
-		$Harvest.start()
-		
 	if fishList.size() < fishCapacity:
+		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
 		$Bloop.play()
-		## emit signal for adding fish
+		## emit signal for adding fish	
 		emit_signal("addFish")
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
@@ -68,60 +55,56 @@ func AddFish(fishInstance):
 		## this needs to be a print statement
 		## it should be a ui statment
 		#print("Tank is full of fish")
+		
+	# DELETES FISHINSTANCE BECAUSE SPAWNER 
+	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
+	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
+	fishInstance.queue_free()
+	
 	UiManager.ReloadAllUI()
+	if PlayerManager.marineLifeInventory.size() == 0:
+		UiManager.ShowInventory()
 		
 
 		
 ## AddPlant
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
-func AddPlant(plantInstance):
-	if fishList.size() == 0 && plantList.size() == 0:
-		$Harvest.start()
-		
+func AddPlant(plantInstance):	
+	
+	plantInstance.queue_free()
+	
+	
+	
 	if plantList.size() < plantCapacity:
-		plantList.append(plantInstance)
-		SpawnManager.SpawnPlant(self, plantInstance)
-		## print("Added plant")
-	else:
-		## this needs to be a print statement
-		## it should be a ui statment
-		print("Tank is full")
+		var plantSpawned = SpawnManager.SpawnPlant(self, plantInstance)
+		plantList.append(plantSpawned)
+		$Bloop.play()
 		
 	UiManager.ReloadAllUI()
-	
-
-## HarvestTank
-## This method harvests the fish and plants in tank and adds
-## money based on the number of fish and plants in the tank
-## and resets the harvest timer and harvestStatus
-func HarvestTank():
-	PlayerManager.money += fishList.size() + plantList.size()
-	PlayerManager.xp += 1
-	harvestStatus = false
-	$Harvest.start()
-	$Sprite2D.material.set_shader_parameter("onOff", 0.0);
-
-## _on_harvest_timeout
-## Stops the harvest timer and sets the harvestStatus to true
-## Resets the UI so that the harvest button becomes valid
-func _on_harvest_timeout() -> void:
-	harvestStatus = true
-	$Harvest.stop()
-	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
-	
-	var Main = get_tree().current_scene
-	var Ui_Panel = Main.get_node("Tank UI - CanvasLayer")
-	if Ui_Panel and Ui_Panel.has_method("show_ui_panel"):
-		Ui_Panel.ReloadUI(self)
+	if PlayerManager.marineLifeInventory.size() == 0:
+		UiManager.ShowInventory()
 
 ## _can_drop_data
 ## checks to seee if data is acceptable to be dropped here
 ## also if tank has room for it
 func _can_drop_data(_pos,data):
+	if data is Fish && fishList.size() >= fishCapacity:
+		Notifier.push_notification("TANK IS FULL OF FISH")
+	if data is Plant && plantList.size() >= plantCapacity:
+		Notifier.push_notification("TANK IS FULL OF PLANTS")
+	
+	
+	if data.waterType != ThEnums.WaterType.Fresh && self.tank_type == ThEnums.WaterType.Fresh:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
+	
+	elif data.waterType != ThEnums.WaterType.Salt && self.tank_type == ThEnums.WaterType.Salt:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
+	
 	if data is Node:
 		if data is Fish && fishList.size() < fishCapacity:
-			#print("Drop allowed: Tank has space.")
 			return true
 		elif data is Plant && plantList.size() < plantCapacity:
 			return true
@@ -141,6 +124,9 @@ func _drop_data(_pos, data):
 			AddPlant(data)
 		
 		PlayerManager.marineLifeInventory.erase(data)
+		if PlayerManager.marineLifeInventory.size() == 0:
+			UiManager.ShowInventory()
+			
 		
 		var Main = get_tree().current_scene
 		var dragDrop = Main.get_node("DragDropMenu")

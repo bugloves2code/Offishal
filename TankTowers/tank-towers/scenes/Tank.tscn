@@ -57,9 +57,6 @@ position = Vector2(277, 102)
 position = Vector2(2, -2)
 shape = SubResource("RectangleShape2D_21xh8")
 
-[node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_h4pbf")
 position = Vector2(279, 115)
@@ -79,5 +76,3 @@ offset_right = 367.0
 offset_bottom = 13.0
 text = "Test Text"
 horizontal_alignment = 1
-
-[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
