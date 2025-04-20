@@ -43,6 +43,76 @@ VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_vqmmp")
 layer = 0
 script = ExtResource("1_f37m1")
 
+[node name="MoneyPanel" type="Panel" parent="."]
+offset_top = 13.0
+offset_right = 130.0
+offset_bottom = 43.0
+
+[node name="MoenyCount" type="Label" parent="MoneyPanel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+offset_right = 123.0
+offset_bottom = 25.0
+text = "MoneyCount"
+
+[node name="$_" type="Label" parent="MoneyPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.023
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 19.01
+offset_bottom = 24.0
+text = "$:"
+
+[node name="LevelPanel" type="Panel" parent="."]
+offset_left = 445.0
+offset_top = 13.0
+offset_right = 575.0
+offset_bottom = 43.0
+
+[node name="LevelLabel" type="Label" parent="LevelPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 131.0
+offset_bottom = 26.0
+text = "Level: 1"
+horizontal_alignment = 1
+
+[node name="SellPanel" type="Panel" parent="."]
+offset_left = 161.0
+offset_top = 16.0
+offset_right = 401.0
+offset_bottom = 95.0
+
+[node name="Control" type="Control" parent="SellPanel"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -17.0
+offset_top = -9.0
+offset_right = 250.0
+offset_bottom = 91.0
+script = ExtResource("2_vvt7t")
+
+[node name="InstructionLabel" type="Label" parent="SellPanel/Control"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 35.0
+offset_right = 202.0
+offset_bottom = 58.0
+text = "Drag Here to Sell"
+
+[node name="PriceLabel" type="Label" parent="SellPanel/Control"]
+visible = false
+layout_mode = 0
+offset_left = 112.0
+offset_top = 88.0
+offset_right = 159.0
+offset_bottom = 111.0
+text = "Price: "
+
 [node name="Background" type="Panel" parent="."]
 visible = false
 offset_left = 1.0
@@ -89,7 +159,6 @@ text = "Inventory"
 
 [node name="MenuPanel" type="Panel" parent="."]
 visible = false
-offset_top = 51.0
 offset_right = 577.0
 offset_bottom = 872.0
 
@@ -113,18 +182,19 @@ text = "Settings
 
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
-offset_top = 51.0
-offset_right = 574.0
+offset_right = 578.0
 offset_bottom = 871.0
 
 [node name="SettingsLabel" type="Label" parent="SettingsPanel"]
 layout_mode = 0
-offset_left = 217.0
-offset_top = 9.0
-offset_right = 381.0
-offset_bottom = 50.0
+offset_left = 214.0
+offset_top = 90.0
+offset_right = 378.0
+offset_bottom = 131.0
+theme_override_font_sizes/font_size = 20
 text = "Settings"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MasterSlider" type="HSlider" parent="SettingsPanel"]
 layout_mode = 0
@@ -215,44 +285,6 @@ offset_right = 329.0
 offset_bottom = 186.0
 text = "Mute"
 
-[node name="MoneyPanel" type="Panel" parent="."]
-offset_top = 13.0
-offset_right = 130.0
-offset_bottom = 43.0
-
-[node name="MoenyCount" type="Label" parent="MoneyPanel"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 2.0
-offset_right = 123.0
-offset_bottom = 25.0
-text = "MoneyCount"
-
-[node name="$_" type="Label" parent="MoneyPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.023
-offset_left = 4.0
-offset_top = 1.0
-offset_right = 19.01
-offset_bottom = 24.0
-text = "$:"
-
-[node name="LevelPanel" type="Panel" parent="."]
-offset_left = 445.0
-offset_top = 13.0
-offset_right = 575.0
-offset_bottom = 43.0
-
-[node name="LevelLabel" type="Label" parent="LevelPanel"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 3.0
-offset_right = 131.0
-offset_bottom = 26.0
-text = "Level: 1"
-horizontal_alignment = 1
-
 [node name="ShopScrollContainer" type="ScrollContainer" parent="."]
 offset_left = 4.0
 offset_top = 922.0
@@ -299,60 +331,26 @@ offset_right = -6.0
 offset_bottom = 22.0
 text = "Plants"
 
-[node name="SellPanel" type="Panel" parent="."]
-visible = false
-offset_left = 161.0
-offset_top = 16.0
-offset_right = 401.0
-offset_bottom = 95.0
-
-[node name="Control" type="Control" parent="SellPanel"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -17.0
-offset_top = -9.0
-offset_right = 250.0
-offset_bottom = 91.0
-script = ExtResource("2_vvt7t")
-
-[node name="InstructionLabel" type="Label" parent="SellPanel/Control"]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 35.0
-offset_right = 202.0
-offset_bottom = 58.0
-text = "Drag Here to Sell"
-
-[node name="PriceLabel" type="Label" parent="SellPanel/Control"]
-visible = false
-layout_mode = 0
-offset_left = 112.0
-offset_top = 88.0
-offset_right = 159.0
-offset_bottom = 111.0
-text = "Price: "
-
 [node name="UpgradesPanel" type="Panel" parent="."]
-visible = false
-offset_top = 48.0
-offset_right = 569.0
-offset_bottom = 868.0
+offset_right = 576.0
+offset_bottom = 872.0
 
 [node name="Label" type="Label" parent="UpgradesPanel"]
 layout_mode = 0
-offset_left = 233.0
-offset_top = 28.0
-offset_right = 320.0
-offset_bottom = 63.0
+offset_left = 229.0
+offset_top = 97.0
+offset_right = 322.0
+offset_bottom = 132.0
+theme_override_font_sizes/font_size = 20
 text = "Upgrades"
 horizontal_alignment = 1
 
 [node name="UpgradeitemPanel" type="Panel" parent="UpgradesPanel"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 117.0
+offset_top = 145.0
 offset_right = 557.0
-offset_bottom = 184.0
+offset_bottom = 212.0
 
 [node name="TextureRect" type="TextureRect" parent="UpgradesPanel/UpgradeitemPanel"]
 offset_left = 9.0
@@ -393,10 +391,9 @@ autowrap_mode = 3
 
 [node name="FishPediaStartPanel" type="Panel" parent="."]
 visible = false
-offset_left = 5.0
-offset_top = 52.0
-offset_right = 572.0
-offset_bottom = 862.0
+offset_top = 1.0
+offset_right = 576.0
+offset_bottom = 872.0
 
 [node name="BackButton" type="Button" parent="FishPediaStartPanel"]
 layout_mode = 0
@@ -408,10 +405,11 @@ text = "<-"
 
 [node name="Label" type="Label" parent="FishPediaStartPanel"]
 layout_mode = 0
-offset_left = 226.0
-offset_top = 25.0
-offset_right = 318.0
-offset_bottom = 54.0
+offset_left = 227.0
+offset_top = 91.0
+offset_right = 320.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 20
 text = "FishPedia"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -431,17 +429,17 @@ columns = 4
 
 [node name="DetailsPanel" type="Panel" parent="."]
 visible = false
-offset_left = 5.0
-offset_top = 52.0
-offset_right = 569.0
-offset_bottom = 861.0
+offset_left = -2.0
+offset_top = 3.0
+offset_right = 577.0
+offset_bottom = 872.0
 
 [node name="Image" type="TextureRect" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 185.0
-offset_top = 12.0
-offset_right = 360.0
-offset_bottom = 123.0
+offset_left = 196.0
+offset_top = 89.0
+offset_right = 371.0
+offset_bottom = 200.0
 expand_mode = 2
 
 [node name="FishPediaBackButton" type="Button" parent="DetailsPanel"]
@@ -454,10 +452,10 @@ text = "<-"
 
 [node name="Name" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 193.0
-offset_top = 132.0
-offset_right = 354.0
-offset_bottom = 185.0
+offset_left = 204.0
+offset_top = 209.0
+offset_right = 365.0
+offset_bottom = 262.0
 theme_override_font_sizes/font_size = 30
 text = "Name"
 horizontal_alignment = 1
@@ -465,28 +463,28 @@ vertical_alignment = 1
 
 [node name="WaterTypeStaticLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 228.0
-offset_right = 141.0
-offset_bottom = 261.0
+offset_left = 31.0
+offset_top = 305.0
+offset_right = 152.0
+offset_bottom = 338.0
 theme_override_font_sizes/font_size = 20
 text = "Water Type: "
 
 [node name="HarvestTimeStaticLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 266.0
-offset_right = 141.0
-offset_bottom = 299.0
+offset_left = 31.0
+offset_top = 343.0
+offset_right = 170.0
+offset_bottom = 376.0
 theme_override_font_sizes/font_size = 20
 text = "Harvest Time: "
 
 [node name="WaterTypeVariableLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 145.0
-offset_top = 227.0
-offset_right = 266.0
-offset_bottom = 260.0
+offset_left = 156.0
+offset_top = 304.0
+offset_right = 277.0
+offset_bottom = 337.0
 theme_override_font_sizes/font_size = 20
 text = "Water Type"
 horizontal_alignment = 1
@@ -494,10 +492,10 @@ vertical_alignment = 1
 
 [node name="HarvestTimeVariableLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 165.0
-offset_top = 264.0
-offset_right = 293.0
-offset_bottom = 297.0
+offset_left = 176.0
+offset_top = 341.0
+offset_right = 304.0
+offset_bottom = 374.0
 theme_override_font_sizes/font_size = 20
 text = "Harvest Time"
 horizontal_alignment = 1
@@ -505,10 +503,10 @@ vertical_alignment = 1
 
 [node name="InterestingFactsLabel" type="Label" parent="DetailsPanel"]
 layout_mode = 0
-offset_left = 19.0
-offset_top = 324.0
-offset_right = 545.0
-offset_bottom = 752.0
+offset_left = 30.0
+offset_top = 401.0
+offset_right = 556.0
+offset_bottom = 829.0
 theme_override_font_sizes/font_size = 20
 text = "Interesting Facts"
 autowrap_mode = 3

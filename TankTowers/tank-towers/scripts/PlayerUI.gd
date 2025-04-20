@@ -78,21 +78,27 @@ func _on_menu_pressed() -> void:
 	var SettingsPanel = $SettingsPanel
 	var FishPeidaPanel = $FishPediaStartPanel
 	var DetailsPanel = $DetailsPanel
+	var UpgradesPanel = $UpgradesPanel
 	
 	var BottomPanel = $Panel
 	var menuButton = BottomPanel.get_node("Menu")
 	#print(MenuPanel.visible)
 	if MenuPanel && not MenuPanel.visible && not SettingsPanel.visible && not FishPeidaPanel.visible && not DetailsPanel.visible:
 		MenuPanel.visible = true
-		UiManager.CloseFishUI()
-		UiManager.CloseTankCreationUI()
+		UpgradesPanel.visible = false
 		menuButton.text = "X"
+		menuButton.add_theme_stylebox_override("normal", create_stylebox(Color.RED))
+		menuButton.add_theme_stylebox_override("hover", create_stylebox(Color.DARK_RED))
+		menuButton.add_theme_stylebox_override("pressed", create_stylebox(Color.CRIMSON))
 	else:
 		MenuPanel.visible = false
 		SettingsPanel.visible = false
 		FishPeidaPanel.visible = false
 		DetailsPanel.visible = false
 		menuButton.text = "Menu"
+		menuButton.remove_theme_stylebox_override("normal")
+		menuButton.remove_theme_stylebox_override("hover")
+		menuButton.remove_theme_stylebox_override("pressed")
 
 ## _on_shop_pressed
 ## handles when shop button is clicked
@@ -491,3 +497,20 @@ func _on_worker_upgrade_purchase() -> void:
 
 func _on_upgrades_pressed() -> void:
 	$UpgradesPanel.visible = !$UpgradesPanel.visible
+	$MenuPanel.visible = false
+	$SettingsPanel.visible = false
+	$FishPediaStartPanel.visible = false
+	$DetailsPanel.visible = false
+	$Panel/Menu.remove_theme_stylebox_override("normal")
+	$Panel/Menu.remove_theme_stylebox_override("hover")
+	$Panel/Menu.remove_theme_stylebox_override("pressed")
+	$Panel/Menu.text = "Menu"
+	
+func create_stylebox(color: Color) -> StyleBoxFlat:
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	style.corner_radius_top_left = 5
+	style.corner_radius_top_right = 5
+	style.corner_radius_bottom_left = 5
+	style.corner_radius_bottom_right = 5
+	return style

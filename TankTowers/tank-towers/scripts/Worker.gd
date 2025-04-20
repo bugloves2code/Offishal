@@ -23,11 +23,7 @@ func _process(delta: float) -> void:
 	pass
 	
 
-func work():
-	for tank in checkedtankslist:
-		print(tank.tankName)
-		
-		
+func work():		
 	if TankManager.tankList.is_empty():
 		return
 	
@@ -42,19 +38,15 @@ func work():
 				checkedplantlist = []
 				selectedtank = TankManager.tankList[0]
 			else:
-				print("Selecting new tank")
 				for tank in TankManager.tankList:
-					print(tank)
 					if tank not in checkedtankslist:
 						checkedfishlist = []
 						checkedplantlist = []
 						selectedtank = tank
 						checkedtankslist.append(selectedtank)
-						print(selectedtank)
 						return
 		else:
 			for plant in selectedtank.plantList:
-				print(plant)
 				if plant not in checkedplantlist:
 					checkedplantlist.append(plant)
 					if plant.harvestStatus == true:
