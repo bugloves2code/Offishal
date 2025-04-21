@@ -21,8 +21,13 @@ extends Resource
 
 ## Array of fish in the tank
 ## - Uses the SavedMarineLife type for simplicity
-@export var fish: Array[SavedMarineLife];
+## - For some reason, giving the array's contents
+##   a type was causing an error when trying to 
+##   initialize the array in the SaveGame function.
+##   Could not possibly fathom why that happens,
+##   but the fix is to just not give the array a type.
+@export var fish: Array#[SavedMarineLife];
 
 ## Array of plants in the tank
 ## - Uses the SavedMarineLife type for simplicity
-@export var plants: Array[SavedMarineLife];
+@export var plants: Array#[SavedMarineLife];

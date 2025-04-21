@@ -63,6 +63,13 @@ func CreateTank():
 			TankManager.tankList.append(new_instance)
 			UiManager.ShowInventory()
 			self.visible = false
+			
+			# Moved this line up here because it was subtracting from
+			# the player's money after it was set in the LoadGame function,
+			# leading to the player's money being way lower than it should be.
+			# - I think it was happening because of the funky await stuff
+			#   happening just below this in that 'if vbox_node' block.
+			PlayerManager.money -= PlayerManager.currentTankPrice
 
 			if vbox_node:
 				## print("main found")
@@ -79,7 +86,7 @@ func CreateTank():
 				get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
 
 				## print(tankList.size())
-			PlayerManager.money -= PlayerManager.currentTankPrice
+			
 	else:
 		Notifier.push_notification("YOU DON'T HAVE ENOUGH $")
 		
