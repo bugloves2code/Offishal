@@ -39,7 +39,6 @@ signal addFish
 func AddFish(fishInstance):
 	
 	if fishList.size() < fishCapacity:
-		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()

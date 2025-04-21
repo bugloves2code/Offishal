@@ -66,7 +66,7 @@ var marineLifeInventory: Array[MarineLife];
 
 var workers: Array
 
-var unlockNusery = false
+var unlockNursery = false
 
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
@@ -105,7 +105,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if xp / level == 5:
+	if level + 5 <= xp:
+		xp = 0
 		Levelup()
 
 

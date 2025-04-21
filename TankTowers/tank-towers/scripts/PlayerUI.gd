@@ -514,6 +514,8 @@ func upgrades():
 	if $SellPanel/SellAllButton.visible == false:
 		upgrades.append({"title": "Sell All", "image": "res://icon.svg","desc": "A new button that allows you to sell all in inventory", "price": 10, "func": Callable(self, "_on_sell_all_purchased") })
 	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
+	if PlayerManager.unlockNursery == false:	
+		upgrades.append({"title": "Nursery", "image": "res://icon.svg","desc": "Increase fish output to 4 fish per harvest", "price": 1000, "func": Callable(self, "_on_nursery_purchase")})
 	
 	var upgrade_container = $UpgradesPanel/VBoxContainer
 	
@@ -552,7 +554,7 @@ func upgrades():
 
 		var worker_container = VBoxContainer.new()
 		worker_container.name = "WorkerContainer"
-		worker_container.set("theme_override_constants/separation", 20)
+		worker_container.set("theme_override_constants/separation", 5)
 		worker_container.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 		
 		for worker in PlayerManager.workers:
@@ -575,14 +577,16 @@ func upgrades():
 
 			# Description
 			var desc_label = Label.new()
-			desc_label.text = "Make time to harvest %d seconds" % (worker.timetoharvest - 1)
+			desc_label.text = "Decrease harvest to %d seconds" % (worker.timetoharvest - 1)
+			if worker.level >= 10:
+				desc_label.text = "Worker is Max Level"
 			desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD
 			desc_label.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-			desc_label.custom_minimum_size = Vector2(200, 0)
+			desc_label.custom_minimum_size = Vector2(180, 0)
 			hbox.add_child(desc_label)
 
 			var workerHarvests = Label.new()
-			workerHarvests.text = "Total Harvests: %d" % worker.harvestedMarineLife
+			workerHarvests.text = "Harvests: %d" % worker.harvestedMarineLife
 			workerHarvests.set("theme_override_font_sizes/font_size", 18)
 			hbox.add_child(workerHarvests)
 			# Price
@@ -594,7 +598,11 @@ func upgrades():
 			
 			worker_container.add_child(hbox) # Add to worker_container, not scroll_container directly
 	
+		var workerLabel = Label.new()
+		workerLabel.text = "Workers"
+		workerLabel.set("theme_override_font_sizes/font_size", 20)
 		scroll_container.add_child(worker_container)
+		upgrade_container.add_child(workerLabel)
 		upgrade_container.add_child(scroll_container)
 	
 	for upgrade in upgrades:
@@ -633,7 +641,11 @@ func upgrades():
 		
 		UpgradesVbox.add_child(hbox)
 	
+	var upgradeLabel = Label.new()
+	upgradeLabel.text = "Upgrades"
+	upgradeLabel.set("theme_override_font_sizes/font_size", 20)
 	upgrades_scroll.add_child(UpgradesVbox)
+	upgrade_container.add_child(upgradeLabel)
 	upgrade_container.add_child(upgrades_scroll)
 		
 
@@ -667,3 +679,8 @@ func _on_sell_all_purchased():
 		upgrades()
 	else:
 		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+		
+		
+func _on_nursery_purchase():
+	PlayerManager.unlockNursery = true
+	upgrades()
