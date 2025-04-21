@@ -58,11 +58,14 @@ func SpawnFish(tank: Tank, instance: Fish) -> Fish:
 	var yMin = center.y - halfSize.y
 	var yMax = center.y + halfSize.y
 	var fish
+	print("spawner",instance.Species)
 	if instance.Species == ThEnums.FishSpecies.Guppy:
+		print("this is a guppy spawner")
 		fish = fishScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Guppy
 		fish.fishname = instance.fishname
 	elif instance.Species == ThEnums.FishSpecies.Clownfish:
+		print("this a is clownfish spawner")
 		fish = clownFishScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Clownfish
 		fish.fishname = instance.fishname

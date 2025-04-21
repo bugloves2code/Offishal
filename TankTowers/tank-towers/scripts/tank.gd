@@ -37,12 +37,9 @@ signal addFish
 ## This method checks if ther is room in the tank to add a fish
 ## if there are then it will add the given fish to fishList
 func AddFish(fishInstance):
-	# DELETES FISHINSTANCE BECAUSE SPAWNER 
-	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
-	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
-	fishInstance.queue_free()
 	
 	if fishList.size() < fishCapacity:
+		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()
@@ -51,7 +48,6 @@ func AddFish(fishInstance):
 		$Bloop.play()
 		## emit signal for adding fish	
 		emit_signal("addFish")
-		print(self)
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
@@ -59,6 +55,12 @@ func AddFish(fishInstance):
 		## this needs to be a print statement
 		## it should be a ui statment
 		#print("Tank is full of fish")
+		
+	# DELETES FISHINSTANCE BECAUSE SPAWNER 
+	# NOT SET UP TO SPAWN ALREADY EXISTING FISH
+	# AND KEEPING THIS FISH WILL CAUSE MEMORY LEAKS i think
+	fishInstance.queue_free()
+	
 	UiManager.ReloadAllUI()
 	if PlayerManager.marineLifeInventory.size() == 0:
 		UiManager.ShowInventory()
@@ -69,24 +71,27 @@ func AddFish(fishInstance):
 ## This method checks if ther is room in the tank to add a plant
 ## if there are then it will add the given plant to plantList
 func AddPlant(plantInstance):	
+	
+	plantInstance.queue_free()
+	
+	
+	
 	if plantList.size() < plantCapacity:
-		plantList.append(plantInstance)
-		SpawnManager.SpawnPlant(self, plantInstance)
-		## print("Added plant")
-	else:
-		## this needs to be a print statement
-		## it should be a ui statment
-		print("Tank is full")
+		var plantSpawned = SpawnManager.SpawnPlant(self, plantInstance)
+		plantList.append(plantSpawned)
+		$Bloop.play()
 		
 	UiManager.ReloadAllUI()
+	if PlayerManager.marineLifeInventory.size() == 0:
+		UiManager.ShowInventory()
 
 ## _can_drop_data
 ## checks to seee if data is acceptable to be dropped here
 ## also if tank has room for it
 func _can_drop_data(_pos,data):
-	if fishList.size() >= fishCapacity:
+	if data is Fish && fishList.size() >= fishCapacity:
 		Notifier.push_notification("TANK IS FULL OF FISH")
-	if plantList.size() >= fishCapacity:
+	if data is Plant && plantList.size() >= plantCapacity:
 		Notifier.push_notification("TANK IS FULL OF PLANTS")
 	
 	

@@ -74,16 +74,40 @@ func fish_clicked(event: InputEvent) -> void:
 		var mouse_event := event as InputEventMouseButton
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == true:
+				emit_signal("fishClicked")
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 				$Harvest.start()
-				emit_signal("fishClicked")
 				self.harvestStatus = false
+				print(self.Species)
+				var fishScene
 				if self.Species == ThEnums.FishSpecies.Guppy:
-					PlayerManager.xp += 1
-					PlayerManager.money += 1
+					print("This is a guppy")
+					fishScene = load("res://scenes/Fish.tscn").instantiate()
+					fishScene.Species = ThEnums.FishSpecies.Guppy
+					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+						self.get_parent().AddFish(fishScene)
+						PlayerManager.xp += 1
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+						else:
+							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+					else:
+						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
 				elif self.Species == ThEnums.FishSpecies.Clownfish:
-					PlayerManager.xp += 3
-					PlayerManager.money += 3
+					fishScene = load("res://scenes/ClownFish.tscn").instantiate()
+					fishScene.Species = ThEnums.FishSpecies.Clownfish
+					print("This is a clownfish")
+					print(fishScene)
+					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+						self.get_parent().AddFish(fishScene)
+						PlayerManager.xp += 5
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+						else:
+							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+					else:
+						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+				fishScene = null
 			else:
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()

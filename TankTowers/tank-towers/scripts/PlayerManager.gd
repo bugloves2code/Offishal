@@ -64,6 +64,10 @@ const levelMax: int = 99;
 ##   thing in GDScript? I don't know.
 var marineLifeInventory: Array[MarineLife];
 
+var workers: Array
+
+var unlockNusery = false
+
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
 ##   this is just a regular, untyped array.
@@ -129,13 +133,14 @@ func RemoveMarineLife(index: int) -> MarineLife:
 func Levelup():
 	level += 1
 	if(PlayerManager.level == 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
 		UiManager.SaltWaterUnlock()
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
 		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()
+	UiManager.PlayerUI.FillFishPediaStartPage()
 	
 func UpdateTankPrice(higherprice: bool):
 	if higherprice:
