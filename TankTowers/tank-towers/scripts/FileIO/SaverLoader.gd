@@ -37,15 +37,8 @@ func SaveGame():
 	
 	# Set simple data
 	savedGame.money = PlayerManager.money;
-	
-	# Unsure if this actually needs to be saved or not,
-	# since it seems like it gets recalculated whenever
-	# the _update_tank_type function gets called inside
-	# the TankCreationUI script. Truly no idea.
-	# - TODO: Probably remove the tankPrice from the
-	#         saved game data - seems unnecessary to save.
-	PlayerManager.UpdateTankPrice(false);
-	savedGame.tankPrice = PlayerManager.currentTankPrice;
+	savedGame.level = PlayerManager.level;
+	savedGame.xp = PlayerManager.xp;
 	
 	# Initialize the fishList and plantList variables to empty arrays
 	savedGame.tanks = [];
@@ -84,6 +77,21 @@ func LoadGame():
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
 	
+	# --- Reset the game ---
+	PlayerManager.level = 1;
+	
+	# This is dumb and bad, but I think it should work
+	# for resetting the shop stock.
+	# - The reason I'm even doing this is to prevent
+	#   issues from happening when reloading data
+	#   again, which shouldn't ever happen in the
+	#   finished game (since data will be loaded once
+	#   when the game starts).
+	while UiManager.PlayerUI.ShopStock.size() > 1:
+		UiManager.PlayerUI.ShopStock.pop_back();
+	while UiManager.PlayerUI.PlantShopStock.size() > 1:
+		UiManager.PlayerUI.PlantShopStock.pop_back();
+	
 	# Loop through existing tanks and clean them up
 	# in preparation for loading new ones
 	# - queue_free() is technically enough to delete, but
@@ -104,6 +112,7 @@ func LoadGame():
 		
 	TankManager.tankList.clear();
 	
+	# --- Load in saved data ---
 	# Get the Tank UI node so that its tank creation function can be used
 	var tankUINode:CanvasLayer = get_tree().current_scene.get_node("TankCreationUI");
 	
@@ -145,9 +154,9 @@ func LoadGame():
 		# The actual UI label needs to be updated
 		tank.get_node("TankLabel").text = savedTank.name;
 	
-	# Load the player's money and tank price after
-	# creating all of the tanks, due to some wonky
-	# number stuff happening from reusing the existing
-	# tank creation functions
+	# Load the player's after creating all of the tanks, 
+	# due to some wonky number stuff happening from 
+	# reusing the existing tank creation functions
 	PlayerManager.money = savedGame.money;
-	PlayerManager.currentTankPrice = savedGame.tankPrice;
+	PlayerManager.SetLevel(savedGame.level);
+	PlayerManager.xp = savedGame.xp;

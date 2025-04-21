@@ -17,12 +17,15 @@ extends Resource
 ## The player's money.
 @export var money: int;
 
-## The base price of a tank, which increases
-## as the player adds more tanks.
-## - This needs to be saved because of some hacky
-##   stuff I have to do to get the existing tank
-##   creation function to work right.
-@export var tankPrice: int;
+## The player's current level.
+@export var level: int;
+
+## The player's experience points.
+## - In the current implementation, it doesn't look like
+##   these are reset after each level up.
+## - Level up also seems to occur constantly at every five levels.
+##   In any case, this is an integer. Gotta save that partial progress.
+@export var xp: int;
 
 ## An array of tank data to be saved.
 ## - Each tank stores its water type, 

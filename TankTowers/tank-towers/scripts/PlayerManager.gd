@@ -139,7 +139,23 @@ func Levelup():
 		Notifier.push_notification("LEVEL UP!")
 	UiManager.ReloadAllUI()
 	UiManager.PlayerUI.FillFishPediaStartPage()
-	
+
+## Helper function to call when loading data
+## - I think the way this works now, if data
+##   is reloaded before quitting the game, 
+##   this will probably add duplicates to the
+##   shop. However, that probably won't happen.
+##   Loading will happen only once, when the
+##   game first starts.
+func SetLevel(value: int):
+	level = value;
+	if(PlayerManager.level >= 5):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.SaltWaterUnlock()
+	UiManager.ReloadAllUI()
+	UiManager.PlayerUI.FillFishPediaStartPage()
+
 func UpdateTankPrice(higherprice: bool):
 	if higherprice:
 		currentTankPrice = TankManager.tankList.size() * 5 + 15
