@@ -682,5 +682,9 @@ func _on_sell_all_purchased():
 		
 		
 func _on_nursery_purchase():
-	PlayerManager.unlockNursery = true
-	upgrades()
+	if PlayerManager.money >= 1000:
+		PlayerManager.unlockNursery = true
+		PlayerManager.money -= 1000
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")

@@ -64,14 +64,14 @@ func work():
 								plantscene.Species = ThEnums.PlantSpecies.Guppygrass
 								PlayerManager.marineLifeInventory.append(plantscene)
 								harvestedMarineLife += 1
-								UiManager.ReloadAllUI()
+								UiManager.TankDragDrop.populate_hbox_container()
 							elif plant.Species == ThEnums.PlantSpecies.Anemone:
 								PlayerManager.xp += 3
 								var plantscene = load("res://scenes/Anemone.tscn").instantiate()
 								plantscene.Species = ThEnums.PlantSpecies.Anemone
 								PlayerManager.marineLifeInventory.append(plantscene)
 								harvestedMarineLife += 1
-								UiManager.ReloadAllUI()
+								UiManager.TankDragDrop.populate_hbox_container()
 						return
 				else:
 					if plant not in checkedplantlist:
@@ -147,7 +147,48 @@ func work():
 			else:
 				if fish not in checkedfishlist:
 					checkedfishlist.append(fish)
-				
+				if checkedfishlist == selectedtank.fishList:
+					if checkedplantlist == selectedtank.plantList:
+						if checkedtankslist == TankManager.tankList:
+							checkedtankslist = []
+							checkedfishlist = []
+							checkedplantlist = []
+							selectedtank = TankManager.tankList[0]
+						else:
+							for tank in TankManager.tankList:
+								if tank not in checkedtankslist:
+									checkedfishlist = []
+									checkedplantlist = []
+									selectedtank = tank
+									checkedtankslist.append(selectedtank)
+									return
+					else:
+						for plant in selectedtank.plantList:
+							if plant.harvestStatus == true:
+								if plant not in checkedplantlist:
+									checkedplantlist.append(plant)
+									if plant.harvestStatus == true:
+										plant.get_node("Sprite2D").material.set_shader_parameter("onOff", 0.0);
+										plant.get_node("Harvest").start()
+										plant.harvestStatus = false
+										if plant.Species == ThEnums.PlantSpecies.Guppygrass:
+											PlayerManager.xp += 1
+											var plantscene = load("res://scenes/Plant.tscn").instantiate()
+											plantscene.Species = ThEnums.PlantSpecies.Guppygrass
+											PlayerManager.marineLifeInventory.append(plantscene)
+											harvestedMarineLife += 1
+											UiManager.TankDragDrop.populate_hbox_container()
+										elif plant.Species == ThEnums.PlantSpecies.Anemone:
+											PlayerManager.xp += 3
+											var plantscene = load("res://scenes/Anemone.tscn").instantiate()
+											plantscene.Species = ThEnums.PlantSpecies.Anemone
+											PlayerManager.marineLifeInventory.append(plantscene)
+											harvestedMarineLife += 1
+											UiManager.TankDragDrop.populate_hbox_container()
+									return
+							else:
+								if plant not in checkedplantlist:
+									checkedplantlist.append(plant)
 	
 	
 	
