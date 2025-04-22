@@ -48,8 +48,7 @@ z_index = 3
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
-offset_right = 0.0
+offset_right = -575.0
 offset_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
@@ -81,7 +80,7 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(500, 700)
 layout_mode = 2
 
-[node name="CreateTankButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
+[node name="CreateTankButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control" groups=["TutorialGlowObjects"]]
 layout_mode = 0
 offset_left = 130.0
 offset_top = 553.0
@@ -102,5 +101,20 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
+
+[node name="TutorialManager2" type="Node" parent="."]
+script = ExtResource("8_t44bm")
+tutorial_overlay = NodePath("../TutorialCharacter")
+
+[node name="TutorialCharacter2" parent="." instance=ExtResource("9_5knk2")]
+z_index = 3
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = -575.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("10_vkydt")
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]

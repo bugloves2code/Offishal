@@ -27,7 +27,7 @@ func start_tutorial():
 
 func create_tutorial_steps():
 	var step1 = TutorialStep.new()
-	step1.instruction_text = "Welcome to Tank Towers! My name is Professor Merlin. Try creating a new Freshwater Tank to get started."
+	step1.instruction_text = "Welcome to Tank Towers! My name is Professor Marlin. Try creating a new Freshwater Tank to get started."
 	step1.signal_name = "tankAdded"
 	step1.signal_source = "/root/TankManager"
 	steps.append(step1)
@@ -35,19 +35,16 @@ func create_tutorial_steps():
 	var step2 = TutorialStep.new()
 	step2.instruction_text = "Great now try to drag a fish into your new Tank!"
 	step2.signal_name = "addFish"
-	step2.signal_source = ""
 	steps.append(step2)
 	
 	var step3 = TutorialStep.new()
 	step3.instruction_text = "Your fish is ready to harvest when it turns blue. Simply tap the fish. Try it out!"
 	step3.signal_name = "fishClicked"
-	step3.signal_source = ""
 	steps.append(step3)
 	
 	var step4 = TutorialStep.new()
 	step4.instruction_text = "Let's try to buy more fish and plants. Click on the shop to buy more fish."
 	step4.signal_name = "shopPressed"
-	step4.signal_source = ""
 	steps.append(step4)
 	
 	var step5 = TutorialStep.new()

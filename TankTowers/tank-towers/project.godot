@@ -25,6 +25,7 @@ SettingsManager="*res://scripts/SettingsManager.gd"
 MusicPlayer="*res://scripts/MusicPlayer.gd"
 Notifier="*res://scripts/Notifier.gd"
 UiManager="*res://scripts/UiManager.gd"
+TutorialGlowManager="*res://scripts/TutorialGlowManager.gd"
 
 [display]
 
@@ -36,6 +37,10 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Tank Towers"
+
+[global_group]
+
+Glodes="This represents every thing tht will glow to direct the player for the tutorial"
 
 [input]
 
