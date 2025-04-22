@@ -350,10 +350,12 @@ func _on_inventory_pressed() -> void:
 		UiManager.CloseFishUI()
 		UiManager.CloseTankCreationUI()
 		CloseShop()
+		$UpgradesPanel.visible = false
 
 
 func _on_shop_pressed() -> void:
 	ShowShop()
+	$UpgradesPanel.visible = false
 	
 func CloseShop():
 	$ShopScrollContainer.visible = false
@@ -670,6 +672,7 @@ func _on_sell_all_button_pressed() -> void:
 		item.queue_free()
 		
 	PlayerManager.marineLifeInventory = []
+	UiManager.ShowInventory()
 	UiManager.ReloadAllUI()
 
 func _on_sell_all_purchased():
