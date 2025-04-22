@@ -90,17 +90,17 @@ func work():
 							fishScene = load("res://scenes/Fish.tscn").instantiate()
 							fishScene.Species = ThEnums.FishSpecies.Guppy
 							if PlayerManager.unlockNursery == true:
-								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-									self.get_parent().AddFish(fishScene)
+								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+									fish.get_parent().AddFish(fishScene)
 									PlayerManager.xp += 1
-									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-										self.get_parent().AddFish(fishScene)
+									if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+										fish.get_parent().AddFish(fishScene)
 										PlayerManager.xp += 1
-										if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-											self.get_parent().AddFish(fishScene)
+										if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+											fish.get_parent().AddFish(fishScene)
 											PlayerManager.xp += 1
-											if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-												self.get_parent().AddFish(fishScene)
+											if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+												fish.get_parent().AddFish(fishScene)
 												harvestedMarineLife += 1
 												PlayerManager.xp += 1
 											else:
@@ -151,17 +151,17 @@ func work():
 							fishScene = load("res://scenes/ClownFish.tscn").instantiate()
 							fishScene.Species = ThEnums.FishSpecies.Clownfish
 							if PlayerManager.unlockNursery == true:
-								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-									self.get_parent().AddFish(fishScene)
+								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+									fish.get_parent().AddFish(fishScene)
 									PlayerManager.xp += 5
-									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-										self.get_parent().AddFish(fishScene)
+									if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+										fish.get_parent().AddFish(fishScene)
 										PlayerManager.xp += 5
-										if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-											self.get_parent().AddFish(fishScene)
+										if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+											fish.get_parent().AddFish(fishScene)
 											PlayerManager.xp += 5
-											if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
-												self.get_parent().AddFish(fishScene)
+											if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
+												fish.get_parent().AddFish(fishScene)
 												harvestedMarineLife += 1
 												PlayerManager.xp += 5
 											else:
