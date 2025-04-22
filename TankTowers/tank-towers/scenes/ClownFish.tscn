@@ -10,7 +10,7 @@ shader = ExtResource("2_8xqym")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e876m"]
-radius = 54.037
+radius = 34.0147
 
 [node name="ClownFish" type="CharacterBody2D"]
 collision_layer = 2
@@ -23,8 +23,8 @@ maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xi5si")
-position = Vector2(0, 1)
-scale = Vector2(0.159115, 0.159115)
+position = Vector2(2.032, 3.48)
+scale = Vector2(0.100391, 0.100391)
 texture = ExtResource("3_6jmxx")
 flip_h = true
 
@@ -34,10 +34,10 @@ shape = SubResource("CircleShape2D_e876m")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -62.0
+offset_left = -45.0
 offset_top = -22.0
-offset_right = 61.0
-offset_bottom = 37.0
+offset_right = 35.0
+offset_bottom = 15.0
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 120.0

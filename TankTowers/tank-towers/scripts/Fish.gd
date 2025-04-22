@@ -35,10 +35,10 @@ func _ready() -> void:
 	# Is this the best place for this line? I have no idea!
 	FishUI = UiManager.FishUI
 	collision_layer = 0;
-	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 	$Harvest.start()
 
 func adjustFishBounds() -> void:
+	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 	var rectShape = collisionShape.shape as RectangleShape2D
 	var halfSize = rectShape.size * 0.5
 	# There is a position already on Node2D sop this causes a warning - Justin

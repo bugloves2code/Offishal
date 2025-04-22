@@ -10,7 +10,7 @@ shader = ExtResource("2_r622j")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
-radius = 64.0078
+radius = 31.0644
 
 [node name="Fish" type="CharacterBody2D"]
 script = ExtResource("1_6kk0x")
@@ -20,9 +20,9 @@ boundsWeight = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_v42x8")
-position = Vector2(0, -1)
+position = Vector2(-5.163, -2.101)
 rotation = -0.401426
-scale = Vector2(-0.25, 0.25)
+scale = Vector2(-0.142024, 0.142024)
 texture = ExtResource("2_1f3kr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,10 +31,10 @@ shape = SubResource("CircleShape2D_newn4")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -62.0
-offset_top = -22.0
-offset_right = 61.0
-offset_bottom = 37.0
+offset_left = -42.0
+offset_top = -12.0
+offset_right = 28.0
+offset_bottom = 17.0
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 10.0
