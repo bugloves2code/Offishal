@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://bgs5idryrbrf6"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_3trmk"]
-[ext_resource type="Texture2D" uid="uid://012hwqoqkuxk" path="res://assets/clownfish.png" id="1_dhc21"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_8xqym"]
+[ext_resource type="Texture2D" uid="uid://nel3yggjrx6k" path="res://assets/clown.PNG" id="3_6jmxx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xi5si"]
 resource_local_to_scene = true
@@ -10,7 +10,7 @@ shader = ExtResource("2_8xqym")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e876m"]
-radius = 76.4003
+radius = 54.037
 
 [node name="ClownFish" type="CharacterBody2D"]
 collision_layer = 2
@@ -22,8 +22,10 @@ maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xi5si")
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_dhc21")
+position = Vector2(0, 1)
+scale = Vector2(0.159115, 0.159115)
+texture = ExtResource("3_6jmxx")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e876m")
