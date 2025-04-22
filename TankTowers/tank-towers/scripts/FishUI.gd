@@ -51,7 +51,6 @@ func loadFish(fishInstance: CharacterBody2D):
 ## on the FishUI
 func loadFishUI():
 	$Panel/FishNameLabel.text = fish.fishname
-	$Panel/AgeLabel.text ="Age: %s" % fish.age
 	$Panel/TypeLabel.text = ThEnums.get_species_name(fish.Species)
 	
 	if harvest_timer_label:

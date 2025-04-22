@@ -48,7 +48,6 @@ z_index = 3
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
 offset_right = -575.0
 offset_bottom = 0.0
 grow_horizontal = 1
@@ -102,6 +101,7 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource("3_p3gy6")]
+layer = 1
 
 [node name="TutorialManager2" type="Node" parent="."]
 script = ExtResource("8_t44bm")
@@ -112,7 +112,6 @@ z_index = 3
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
 offset_right = -575.0
 offset_bottom = 0.0
 grow_horizontal = 1

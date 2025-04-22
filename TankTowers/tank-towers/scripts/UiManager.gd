@@ -58,6 +58,7 @@ func CloseTankCreationUI():
 	TankCreationUI.visible = false
 	
 func ShowInventory():
+	print("Called Show Inventory")
 	if PlayerManager.marineLifeInventory.size() == 0:
 		PlayerUI.ShowShop()
 		Notifier.push_notification("INVENTORY IS EMPTY")

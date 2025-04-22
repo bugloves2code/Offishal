@@ -61,7 +61,10 @@ func AddFish(fishInstance):
 	fishInstance.queue_free()
 	
 	UiManager.ReloadAllUI()
-	if PlayerManager.marineLifeInventory.size() == 0:
+	if PlayerManager.tutorialComplete == false:
+		return
+	elif PlayerManager.marineLifeInventory.size() == 0:
+		print("Add Fish")
 		UiManager.ShowInventory()
 		
 
@@ -81,7 +84,10 @@ func AddPlant(plantInstance):
 		$Bloop.play()
 		
 	UiManager.ReloadAllUI()
-	if PlayerManager.marineLifeInventory.size() == 0:
+	if PlayerManager.tutorialComplete == false:
+		return
+	elif PlayerManager.marineLifeInventory.size() == 0:
+		print("add plant")
 		UiManager.ShowInventory()
 
 ## _can_drop_data
@@ -123,8 +129,6 @@ func _drop_data(_pos, data):
 			AddPlant(data)
 		
 		PlayerManager.marineLifeInventory.erase(data)
-		if PlayerManager.marineLifeInventory.size() == 0:
-			UiManager.ShowInventory()
 			
 		
 		var Main = get_tree().current_scene
