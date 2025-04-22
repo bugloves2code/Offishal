@@ -16,6 +16,7 @@ radius = 54.037
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_3trmk")
+Species = 1
 waterType = 1
 sell_price = 5
 maxSpeed = 50

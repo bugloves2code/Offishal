@@ -14,7 +14,7 @@ var last_scroll = 0
 var parent_global_pos
 var collisionShape
 
-var Species: ThEnums.FishSpecies
+@export var Species: ThEnums.FishSpecies
 ## Fish Properties
 var fishname : String
 
@@ -46,7 +46,6 @@ func adjustFishBounds() -> void:
 
 	var offset = collisionShape.position
 	var center = position + offset
-	## print("position", center)
 	## you might just bebale to inherit these from PhysicObject
 	var xMin = center.x - halfSize.x
 	var xMax = center.x + halfSize.x
@@ -78,35 +77,117 @@ func fish_clicked(event: InputEvent) -> void:
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
 				$Harvest.start()
 				self.harvestStatus = false
-				print(self.Species)
 				var fishScene
 				if self.Species == ThEnums.FishSpecies.Guppy:
-					print("This is a guppy")
 					fishScene = load("res://scenes/Fish.tscn").instantiate()
 					fishScene.Species = ThEnums.FishSpecies.Guppy
+					if PlayerManager.unlockNursery == true:
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+							PlayerManager.xp += 1
+							if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+								self.get_parent().AddFish(fishScene)
+								PlayerManager.xp += 1
+								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+									self.get_parent().AddFish(fishScene)
+									PlayerManager.xp += 1
+									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+										self.get_parent().AddFish(fishScene)
+										PlayerManager.xp += 1
+									else:
+										PlayerManager.marineLifeInventory.append(fishScene)
+										UiManager.ReloadAllUI()
+										PlayerManager.xp += 1
+								else:
+									PlayerManager.marineLifeInventory.append(fishScene)
+									PlayerManager.marineLifeInventory.append(fishScene)
+									UiManager.ReloadAllUI()
+									PlayerManager.xp += 2
+							else:
+								PlayerManager.marineLifeInventory.append(fishScene)
+								PlayerManager.marineLifeInventory.append(fishScene)
+								PlayerManager.marineLifeInventory.append(fishScene)
+								UiManager.ReloadAllUI()
+								PlayerManager.xp += 3
+								
+						else:
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							UiManager.ReloadAllUI()
+							PlayerManager.xp += 4
+						return
 					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 						self.get_parent().AddFish(fishScene)
-						PlayerManager.xp += 1
+						PlayerManager.xp += 2
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(fishScene)
 						else:
-							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+							Notifier.push_notification("TANK IS FULL OF FISh, GUPPY ADDED TO INVENTORY")
+							PlayerManager.marineLifeInventory.append(fishScene)
+							UiManager.ReloadAllUI()
+							PlayerManager.xp += 1
 					else:
-						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+						Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
+						PlayerManager.marineLifeInventory.append(fishScene)
+						UiManager.ReloadAllUI()
+						PlayerManager.xp += 1
 				elif self.Species == ThEnums.FishSpecies.Clownfish:
 					fishScene = load("res://scenes/ClownFish.tscn").instantiate()
 					fishScene.Species = ThEnums.FishSpecies.Clownfish
-					print("This is a clownfish")
-					print(fishScene)
+					if PlayerManager.unlockNursery == true:
+						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+							self.get_parent().AddFish(fishScene)
+							PlayerManager.xp += 5
+							if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+								self.get_parent().AddFish(fishScene)
+								PlayerManager.xp += 5
+								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+									self.get_parent().AddFish(fishScene)
+									PlayerManager.xp += 5
+									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+										self.get_parent().AddFish(fishScene)
+										PlayerManager.xp += 5
+									else:
+										PlayerManager.marineLifeInventory.append(fishScene)
+										UiManager.ReloadAllUI()
+										PlayerManager.xp += 5
+								else:
+									PlayerManager.marineLifeInventory.append(fishScene)
+									PlayerManager.marineLifeInventory.append(fishScene)
+									UiManager.ReloadAllUI()
+									PlayerManager.xp += 10
+							else:
+								PlayerManager.marineLifeInventory.append(fishScene)
+								PlayerManager.marineLifeInventory.append(fishScene)
+								PlayerManager.marineLifeInventory.append(fishScene)
+								UiManager.ReloadAllUI()
+								PlayerManager.xp += 15
+								
+						else:
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							PlayerManager.marineLifeInventory.append(fishScene)
+							UiManager.ReloadAllUI()
+							PlayerManager.xp += 20
+						return
 					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 						self.get_parent().AddFish(fishScene)
 						PlayerManager.xp += 5
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(fishScene)
 						else:
-							Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+							Notifier.push_notification("TANK IS FULL OF FISH, CLOWNFISH ADDED TO INVENTORY")
+							PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+							UiManager.ReloadAllUI()
+							PlayerManager.xp += 1
 					else:
-						Notifier.push_notification("TANK IS FULL OF FIHS, CANNOT HARVEST FISH")
+						Notifier.push_notification("TANK IS FULL OF FIHS, CLOWNFISH ADDED TO INVENTORY")
+						PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+						UiManager.ReloadAllUI()
+						PlayerManager.xp += 1
 				fishScene = null
 			else:
 				FishUI.loadFish(self)

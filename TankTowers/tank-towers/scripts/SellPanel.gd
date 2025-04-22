@@ -54,6 +54,7 @@ func _drop_data(_pos, data):
 		data.queue_free()
 		#print(get_tree().current_scene)
 		UiManager.ReloadAllUI()
+		UiManager.ShowInventory()
 		
 ## update_price_label
 ## Show the price of the item hovering over the sell panel

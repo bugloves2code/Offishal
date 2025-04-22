@@ -10,7 +10,7 @@ var counter
 var timePassed
 var collisionShape
 
-var Species: ThEnums.PlantSpecies
+@export var Species: ThEnums.PlantSpecies
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,11 +49,15 @@ func plant_clicked(event: InputEvent) -> void:
 				self.harvestStatus = false
 				if self.Species == ThEnums.PlantSpecies.Guppygrass:
 					PlayerManager.xp += 1
-					PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+					var plantscene = load("res://scenes/Plant.tscn").instantiate()
+					plantscene.Species = ThEnums.PlantSpecies.Guppygrass
+					PlayerManager.marineLifeInventory.append(plantscene)
 					UiManager.ReloadAllUI()
 				elif self.Species == ThEnums.PlantSpecies.Anemone:
 					PlayerManager.xp += 3
-					PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+					var plantscene = load("res://scenes/Anemone.tscn").instantiate()
+					plantscene.Species = ThEnums.PlantSpecies.Anemone
+					PlayerManager.marineLifeInventory.append(plantscene)
 					UiManager.ReloadAllUI()
 
 #When the harvest timer goes off
