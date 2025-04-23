@@ -22,6 +22,7 @@ material = SubResource("ShaderMaterial_1hcam")
 script = ExtResource("1_gexj5")
 Species = 2
 waterType = 1
+sell_price = 100
 maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -43,7 +44,7 @@ offset_bottom = 17.0
 mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 420.0
 
 [connection signal="gui_input" from="Control" to="." method="fish_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

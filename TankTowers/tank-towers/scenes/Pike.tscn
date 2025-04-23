@@ -22,6 +22,7 @@ material = SubResource("ShaderMaterial_3h8ar")
 position = Vector2(-8, 0)
 script = ExtResource("1_oxp84")
 Species = 3
+sell_price = 50
 maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -46,7 +47,7 @@ mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 360.0
 
 [connection signal="gui_input" from="Control" to="." method="fish_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

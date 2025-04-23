@@ -22,6 +22,7 @@ material = SubResource("ShaderMaterial_8w0cn")
 script = ExtResource("1_fk34o")
 Species = 2
 waterType = 1
+sell_price = 100
 wanderTime = 0.0
 wanderRadius = 0.0
 wanderWeight = 0.0
@@ -50,7 +51,7 @@ mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 420.0
 
 [connection signal="gui_input" from="Control" to="." method="plant_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
