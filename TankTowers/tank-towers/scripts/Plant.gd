@@ -20,7 +20,7 @@ func _ready() -> void:
 	wanderWeight = 0
 	boundsWeight = 0
 	super._ready()
-	$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+	$Harvest.wait_time = $Harvest.wait_time - get_parent().fishList.size() * 5
 	if $Harvest.wait_time < 10:
 		$Harvest.wait_time = 10
 	$Harvest.start()
@@ -128,7 +128,3 @@ func _drop_data(_pos, data):
 			dragDrop.populate_hbox_container()
 		
 		data.queue_free()	
-
-
-func fish_clicked(event: InputEvent) -> void:
-	pass # Replace with function body.

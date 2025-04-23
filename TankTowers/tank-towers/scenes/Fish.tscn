@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0ha7w6j3tk05"]
+[gd_scene load_steps=7 format=3 uid="uid://d0ha7w6j3tk05"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_6kk0x"]
 [ext_resource type="Texture2D" uid="uid://6ucanyw07b7p" path="res://assets/guppy.PNG" id="2_1f3kr"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_r622j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc8fe"]
+resource_local_to_scene = true
+shader = ExtResource("2_r622j")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v42x8"]
 resource_local_to_scene = true
@@ -13,6 +18,7 @@ shader_parameter/onOff = 0.0
 radius = 31.0644
 
 [node name="Fish" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_fc8fe")
 script = ExtResource("1_6kk0x")
 maxSpeed = 50
 wanderRadius = 20.0

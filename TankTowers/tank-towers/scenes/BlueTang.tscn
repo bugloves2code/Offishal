@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cq4aody0dmhq8"]
+[gd_scene load_steps=7 format=3 uid="uid://cq4aody0dmhq8"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_gexj5"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_rlptr"]
 [ext_resource type="Texture2D" uid="uid://lvhkdbrrh7ub" path="res://assets/blueTang.PNG" id="3_cavlb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1hcam"]
+resource_local_to_scene = true
+shader = ExtResource("2_rlptr")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_it8kj"]
 resource_local_to_scene = true
@@ -13,9 +18,11 @@ shader_parameter/onOff = 0.0
 radius = 31.0644
 
 [node name="BlueTang" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_1hcam")
 script = ExtResource("1_gexj5")
 Species = 2
 waterType = 1
+sell_price = 100
 maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -37,7 +44,7 @@ offset_bottom = 17.0
 mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 420.0
 
 [connection signal="gui_input" from="Control" to="." method="fish_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

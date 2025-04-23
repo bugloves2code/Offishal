@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgs5idryrbrf6"]
+[gd_scene load_steps=7 format=3 uid="uid://bgs5idryrbrf6"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_3trmk"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_8xqym"]
 [ext_resource type="Texture2D" uid="uid://nel3yggjrx6k" path="res://assets/clown.PNG" id="3_6jmxx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fws4d"]
+resource_local_to_scene = true
+shader = ExtResource("2_8xqym")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xi5si"]
 resource_local_to_scene = true
@@ -13,6 +18,7 @@ shader_parameter/onOff = 0.0
 radius = 34.0147
 
 [node name="ClownFish" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_fws4d")
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_3trmk")
