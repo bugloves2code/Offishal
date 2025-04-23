@@ -10,6 +10,7 @@ shader = ExtResource("2_kexo7")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_akase"]
+resource_local_to_scene = true
 shader = ExtResource("2_kexo7")
 shader_parameter/onOff = 0.0
 
@@ -44,6 +45,7 @@ offset_top = -18.0
 offset_right = 20.0
 offset_bottom = 22.0
 mouse_filter = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 180.0

@@ -10,6 +10,7 @@ shader = ExtResource("2_o63ek")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pnmnm"]
+resource_local_to_scene = true
 shader = ExtResource("2_o63ek")
 shader_parameter/onOff = 0.0
 

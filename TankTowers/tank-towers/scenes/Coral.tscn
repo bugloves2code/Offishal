@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsbjka60fbcsl"]
+[gd_scene load_steps=7 format=3 uid="uid://bmck7seajwg0q"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_fk34o"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_3wsp4"]
@@ -10,6 +10,7 @@ shader = ExtResource("2_3wsp4")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7jedu"]
+resource_local_to_scene = true
 shader = ExtResource("2_3wsp4")
 shader_parameter/onOff = 0.0
 
@@ -21,6 +22,11 @@ material = SubResource("ShaderMaterial_8w0cn")
 script = ExtResource("1_fk34o")
 Species = 2
 waterType = 1
+wanderTime = 0.0
+wanderRadius = 0.0
+wanderWeight = 0.0
+boundsWeight = 0.0
+isMoving = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7jedu")
@@ -41,9 +47,10 @@ offset_top = -17.0
 offset_right = 16.0
 offset_bottom = 17.0
 mouse_filter = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 10.0
 
-[connection signal="gui_input" from="Control" to="." method="fish_clicked"]
+[connection signal="gui_input" from="Control" to="." method="plant_clicked"]
 [connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
