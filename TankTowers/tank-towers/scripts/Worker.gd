@@ -59,17 +59,47 @@ func work():
 							plant.get_node("Harvest").start()
 							plant.harvestStatus = false
 							if plant.Species == ThEnums.PlantSpecies.Guppygrass:
+								if PlayerManager.unlockFertilizer:
+									if PlayerManager.unlockAutoSell:
+										PlayerManager.xp += 2
+										PlayerManager.money += 2
+										harvestedMarineLife += 1
+										return
+									PlayerManager.xp += 2
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+									harvestedMarineLife += 1
+									UiManager.TankDragDrop.populate_hbox_container()
+									return
+								if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 1
+									PlayerManager.money += 1
+									harvestedMarineLife += 1
+									return
 								PlayerManager.xp += 1
-								var plantscene = load("res://scenes/Plant.tscn").instantiate()
-								plantscene.Species = ThEnums.PlantSpecies.Guppygrass
-								PlayerManager.marineLifeInventory.append(plantscene)
+								PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
 								harvestedMarineLife += 1
 								UiManager.TankDragDrop.populate_hbox_container()
 							elif plant.Species == ThEnums.PlantSpecies.Anemone:
+								if PlayerManager.unlockFertilizer:
+									if PlayerManager.unlockAutoSell:
+										PlayerManager.xp += 6
+										PlayerManager.money += 20
+										harvestedMarineLife += 1
+										return
+									PlayerManager.xp += 6
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+									harvestedMarineLife += 1
+									UiManager.TankDragDrop.populate_hbox_container()
+									return
+								if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 3
+									PlayerManager.money += 10
+									harvestedMarineLife += 1
+									return
 								PlayerManager.xp += 3
-								var plantscene = load("res://scenes/Anemone.tscn").instantiate()
-								plantscene.Species = ThEnums.PlantSpecies.Anemone
-								PlayerManager.marineLifeInventory.append(plantscene)
+								PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
 								harvestedMarineLife += 1
 								UiManager.TankDragDrop.populate_hbox_container()
 						return
@@ -85,58 +115,65 @@ func work():
 						fish.get_node("Sprite2D").material.set_shader_parameter("onOff", 0.0);
 						fish.get_node("Harvest").start()
 						fish.harvestStatus = false
-						var fishScene
 						if fish.Species == ThEnums.FishSpecies.Guppy:
-							fishScene = load("res://scenes/Fish.tscn").instantiate()
-							fishScene.Species = ThEnums.FishSpecies.Guppy
 							if PlayerManager.unlockNursery == true:
+								if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 4
+									PlayerManager.money += 4
+									harvestedMarineLife += 1
+									return
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(fishScene)
+									fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 									PlayerManager.xp += 1
 									if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-										fish.get_parent().AddFish(fishScene)
+										fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 										PlayerManager.xp += 1
 										if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-											fish.get_parent().AddFish(fishScene)
+											fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 											PlayerManager.xp += 1
 											if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-												fish.get_parent().AddFish(fishScene)
+												fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 												harvestedMarineLife += 1
 												PlayerManager.xp += 1
 											else:
-												PlayerManager.marineLifeInventory.append(fishScene)
+												PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 												UiManager.TankDragDrop.populate_hbox_container()
 												harvestedMarineLife += 1
 												PlayerManager.xp += 1
 										else:
-											PlayerManager.marineLifeInventory.append(fishScene)
-											PlayerManager.marineLifeInventory.append(fishScene)
+											PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+											PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 											UiManager.TankDragDrop.populate_hbox_container()
 											harvestedMarineLife += 1
 											PlayerManager.xp += 2
 									else:
-										PlayerManager.marineLifeInventory.append(fishScene)
-										PlayerManager.marineLifeInventory.append(fishScene)
-										PlayerManager.marineLifeInventory.append(fishScene)
+										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 										UiManager.TankDragDrop.populate_hbox_container()
 										harvestedMarineLife += 1
 										PlayerManager.xp += 3
 										
 								else:
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
 									harvestedMarineLife += 1
 									PlayerManager.xp += 4
 								return
+							if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 2
+									PlayerManager.money += 2
+									harvestedMarineLife += 1
+									return
 							if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-								fish.get_parent().AddFish(fishScene)
+								fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 								PlayerManager.xp += 2
 								UiManager.TankDragDrop.populate_hbox_container()
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(fishScene)
+									fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 								else:
 									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
@@ -148,56 +185,64 @@ func work():
 								PlayerManager.xp += 1
 								harvestedMarineLife += 1
 						elif fish.Species == ThEnums.FishSpecies.Clownfish:
-							fishScene = load("res://scenes/ClownFish.tscn").instantiate()
-							fishScene.Species = ThEnums.FishSpecies.Clownfish
 							if PlayerManager.unlockNursery == true:
+								if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 20
+									PlayerManager.money += 20
+									harvestedMarineLife += 1
+									return
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(fishScene)
+									fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 									PlayerManager.xp += 5
 									if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-										fish.get_parent().AddFish(fishScene)
+										fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 										PlayerManager.xp += 5
 										if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-											fish.get_parent().AddFish(fishScene)
+											fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 											PlayerManager.xp += 5
 											if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-												fish.get_parent().AddFish(fishScene)
+												fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 												harvestedMarineLife += 1
 												PlayerManager.xp += 5
 											else:
-												PlayerManager.marineLifeInventory.append(fishScene)
+												PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 												UiManager.TankDragDrop.populate_hbox_container()
 												harvestedMarineLife += 1
 												PlayerManager.xp += 5
 										else:
-											PlayerManager.marineLifeInventory.append(fishScene)
-											PlayerManager.marineLifeInventory.append(fishScene)
+											PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+											PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 											UiManager.TankDragDrop.populate_hbox_container()
 											harvestedMarineLife += 1
 											PlayerManager.xp += 10
 									else:
-										PlayerManager.marineLifeInventory.append(fishScene)
-										PlayerManager.marineLifeInventory.append(fishScene)
-										PlayerManager.marineLifeInventory.append(fishScene)
+										PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 										UiManager.TankDragDrop.populate_hbox_container()
 										harvestedMarineLife += 1
 										PlayerManager.xp += 15
 										
 								else:
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
-									PlayerManager.marineLifeInventory.append(fishScene)
+									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
 									harvestedMarineLife += 1
 									PlayerManager.xp += 20
 								return
+							if PlayerManager.unlockAutoSell:
+									PlayerManager.xp += 10
+									PlayerManager.money += 10
+									harvestedMarineLife += 1
+									return
 							if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-								fish.get_parent().AddFish(fishScene)
+								fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 								PlayerManager.xp += 5
 								harvestedMarineLife += 1
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(fishScene)
+									fish.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
 								else:
 									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
@@ -208,7 +253,6 @@ func work():
 								UiManager.TankDragDrop.populate_hbox_container()
 								PlayerManager.xp += 1
 								harvestedMarineLife += 1
-						fishScene = null
 					return
 			else:
 				if fish not in checkedfishlist:
@@ -238,17 +282,47 @@ func work():
 										plant.get_node("Harvest").start()
 										plant.harvestStatus = false
 										if plant.Species == ThEnums.PlantSpecies.Guppygrass:
+											if PlayerManager.unlockFertilizer:
+												if PlayerManager.unlockAutoSell:
+													PlayerManager.xp += 2
+													PlayerManager.money += 2
+													harvestedMarineLife += 1
+													return
+												PlayerManager.xp += 2
+												PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+												PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+												harvestedMarineLife += 1
+												UiManager.TankDragDrop.populate_hbox_container()
+												return
+											if PlayerManager.unlockAutoSell:
+												PlayerManager.xp += 1
+												PlayerManager.money += 1
+												harvestedMarineLife += 1
+												return
 											PlayerManager.xp += 1
-											var plantscene = load("res://scenes/Plant.tscn").instantiate()
-											plantscene.Species = ThEnums.PlantSpecies.Guppygrass
-											PlayerManager.marineLifeInventory.append(plantscene)
+											PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
 											harvestedMarineLife += 1
 											UiManager.TankDragDrop.populate_hbox_container()
 										elif plant.Species == ThEnums.PlantSpecies.Anemone:
+											if PlayerManager.unlockFertilizer:
+												if PlayerManager.unlockAutoSell:
+													PlayerManager.xp += 6
+													PlayerManager.money += 20
+													harvestedMarineLife += 1
+													return
+												PlayerManager.xp += 6
+												PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+												PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+												harvestedMarineLife += 1
+												UiManager.TankDragDrop.populate_hbox_container()
+												return
+											if PlayerManager.unlockAutoSell:
+												PlayerManager.xp += 3
+												PlayerManager.money += 10
+												harvestedMarineLife += 1
+												return
 											PlayerManager.xp += 3
-											var plantscene = load("res://scenes/Anemone.tscn").instantiate()
-											plantscene.Species = ThEnums.PlantSpecies.Anemone
-											PlayerManager.marineLifeInventory.append(plantscene)
+											PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
 											harvestedMarineLife += 1
 											UiManager.TankDragDrop.populate_hbox_container()
 									return

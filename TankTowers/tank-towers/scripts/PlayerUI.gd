@@ -518,6 +518,12 @@ func upgrades():
 	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
 	if PlayerManager.unlockNursery == false:	
 		upgrades.append({"title": "Nursery", "image": "res://icon.svg","desc": "Increase fish output to 4 fish per harvest", "price": 1000, "func": Callable(self, "_on_nursery_purchase")})
+	if PlayerManager.unlockFertilizer == false:
+		upgrades.append({"title": "Fertilizer", "image": "res://icon.svg","desc": "Increase plant output to 2 plants per harvest", "price": 2000 , "func": Callable(self, "_on_unlock_fertilizer")})
+	if PlayerManager.unlockTankUpgrade == false:
+		upgrades.append({"title": "Tank Upgrade", "image": "res://icon.svg" ,"desc": "All tanks get +10 Capacity for plants and fish", "price": 10000, "func": Callable(self, "_on_unlock_tank_upgrade")})
+	if PlayerManager.unlockAutoSell == false:
+		upgrades.append({"title": "Worker Auto Sell", "image": "res://icon.svg","desc": "Workers Auto sell their harvests", "price": 50000, "func": Callable(self, "_on_unlock_auto_sell")})
 	
 	var upgrade_container = $UpgradesPanel/VBoxContainer
 	
@@ -688,6 +694,33 @@ func _on_nursery_purchase():
 	if PlayerManager.money >= 1000:
 		PlayerManager.unlockNursery = true
 		PlayerManager.money -= 1000
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+		
+func _on_unlock_tank_upgrade():
+	if PlayerManager.money >= 10000:
+		PlayerManager.unlockTankUpgrade = true
+		PlayerManager.money -= 10000
+		for tank in TankManager.tankList:
+			tank.fishCapacity = 20
+			tank.plantCapacity = 20
+			upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+
+func _on_unlock_fertilizer():
+	if PlayerManager.money >= 2000:
+		PlayerManager.unlockFertilizer = true
+		PlayerManager.money -= 2000
+		upgrades()
+	else:
+		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+	
+func _on_unlock_auto_sell():
+	if PlayerManager.money >= 50000:
+		PlayerManager.unlockAutoSell = true
+		PlayerManager.money -= 50000
 		upgrades()
 	else:
 		Notifier.push_notification("YOU CAN NOT AFFORD THIS")

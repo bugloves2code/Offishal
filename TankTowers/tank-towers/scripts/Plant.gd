@@ -48,16 +48,24 @@ func plant_clicked(event: InputEvent) -> void:
 				$Harvest.start()
 				self.harvestStatus = false
 				if self.Species == ThEnums.PlantSpecies.Guppygrass:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 2
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
 					PlayerManager.xp += 1
-					var plantscene = load("res://scenes/Plant.tscn").instantiate()
-					plantscene.Species = ThEnums.PlantSpecies.Guppygrass
-					PlayerManager.marineLifeInventory.append(plantscene)
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
 					UiManager.ReloadAllUI()
 				elif self.Species == ThEnums.PlantSpecies.Anemone:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 6
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
 					PlayerManager.xp += 3
-					var plantscene = load("res://scenes/Anemone.tscn").instantiate()
-					plantscene.Species = ThEnums.PlantSpecies.Anemone
-					PlayerManager.marineLifeInventory.append(plantscene)
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
 					UiManager.ReloadAllUI()
 
 #When the harvest timer goes off

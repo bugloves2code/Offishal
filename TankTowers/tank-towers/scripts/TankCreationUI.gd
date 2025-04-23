@@ -60,6 +60,9 @@ func CreateTank():
 				
 			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
 			new_instance.get_node("TankLabel").text = new_instance.tankName
+			if PlayerManager.unlockTankUpgrade:
+				new_instance.fishCapacity = 20
+				new_instance.plantCapacity = 20
 			TankManager.tankList.append(new_instance)
 			UiManager.ShowInventory()
 			self.visible = false
