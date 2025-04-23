@@ -84,11 +84,11 @@ func SpawnFish(tank: Tank, instance: Fish) -> Fish:
 		fish.Species = ThEnums.FishSpecies.Clownfish
 		fish.fishname = instance.fishname
 	elif instance.Species == ThEnums.FishSpecies.BlueTang:
-		fish = clownFishScene.instantiate()
+		fish = tangScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.BlueTang
 		fish.fishname = instance.fishname
 	elif instance.Species == ThEnums.FishSpecies.Pike:
-		fish = clownFishScene.instantiate()
+		fish = pikeScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Pike
 		fish.fishname = instance.fishname
 	instance.queue_free()
