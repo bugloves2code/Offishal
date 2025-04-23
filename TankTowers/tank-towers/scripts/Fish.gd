@@ -179,7 +179,7 @@ func fish_clicked(event: InputEvent) -> void:
 							UiManager.ReloadAllUI()
 							PlayerManager.xp += 1
 					else:
-						Notifier.push_notification("TANK IS FULL OF FIHS, CLOWNFISH ADDED TO INVENTORY")
+						Notifier.push_notification("TANK IS FULL OF FISH, CLOWNFISH ADDED TO INVENTORY")
 						PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 						UiManager.ReloadAllUI()
 						PlayerManager.xp += 1
