@@ -45,7 +45,6 @@ func populate_hbox_container():
 	# Create instances with counts
 	for species_data in species_dict.values():
 		var drag_drop_instance = drag_drop_scene.instantiate()
-		
 		# Set properties FIRST
 		drag_drop_instance.texture = species_data.texture
 		drag_drop_instance.drag_info = species_data.drag_info
