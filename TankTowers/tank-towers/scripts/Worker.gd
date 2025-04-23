@@ -222,42 +222,42 @@ func work():
 									harvestedMarineLife += 1
 									return
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+									fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 									PlayerManager.xp += 100
 									if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-										fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+										fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 										PlayerManager.xp += 100
 										if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-											fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+											fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 											PlayerManager.xp += 100
 											if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-												fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+												fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 												harvestedMarineLife += 1
 												PlayerManager.xp += 100
 											else:
-												PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+												PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 												UiManager.TankDragDrop.populate_hbox_container()
 												harvestedMarineLife += 1
 												PlayerManager.xp += 100
 										else:
-											PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-											PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+											PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+											PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 											UiManager.TankDragDrop.populate_hbox_container()
 											harvestedMarineLife += 1
 											PlayerManager.xp += 200
 									else:
-										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-										PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+										PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 										UiManager.TankDragDrop.populate_hbox_container()
 										harvestedMarineLife += 1
 										PlayerManager.xp += 300
 										
 								else:
-									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
-									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
 									harvestedMarineLife += 1
 									PlayerManager.xp += 400
@@ -268,18 +268,18 @@ func work():
 									harvestedMarineLife += 1
 									return
 							if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-								fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+								fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 								PlayerManager.xp += 200
 								UiManager.TankDragDrop.populate_hbox_container()
 								if fish.get_parent().fishList.size() < fish.get_parent().fishCapacity:
-									fish.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
+									fish.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 								else:
-									PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 									UiManager.TankDragDrop.populate_hbox_container()
 									PlayerManager.xp += 100
 									harvestedMarineLife += 1
 							else:
-								PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
+								PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 								UiManager.TankDragDrop.populate_hbox_container()
 								PlayerManager.xp += 100
 								harvestedMarineLife += 1

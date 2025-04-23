@@ -42,7 +42,7 @@ func plant_clicked(event: InputEvent) -> void:
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == true:
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
-				$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+				$Harvest.wait_time = $Harvest.wait_time - get_parent().fishList.size() * 5
 				if $Harvest.wait_time < 10:
 					$Harvest.wait_time = 10
 				$Harvest.start()
