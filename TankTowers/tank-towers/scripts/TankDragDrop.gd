@@ -28,12 +28,30 @@ func populate_hbox_container():
 	
 	# Group fish by species
 	for fish in PlayerManager.marineLifeInventory:
-		var species = fish.Species
+		# Safety check for null nodes
+		if !is_instance_valid(fish):
+			continue
+		
+		# Check for Species property using 'in' operator
+		if !("Species" in fish):
+			push_warning("Fish is missing Species property: %s" % fish.name)
+			continue
+		
+		var species
+		
+		if fish is Plant:
+			species = str("Plant",fish.Species).to_lower().strip_edges()
+		else:
+			species = str("Fish",fish.Species).to_lower().strip_edges()
+			
+		
+		# Normalize species name
 		
 		if species in species_dict:
 			species_dict[species].count += 1
 		else:
-			var fish_sprite = fish.get_node("Sprite2D")
+			# Get sprite safely
+			var fish_sprite = fish.get_node_or_null("Sprite2D")
 			var texture = fish_sprite.texture if fish_sprite else null
 			
 			species_dict[species] = {
@@ -43,15 +61,19 @@ func populate_hbox_container():
 			}
 	
 	# Create instances with counts
-	for species_data in species_dict.values():
+	for species in species_dict:
+		var species_data = species_dict[species]
 		var drag_drop_instance = drag_drop_scene.instantiate()
-		# Set properties FIRST
+		
+		# Set properties
 		drag_drop_instance.texture = species_data.texture
 		drag_drop_instance.drag_info = species_data.drag_info
 		
-		# Add to scene tree BEFORE setting count
+		# Add to scene first
 		hbox_container.add_child(drag_drop_instance)
 		
-		# Now set count after the node is in the tree
+		# Set count after adding to scene
 		drag_drop_instance.count = species_data.count
 		
+		# Debug print
+		print("Created entry for: ", species, " (Count: ", species_data.count, ")")
