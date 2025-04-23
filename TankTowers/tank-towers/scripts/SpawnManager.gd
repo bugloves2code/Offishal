@@ -23,7 +23,17 @@ Vector2(285, 180),
 Vector2(320, 180), 
 Vector2(355, 180), 
 Vector2(390, 180), 
-Vector2(425, 180)]
+Vector2(425, 180),
+Vector2(127.5, 180), 
+Vector2(162.5, 180),
+Vector2(197.5, 180),
+Vector2(232.5, 180),
+Vector2(267.5, 180),
+Vector2(302.5, 180), 
+Vector2(337.5, 180),     
+Vector2(327.5, 180), 
+Vector2(407.5, 180),
+Vector2(442.5, 180), ]
 
 func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
 	var plant

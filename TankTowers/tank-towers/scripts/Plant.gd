@@ -116,3 +116,7 @@ func _drop_data(_pos, data):
 			dragDrop.populate_hbox_container()
 		
 		data.queue_free()	
+
+
+func fish_clicked(event: InputEvent) -> void:
+	pass # Replace with function body.

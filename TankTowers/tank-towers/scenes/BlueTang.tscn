@@ -37,3 +37,6 @@ mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 10.0
+
+[connection signal="gui_input" from="Control" to="." method="fish_clicked"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]
