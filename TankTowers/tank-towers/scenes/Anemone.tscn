@@ -31,6 +31,7 @@ offset_left = -20.0
 offset_top = -18.0
 offset_right = 20.0
 offset_bottom = 22.0
+mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 180.0
