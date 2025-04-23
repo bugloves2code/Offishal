@@ -16,6 +16,7 @@ radius = 31.0644
 script = ExtResource("1_gexj5")
 Species = 2
 waterType = 1
+maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_it8kj")
