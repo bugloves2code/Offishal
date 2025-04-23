@@ -70,6 +70,8 @@ var workers: Array
 
 var unlockNursery = false
 
+var unlocks: Array
+
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
 ##   this is just a regular, untyped array.
@@ -141,4 +143,18 @@ func UpdateTankPrice(higherprice: bool):
 	else:
 		currentTankPrice = TankManager.tankList.size() * 5 + 5
 	
+
+func checkUnlocks():
+	if unlockNursery:
+		unlocks.append({"unlock":"nursery", "status": true})
+	else:
+		unlocks.append({"unlock":"nursery", "status": false})
+	if tutorialComplete:
+		unlocks.append({"unlock":"tutorial", "status": true})
+	else:
+		unlocks.append({"unlock":"tutorial", "status": false})
+	if UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible == true:
+		unlocks.append({"unlock":"sellall", "status": true})
+	else:
+		unlocks.append({"unlock":"sellall", "status": false})
 	
