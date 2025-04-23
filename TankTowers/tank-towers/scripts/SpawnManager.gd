@@ -46,7 +46,7 @@ func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
 		plant.Species = ThEnums.PlantSpecies.Anemone
 		##fish.fishname = instance.fishname
 	elif instance.Species == ThEnums.PlantSpecies.Coral:
-		plant = anemoneScene.instantiate()
+		plant = coralScene.instantiate()
 		plant.Species = ThEnums.PlantSpecies.Coral
 		##fish.fishname = instance.fishname
 		
