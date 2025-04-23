@@ -10,7 +10,6 @@
 extends Control
 class_name Tank
 
-
 ## tank_type is where this tanks WaterType will be stored
 ## this is currently hardcoded and shown in inspector
 ## this will likely be chosen before tank creation

@@ -14,13 +14,26 @@
 class_name SaverLoader
 extends Node
 
-## This is sloppy, but works for now. If we ever
-## have more than one type of fish, this will need
-## to be changed. 
-## - It's probably possible to save the resource path 
-##   for a scene to a file, and to programmatically
-##   create new instances from it later when loading.
-const FishScene = preload("res://scenes/Fish.tscn")
+## A dictionary used to map fish species 
+## to their corresponding scene paths
+## - I initially wanted to have fish and plants in the same
+##   dictionary, but that led to conflicts because the underlying
+##   integer values were identical between the two enumerations,
+##   and we had problems with assigning specific values to enums
+##   before, so two separate dictionaries it is!
+## - TODO: Update this after merging to main branch
+var fishPathDict: Dictionary = {
+	ThEnums.FishSpecies.Guppy: "res://scenes/Fish.tscn",
+	ThEnums.FishSpecies.Clownfish: "res://scenes/ClownFish.tscn",
+};
+
+## A dictionary used to map plant species
+## to their corresponding scene paths
+## - TODO: Update this after merging to main branch
+var plantPathDict: Dictionary = {
+	ThEnums.PlantSpecies.Guppygrass: "res://scenes/Plant.tscn",
+	ThEnums.PlantSpecies.Anemone: "res://scenes/Anemone.tscn"
+};
 
 ## Saves data to a directory that is guaranteed to be writable.
 ## - Using res:// would not work, since when the project is
@@ -58,6 +71,18 @@ func SaveGame():
 		savedTank.fish = [];
 		savedTank.plants = [];
 		
+		# Loop through all of the tank's fish, and create a 
+		# SavedMarineLife Resource for each
+		for fish: Fish in tank.fishList:
+			# Store the savedMarineLife for the current fish
+			# using a helper method to avoid repeating code
+			savedTank.fish.push_back(StoreMarineLife(fishPathDict, fish));
+		
+		# Repeat the near-identical process for plants
+		for plant: Plant in tank.plantList:
+			savedTank.plants.push_back(StoreMarineLife(plantPathDict, plant));
+			pass;
+		
 		# Add the tank's data to the SavedGame's array of tanks
 		savedGame.tanks.push_back(savedTank);
 	
@@ -66,6 +91,24 @@ func SaveGame():
 	# - If we want save files to not be human readable,
 	#   the file type could be changed to .res
 	ResourceSaver.save(savedGame, "user://savegame.tres");
+
+## A helper function to simplify saving fish and plant data
+func StoreMarineLife(pathDict: Dictionary, marineLife):
+	var savedMarineLife: SavedMarineLife = SavedMarineLife.new();
+			
+	# Use the dictionary defined above to store 
+	# the fish's scene path based on its species
+	savedMarineLife.scenePath = fishPathDict[marineLife.Species];
+	
+	# Save simple string data
+	savedMarineLife.name = marineLife.name;
+	
+	# Save whether the fish is ready to be harvested
+	var harvestTimer: Timer = marineLife.get_node("Harvest") as Timer;
+	savedMarineLife.harvestReady = harvestTimer.time_left <= 0;
+	
+	return savedMarineLife;
+
 
 ## Loads data from a file. 
 ## - Clears out the current scene tree so that nodes are not
