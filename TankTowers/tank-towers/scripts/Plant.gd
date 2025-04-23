@@ -57,6 +57,18 @@ func plant_clicked(event: InputEvent) -> void:
 					PlayerManager.xp += 1
 					PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
 					UiManager.ReloadAllUI()
+					
+				if self.Species == ThEnums.PlantSpecies.Coral:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 200
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
+					PlayerManager.xp += 100
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+					UiManager.ReloadAllUI()
+					
 				elif self.Species == ThEnums.PlantSpecies.Anemone:
 					if PlayerManager.unlockFertilizer:
 						PlayerManager.xp += 6
