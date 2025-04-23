@@ -18,22 +18,22 @@ waterType = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7jedu")
-position = Vector2(16, 1.00001)
-scale = Vector2(0.147135, 0.147135)
+position = Vector2(7, 1)
+scale = Vector2(0.0748696, 0.0748696)
 texture = ExtResource("2_n8ttj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 2
-position = Vector2(1, 40)
+position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_4dns5")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -37.0
-offset_top = -40.0
-offset_right = 38.0
-offset_bottom = 44.0
+offset_left = -16.0
+offset_top = -17.0
+offset_right = 16.0
+offset_bottom = 17.0
 mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]

@@ -27,7 +27,7 @@ texture = ExtResource("2_defit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 2
-position = Vector2(1, 40)
+position = Vector2(2, 21)
 shape = SubResource("RectangleShape2D_fyokx")
 
 [node name="Control" type="Control" parent="."]
