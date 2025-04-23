@@ -41,22 +41,44 @@ func adjustFishBounds() -> void:
 	collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
 	var rectShape = collisionShape.shape as RectangleShape2D
 	var halfSize = rectShape.size * 0.5
-	# There is a position already on Node2D sop this causes a warning - Justin
-	var position = collisionShape.global_position
 
-	var offset = collisionShape.position
-	var center = position + offset
-	## you might just bebale to inherit these from PhysicObject
-	var xMin = center.x - halfSize.x
-	var xMax = center.x + halfSize.x
-	var yMin = center.y - halfSize.y
-	var yMax = center.y + halfSize.y
-	
-	xMin = xMin
-	xMax = xMax
-	yMin = yMin
-	yMax = yMax
-	centerToSeek = center
+	# Get the global position of the collision shape
+	var global_position = collisionShape.global_position
+
+	# Calculate bounds in global coordinates
+	var xMin = global_position.x - halfSize.x
+	var xMax = global_position.x + halfSize.x
+	var yMin = global_position.y - halfSize.y
+	var yMax = global_position.y + halfSize.y
+
+	# Store the center point in global coordinates for seeking
+	centerToSeek = global_position
+
+	# Make sure these bounds variables are accessible to your fish movement logic
+	# (Assuming these are class variables that other methods will use)
+	self.xMin = xMin
+	self.xMax = xMax
+	self.yMin = yMin
+	self.yMax = yMax
+	#collisionShape = get_parent().get_node("Area2D/CollisionShape2D") as CollisionShape2D
+	#var rectShape = collisionShape.shape as RectangleShape2D
+	#var halfSize = rectShape.size * 0.5
+	## There is a position already on Node2D sop this causes a warning - Justin
+	#var position = collisionShape.global_position
+#
+	#var offset = collisionShape.position
+	#var center = position + offset
+	### you might just bebale to inherit these from PhysicObject
+	#var xMin = center.x - halfSize.x
+	#var xMax = center.x + halfSize.x
+	#var yMin = center.y - halfSize.y
+	#var yMax = center.y + halfSize.y
+	#
+	#xMin = xMin
+	#xMax = xMax
+	#yMin = yMin
+	#yMax = yMax
+	#centerToSeek = center
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
