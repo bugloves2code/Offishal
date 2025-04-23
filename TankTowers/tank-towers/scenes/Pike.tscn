@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dulcg0yi2lwig"]
+
+[ext_resource type="Script" path="res://scripts/Fish.gd" id="1_oxp84"]
+[ext_resource type="Texture2D" uid="uid://b0jytt0nlldhp" path="res://assets/cancelCulturePike.PNG" id="2_27y2w"]
+[ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_o63ek"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3h8ar"]
+resource_local_to_scene = true
+shader = ExtResource("2_o63ek")
+shader_parameter/onOff = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pnmnm"]
+resource_local_to_scene = true
+shader = ExtResource("2_o63ek")
+shader_parameter/onOff = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bq5lh"]
+size = Vector2(73, 20)
+
+[node name="Pike" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_3h8ar")
+position = Vector2(-8, 0)
+script = ExtResource("1_oxp84")
+Species = 3
+sell_price = 50
+maxSpeed = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pnmnm")
+position = Vector2(5, 5)
+scale = Vector2(0.0911458, 0.0911458)
+texture = ExtResource("2_27y2w")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.5, 0)
+shape = SubResource("RectangleShape2D_bq5lh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -28.0
+offset_top = -15.0
+offset_right = 42.0
+offset_bottom = 14.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Harvest" type="Timer" parent="."]
+wait_time = 360.0
+
+[connection signal="gui_input" from="Control" to="." method="fish_clicked"]
+[connection signal="timeout" from="Harvest" to="." method="_on_harvest_timeout"]

@@ -9,18 +9,31 @@ extends Node
 @export var plantScene : PackedScene
 @export var clownFishScene : PackedScene
 @export var anemoneScene : PackedScene
+@export var pikeScene : PackedScene
+@export var tangScene : PackedScene
+@export var coralScene : PackedScene
 
-var plantPositions: Array = [
-Vector2(110, 180), 
-Vector2(145, 180), 
-Vector2(180, 180), 
-Vector2(215, 180), 
-Vector2(250, 180), 
-Vector2(285, 180), 
-Vector2(320, 180), 
-Vector2(355, 180), 
-Vector2(390, 180), 
-Vector2(425, 180)]
+var plantPositions: Array = []
+#Vector2(110, 180), 
+#Vector2(145, 180), 
+#Vector2(180, 180), 
+#Vector2(215, 180), 
+#Vector2(250, 180), 
+#Vector2(285, 180), 
+#Vector2(320, 180), 
+#Vector2(355, 180), 
+#Vector2(390, 180), 
+#Vector2(425, 180),
+#Vector2(127.5, 180), 
+#Vector2(162.5, 180),
+#Vector2(197.5, 180),
+#Vector2(232.5, 180),
+#Vector2(267.5, 180),
+#Vector2(302.5, 180), 
+#Vector2(337.5, 180),     
+#Vector2(327.5, 180), 
+#Vector2(407.5, 180),
+#Vector2(442.5, 180), ]
 
 func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
 	var plant
@@ -32,11 +45,15 @@ func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
 		plant = anemoneScene.instantiate()
 		plant.Species = ThEnums.PlantSpecies.Anemone
 		##fish.fishname = instance.fishname
+	elif instance.Species == ThEnums.PlantSpecies.Coral:
+		plant = coralScene.instantiate()
+		plant.Species = ThEnums.PlantSpecies.Coral
+		##fish.fishname = instance.fishname
 		
 	instance.queue_free()
 	
 	tank.add_child(plant)
-	plant.position = plantPositions[tank.plantList.size() - 1]
+	plant.position = plantPositions[tank.plantList.size()]
 	return plant
 
 
@@ -58,18 +75,22 @@ func SpawnFish(tank: Tank, instance: Fish) -> Fish:
 	var yMin = center.y - halfSize.y
 	var yMax = center.y + halfSize.y
 	var fish
-	print("spawner",instance.Species)
 	if instance.Species == ThEnums.FishSpecies.Guppy:
-		print("this is a guppy spawner")
 		fish = fishScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Guppy
 		fish.fishname = instance.fishname
 	elif instance.Species == ThEnums.FishSpecies.Clownfish:
-		print("this a is clownfish spawner")
 		fish = clownFishScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Clownfish
 		fish.fishname = instance.fishname
-		
+	elif instance.Species == ThEnums.FishSpecies.BlueTang:
+		fish = tangScene.instantiate()
+		fish.Species = ThEnums.FishSpecies.BlueTang
+		fish.fishname = instance.fishname
+	elif instance.Species == ThEnums.FishSpecies.Pike:
+		fish = pikeScene.instantiate()
+		fish.Species = ThEnums.FishSpecies.Pike
+		fish.fishname = instance.fishname
 	instance.queue_free()
 	
 	#tank.add_child(fish)
@@ -86,6 +107,22 @@ func _ready() -> void:
 	plantScene = load("res://scenes/Plant.tscn")
 	clownFishScene = load("res://scenes/ClownFish.tscn")
 	anemoneScene = load("res://scenes/Anemone.tscn")
+	coralScene = load("res://scenes/Coral.tscn")
+	pikeScene = load("res://scenes/Pike.tscn")
+	tangScene = load("res://scenes/BlueTang.tscn")
+	
+	var spacing_x: float = 35.0
+# Starting and ending X positions
+	var start_x: float = 100.0
+	var end_x: float = 450.0
+
+# First row (every 35 pixels, starting at 110)
+	for x in range(start_x, end_x + spacing_x, spacing_x):
+		plantPositions.append(Vector2(x, 180))
+
+# Second row (offset by half spacing for staggered layout)
+	for x in range(start_x + spacing_x / 2, end_x + spacing_x, spacing_x):
+		plantPositions.append(Vector2(x, 180 + 20))  
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

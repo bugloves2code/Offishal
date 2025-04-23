@@ -64,7 +64,19 @@ const levelMax: int = 99;
 ##   thing in GDScript? I don't know.
 var marineLifeInventory: Array[MarineLife];
 
+var tutorialComplete = false
+
 var workers: Array
+
+var unlockNursery = false
+
+var unlockTankUpgrade = false
+
+var unlockAutoSell = false
+
+var unlockFertilizer = false
+
+var unlocks: Array
 
 ## The player's inventory for tank upgrades.
 ## - We don't have a TankUpgrade script yet, so for now
@@ -89,21 +101,12 @@ var current_dragged_item: MarineLife = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#if(PlayerManager.level >= 5):
-		#UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
-		#UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
-		#UiManager.SaltWaterUnlock()
-	if level == 1:
-		for i in range(2):
-			var fish_instance = fish_scene.instantiate()
-			marineLifeInventory.append(fish_instance)
-		for i in range(2):
-			marineLifeInventory.append(plant_scene.instantiate())
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if xp / level == 5:
+	if level + 5 <= xp:
+		xp = 0
 		Levelup()
 
 
@@ -131,8 +134,16 @@ func RemoveMarineLife(index: int) -> MarineLife:
 func Levelup():
 	level += 1
 	if(PlayerManager.level == 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.SaltWaterUnlock()
+		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
+	elif(PlayerManager.level == 20):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
+		Notifier.push_notification("LEVEL UP! NEW FISH UNLOCKED")
+	elif(PlayerManager.level == 40):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
 		UiManager.SaltWaterUnlock()
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
@@ -162,4 +173,18 @@ func UpdateTankPrice(higherprice: bool):
 	else:
 		currentTankPrice = TankManager.tankList.size() * 5 + 5
 	
+
+func checkUnlocks():
+	if unlockNursery:
+		unlocks.append({"unlock":"nursery", "status": true})
+	else:
+		unlocks.append({"unlock":"nursery", "status": false})
+	if tutorialComplete:
+		unlocks.append({"unlock":"tutorial", "status": true})
+	else:
+		unlocks.append({"unlock":"tutorial", "status": false})
+	if UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible == true:
+		unlocks.append({"unlock":"sellall", "status": true})
+	else:
+		unlocks.append({"unlock":"sellall", "status": false})
 	

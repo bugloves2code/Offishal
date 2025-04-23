@@ -32,5 +32,5 @@ offset_bottom = 53.0
 theme = SubResource("Theme_nuyga")
 vertical_scroll_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer" groups=["TutorialGlowObjects"]]
 layout_mode = 2

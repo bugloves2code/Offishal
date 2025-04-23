@@ -1,31 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://blnlgirchpy8e"]
+[gd_scene load_steps=7 format=3 uid="uid://blnlgirchpy8e"]
 
-[ext_resource type="Texture2D" uid="uid://cui3c3067jn0v" path="res://assets/anemone.png" id="1_37v6f"]
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_wd775"]
-[ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_bf1p8"]
+[ext_resource type="Texture2D" uid="uid://dcpia4008oyis" path="res://assets/anemoneNew.PNG" id="2_defit"]
+[ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_kexo7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_57xbu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4sn0s"]
 resource_local_to_scene = true
-shader = ExtResource("2_bf1p8")
+shader = ExtResource("2_kexo7")
+shader_parameter/onOff = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akase"]
+resource_local_to_scene = true
+shader = ExtResource("2_kexo7")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyokx"]
 size = Vector2(38.5, 3)
 
 [node name="Anemone" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_4sn0s")
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_wd775")
+Species = 1
 waterType = 1
+sell_price = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_57xbu")
-scale = Vector2(0.111464, 0.166107)
-texture = ExtResource("1_37v6f")
+material = SubResource("ShaderMaterial_akase")
+position = Vector2(0, 4)
+scale = Vector2(0.103333, 0.103333)
+texture = ExtResource("2_defit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 2
-position = Vector2(1, 40)
+position = Vector2(2, 21)
 shape = SubResource("RectangleShape2D_fyokx")
 
 [node name="Control" type="Control" parent="."]
@@ -35,6 +44,8 @@ offset_left = -20.0
 offset_top = -18.0
 offset_right = 20.0
 offset_bottom = 22.0
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 180.0

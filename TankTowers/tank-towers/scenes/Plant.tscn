@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://daygy35j0jnhk"]
+[gd_scene load_steps=7 format=3 uid="uid://daygy35j0jnhk"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_4m1de"]
 [ext_resource type="Texture2D" uid="uid://uxsd2rryiv17" path="res://assets/guppyGrass.PNG" id="1_batkw"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_gnw6g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyfl7"]
+resource_local_to_scene = true
+shader = ExtResource("2_gnw6g")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asgl7"]
 resource_local_to_scene = true
@@ -13,6 +18,7 @@ shader_parameter/onOff = 0.0
 size = Vector2(38.5, 3)
 
 [node name="Plant" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_kyfl7")
 collision_layer = 64
 script = ExtResource("1_4m1de")
 wanderTime = 0.0
@@ -23,21 +29,24 @@ isMoving = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_asgl7")
-scale = Vector2(0.0936867, 0.132214)
+position = Vector2(-9.53674e-07, 0)
+scale = Vector2(0.0617837, 0.0871913)
 texture = ExtResource("1_batkw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 2
-position = Vector2(1, 40)
+position = Vector2(0, 28)
 shape = SubResource("RectangleShape2D_8ssdr")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -37.0
-offset_top = -40.0
-offset_right = 38.0
-offset_bottom = 44.0
+offset_left = -25.0
+offset_top = -29.0
+offset_right = 22.78
+offset_bottom = 31.975
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 60.0

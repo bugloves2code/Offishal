@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0ha7w6j3tk05"]
+[gd_scene load_steps=7 format=3 uid="uid://d0ha7w6j3tk05"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_6kk0x"]
 [ext_resource type="Texture2D" uid="uid://6ucanyw07b7p" path="res://assets/guppy.PNG" id="2_1f3kr"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_r622j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc8fe"]
+resource_local_to_scene = true
+shader = ExtResource("2_r622j")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v42x8"]
 resource_local_to_scene = true
@@ -10,9 +15,10 @@ shader = ExtResource("2_r622j")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_newn4"]
-radius = 64.0078
+radius = 31.0644
 
 [node name="Fish" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_fc8fe")
 script = ExtResource("1_6kk0x")
 maxSpeed = 50
 wanderRadius = 20.0
@@ -20,9 +26,9 @@ boundsWeight = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_v42x8")
-position = Vector2(0, -1)
+position = Vector2(-5.163, -2.101)
 rotation = -0.401426
-scale = Vector2(-0.25, 0.25)
+scale = Vector2(-0.142024, 0.142024)
 texture = ExtResource("2_1f3kr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,10 +37,11 @@ shape = SubResource("CircleShape2D_newn4")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -62.0
-offset_top = -22.0
-offset_right = 61.0
-offset_bottom = 37.0
+offset_left = -42.0
+offset_top = -12.0
+offset_right = 28.0
+offset_bottom = 17.0
+mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 10.0

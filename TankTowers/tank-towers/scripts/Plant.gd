@@ -10,7 +10,7 @@ var counter
 var timePassed
 var collisionShape
 
-var Species: ThEnums.PlantSpecies
+@export var Species: ThEnums.PlantSpecies
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,7 +20,7 @@ func _ready() -> void:
 	wanderWeight = 0
 	boundsWeight = 0
 	super._ready()
-	$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+	$Harvest.wait_time = $Harvest.wait_time - get_parent().fishList.size() * 5
 	if $Harvest.wait_time < 10:
 		$Harvest.wait_time = 10
 	$Harvest.start()
@@ -42,16 +42,40 @@ func plant_clicked(event: InputEvent) -> void:
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT and mouse_event.pressed:
 			if self.harvestStatus == true:
 				$Sprite2D.material.set_shader_parameter("onOff", 0.0);
-				$Harvest.wait_time = 60 - get_parent().fishList.size() * 5
+				$Harvest.wait_time = $Harvest.wait_time - get_parent().fishList.size() * 5
 				if $Harvest.wait_time < 10:
 					$Harvest.wait_time = 10
 				$Harvest.start()
 				self.harvestStatus = false
 				if self.Species == ThEnums.PlantSpecies.Guppygrass:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 2
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
 					PlayerManager.xp += 1
 					PlayerManager.marineLifeInventory.append(load("res://scenes/Plant.tscn").instantiate())
 					UiManager.ReloadAllUI()
+					
+				if self.Species == ThEnums.PlantSpecies.Coral:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 200
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
+					PlayerManager.xp += 100
+					PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
+					UiManager.ReloadAllUI()
+					
 				elif self.Species == ThEnums.PlantSpecies.Anemone:
+					if PlayerManager.unlockFertilizer:
+						PlayerManager.xp += 6
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+						PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
+						UiManager.TankDragDrop.populate_hbox_container()
+						return
 					PlayerManager.xp += 3
 					PlayerManager.marineLifeInventory.append(load("res://scenes/Anemone.tscn").instantiate())
 					UiManager.ReloadAllUI()
@@ -61,3 +85,46 @@ func _on_harvest_timeout() -> void:
 	$Harvest.stop()
 	self.harvestStatus = true
 	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
+	
+	
+func _can_drop_data(_pos,data):
+	if data is Fish && self.get_parent().fishList.size() >= self.get_parent().fishCapacity:
+		Notifier.push_notification("TANK IS FULL OF FISH")
+	if data is Plant && self.get_parent().plantList.size() >= self.get_parent().plantCapacity:
+		Notifier.push_notification("TANK IS FULL OF PLANTS")
+	
+	
+	if data.waterType != ThEnums.WaterType.Fresh && self.tank_type == ThEnums.WaterType.Fresh:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
+	
+	elif data.waterType != ThEnums.WaterType.Salt && self.tank_type == ThEnums.WaterType.Salt:
+		Notifier.push_notification("CANNOT PLACE MARINE LIFE OF DIFFERENT WATER TYPE")
+		return false
+	
+	if data is Node:
+		if data is Fish && self.get_parent().fishList.size() < self.get_parent().fishCapacity:
+			return true
+		elif data is Plant && self.get_parent().plantList.size() < self.get_parent().plantCapacity:
+			return true
+	else:
+		
+		return false
+
+func _drop_data(_pos, data):
+	if data is Node:
+		
+		if data is Fish && !(self.get_parent().ishList.size() >= self.get_parent().fishCapacity):
+			self.get_parent().AddFish(data)
+		elif data is Plant && !(self.get_parent().plantList.size() >= self.get_parent().plantCapacity):
+			self.get_parent().AddPlant(data)
+		
+		PlayerManager.marineLifeInventory.erase(data)
+			
+		
+		var Main = get_tree().current_scene
+		var dragDrop = Main.get_node("DragDropMenu")
+		if dragDrop and dragDrop.has_method("populate_hbox_container"):
+			dragDrop.populate_hbox_container()
+		
+		data.queue_free()	

@@ -23,18 +23,23 @@ enum WaterType
 enum FishSpecies
 {
 	Guppy,
-	Clownfish
+	Clownfish,
+	BlueTang,
+	Pike
 }
 
 enum PlantSpecies
 {
 	Guppygrass,
-	Anemone
+	Anemone,
+	Coral
 }
 
 func get_species_name(species_value: int) -> String:
 	match species_value:
 		0: return "Guppy"
 		1: return "ClownFish"
+		2: return "BlueTang"
+		3: return "Pike"
 		_: return "Unkown"
 		

@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://daa1a51haqbkn"]
+
+[ext_resource type="Texture2D" uid="uid://dcw17q7w5ry81" path="res://assets/titleScenes/title.PNG" id="1_745jp"]
+[ext_resource type="Script" path="res://scripts/Title.gd" id="1_s6duk"]
+[ext_resource type="Texture2D" uid="uid://cecskhhfikot7" path="res://assets/maui-blue-ocean-abstract.jpg" id="2_fl47s"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_s6duk")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 585.0
+offset_bottom = 1022.0
+
+[node name="Button" type="Button" parent="Control"]
+z_index = 18
+layout_mode = 0
+offset_left = 159.0
+offset_top = 649.0
+offset_right = 412.0
+offset_bottom = 793.0
+text = "Play
+"
+
+[node name="water" type="Sprite2D" parent="Control"]
+position = Vector2(327, 550)
+scale = Vector2(0.966667, 0.966667)
+texture = ExtResource("2_fl47s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("1_745jp")
+
+[node name="background" type="Sprite2D" parent="Control"]
+
+[node name="Sprite2D4" type="Sprite2D" parent="Control"]
+
+[node name="Sprite2D5" type="Sprite2D" parent="Control"]
+
+[node name="Sprite2D6" type="Sprite2D" parent="Control"]
+
+[node name="Sprite2D7" type="Sprite2D" parent="Control"]
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

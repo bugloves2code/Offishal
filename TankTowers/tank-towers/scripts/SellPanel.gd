@@ -54,10 +54,11 @@ func _drop_data(_pos, data):
 		data.queue_free()
 		#print(get_tree().current_scene)
 		UiManager.ReloadAllUI()
+		UiManager.ShowInventory()
 		
 ## update_price_label
 ## Show the price of the item hovering over the sell panel
 func update_price_label():
 	if PlayerManager.current_dragged_item:
-		price_label.text = "Sell for: %d" % PlayerManager.current_dragged_item.sell_price
+		price_label.text = "Sell for: %d$" % PlayerManager.current_dragged_item.sell_price
 		price_label.show()

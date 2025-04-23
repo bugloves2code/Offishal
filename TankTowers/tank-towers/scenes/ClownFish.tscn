@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgs5idryrbrf6"]
+[gd_scene load_steps=7 format=3 uid="uid://bgs5idryrbrf6"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_3trmk"]
-[ext_resource type="Texture2D" uid="uid://012hwqoqkuxk" path="res://assets/clownfish.png" id="1_dhc21"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_8xqym"]
+[ext_resource type="Texture2D" uid="uid://nel3yggjrx6k" path="res://assets/clown.PNG" id="3_6jmxx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fws4d"]
+resource_local_to_scene = true
+shader = ExtResource("2_8xqym")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xi5si"]
 resource_local_to_scene = true
@@ -10,19 +15,24 @@ shader = ExtResource("2_8xqym")
 shader_parameter/onOff = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e876m"]
-radius = 76.4003
+radius = 34.0147
 
 [node name="ClownFish" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_fws4d")
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_3trmk")
+Species = 1
 waterType = 1
+sell_price = 5
 maxSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xi5si")
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_dhc21")
+position = Vector2(2.032, 3.48)
+scale = Vector2(0.100391, 0.100391)
+texture = ExtResource("3_6jmxx")
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e876m")
@@ -30,10 +40,11 @@ shape = SubResource("CircleShape2D_e876m")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -62.0
+offset_left = -45.0
 offset_top = -22.0
-offset_right = 61.0
-offset_bottom = 37.0
+offset_right = 35.0
+offset_bottom = 15.0
+mouse_filter = 1
 
 [node name="Harvest" type="Timer" parent="."]
 wait_time = 120.0
