@@ -9,6 +9,9 @@ extends Node
 @export var plantScene : PackedScene
 @export var clownFishScene : PackedScene
 @export var anemoneScene : PackedScene
+@export var pikeScene : PackedScene
+@export var tangScene : PackedScene
+@export var coralScene : PackedScene
 
 var plantPositions: Array = [
 Vector2(110, 180), 
@@ -31,6 +34,10 @@ func SpawnPlant(tank: Tank, instance: Plant) -> Plant:
 	elif instance.Species == ThEnums.PlantSpecies.Anemone:
 		plant = anemoneScene.instantiate()
 		plant.Species = ThEnums.PlantSpecies.Anemone
+		##fish.fishname = instance.fishname
+	elif instance.Species == ThEnums.PlantSpecies.Coral:
+		plant = anemoneScene.instantiate()
+		plant.Species = ThEnums.PlantSpecies.Coral
 		##fish.fishname = instance.fishname
 		
 	instance.queue_free()
@@ -66,7 +73,14 @@ func SpawnFish(tank: Tank, instance: Fish) -> Fish:
 		fish = clownFishScene.instantiate()
 		fish.Species = ThEnums.FishSpecies.Clownfish
 		fish.fishname = instance.fishname
-		
+	elif instance.Species == ThEnums.FishSpecies.BlueTang:
+		fish = clownFishScene.instantiate()
+		fish.Species = ThEnums.FishSpecies.BlueTang
+		fish.fishname = instance.fishname
+	elif instance.Species == ThEnums.FishSpecies.Pike:
+		fish = clownFishScene.instantiate()
+		fish.Species = ThEnums.FishSpecies.Pike
+		fish.fishname = instance.fishname
 	instance.queue_free()
 	
 	#tank.add_child(fish)
@@ -83,6 +97,9 @@ func _ready() -> void:
 	plantScene = load("res://scenes/Plant.tscn")
 	clownFishScene = load("res://scenes/ClownFish.tscn")
 	anemoneScene = load("res://scenes/Anemone.tscn")
+	coralScene = load("res://scenes/Coral.tscn")
+	pikeScene = load("res://scenes/Pike.tscn")
+	tangScene = load("res://scenes/BlueTang.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

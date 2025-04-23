@@ -39,6 +39,10 @@ var ClownFishScene = preload("res://scenes/ClownFish.tscn")
 
 var AnemoneScene = preload("res://scenes/Anemone.tscn")
 
+var coralScene = load("res://scenes/Coral.tscn")
+var pikeScene = load("res://scenes/Pike.tscn")
+var tangScene = load("res://scenes/BlueTang.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Gets Player Level
@@ -229,7 +233,14 @@ func _on_BuyButton_pressed(item, instance):
 			fish = ClownFishScene.instantiate() as Fish
 			fish.Species = ThEnums.FishSpecies.Clownfish
 			fish.sell_price = 5
-			
+		elif item["Species"] == ThEnums.FishSpecies.Pike:
+			fish = pikeScene.instantiate() as Fish
+			fish.Species = ThEnums.FishSpecies.Pike
+			fish.sell_price = 50
+		elif item["Species"] == ThEnums.FishSpecies.BlueTang:
+			fish = tangScene.instantiate() as Fish
+			fish.Species = ThEnums.FishSpecies.BlueTang
+			fish.sell_price = 100
 		# Add a fish to the PlayerInventory
 		PlayerManager.marineLifeInventory.append(fish)
 		
@@ -258,6 +269,10 @@ func _on_BuyPlantButton_pressed(item, instance):
 			plant = AnemoneScene.instantiate() as Plant
 			plant.Species = ThEnums.PlantSpecies.Anemone
 			plant.sell_price = 10
+		elif item["Species"] == ThEnums.PlantSpecies.Coral:
+			plant = coralScene.instantiate() as Plant
+			plant.Species = ThEnums.PlantSpecies.Coral
+			plant.sell_price = 100
 		
 		# Add a fish to the PlayerInventory
 		##var plant_instance = PlantScene.instantiate()

@@ -9,6 +9,7 @@ size = Vector2(73, 20)
 [node name="Pike" type="CharacterBody2D"]
 position = Vector2(-8, 0)
 script = ExtResource("1_oxp84")
+Species = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5, 5)
