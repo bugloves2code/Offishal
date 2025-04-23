@@ -128,8 +128,8 @@ func RemoveMarineLife(index: int) -> MarineLife:
 func Levelup():
 	level += 1
 	if(PlayerManager.level == 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
 		UiManager.SaltWaterUnlock()
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
