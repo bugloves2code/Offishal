@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dulcg0yi2lwig"]
+[gd_scene load_steps=7 format=3 uid="uid://dulcg0yi2lwig"]
 
 [ext_resource type="Script" path="res://scripts/Fish.gd" id="1_oxp84"]
 [ext_resource type="Texture2D" uid="uid://b0jytt0nlldhp" path="res://assets/cancelCulturePike.PNG" id="2_27y2w"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_o63ek"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3h8ar"]
+resource_local_to_scene = true
+shader = ExtResource("2_o63ek")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pnmnm"]
 shader = ExtResource("2_o63ek")
@@ -12,6 +17,7 @@ shader_parameter/onOff = 0.0
 size = Vector2(73, 20)
 
 [node name="Pike" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_3h8ar")
 position = Vector2(-8, 0)
 script = ExtResource("1_oxp84")
 Species = 3

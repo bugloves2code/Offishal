@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://blnlgirchpy8e"]
+[gd_scene load_steps=7 format=3 uid="uid://blnlgirchpy8e"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_wd775"]
 [ext_resource type="Texture2D" uid="uid://dcpia4008oyis" path="res://assets/anemoneNew.PNG" id="2_defit"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_kexo7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4sn0s"]
+resource_local_to_scene = true
+shader = ExtResource("2_kexo7")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_akase"]
 shader = ExtResource("2_kexo7")
@@ -12,6 +17,7 @@ shader_parameter/onOff = 0.0
 size = Vector2(38.5, 3)
 
 [node name="Anemone" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_4sn0s")
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_wd775")

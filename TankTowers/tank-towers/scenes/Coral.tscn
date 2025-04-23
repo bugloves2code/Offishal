@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsbjka60fbcsl"]
+[gd_scene load_steps=7 format=3 uid="uid://bsbjka60fbcsl"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_fk34o"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_3wsp4"]
 [ext_resource type="Texture2D" uid="uid://bsodm5g422bgw" path="res://assets/coral.PNG" id="2_n8ttj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8w0cn"]
+resource_local_to_scene = true
+shader = ExtResource("2_3wsp4")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7jedu"]
 shader = ExtResource("2_3wsp4")
@@ -12,6 +17,7 @@ shader_parameter/onOff = 0.0
 size = Vector2(38.5, 3)
 
 [node name="Coral" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_8w0cn")
 script = ExtResource("1_fk34o")
 Species = 2
 waterType = 1

@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://daygy35j0jnhk"]
+[gd_scene load_steps=7 format=3 uid="uid://daygy35j0jnhk"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_4m1de"]
 [ext_resource type="Texture2D" uid="uid://uxsd2rryiv17" path="res://assets/guppyGrass.PNG" id="1_batkw"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_gnw6g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyfl7"]
+resource_local_to_scene = true
+shader = ExtResource("2_gnw6g")
+shader_parameter/onOff = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asgl7"]
 resource_local_to_scene = true
@@ -13,6 +18,7 @@ shader_parameter/onOff = 0.0
 size = Vector2(38.5, 3)
 
 [node name="Plant" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_kyfl7")
 collision_layer = 64
 script = ExtResource("1_4m1de")
 wanderTime = 0.0
