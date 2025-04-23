@@ -14,25 +14,26 @@
 class_name SaverLoader
 extends Node
 
-## A dictionary used to map fish species 
+## An array of packed scenes used to map fish species 
 ## to their corresponding packed scenes
-## - I initially wanted to have fish and plants in the same
-##   dictionary, but that led to conflicts because the underlying
-##   integer values were identical between the two enumerations,
-##   and we had problems with assigning specific values to enums
-##   before, so two separate dictionaries it is!
-## - TODO: Update this after merging to main branch
+## - Originally this was a dictionary, but enums as
+##   keys were giving me some trouble, so now I just
+##   use enums as indices into this array
+## - This is worse than a dictionary, since these need
+##   to be in the exact order as the enum, which is dumb.
+##   But oh well. What are you gonna do?
 var fishPathDict = [
 	preload("res://scenes/Fish.tscn"),
 	preload("res://scenes/ClownFish.tscn"),
+	preload("res://scenes/BlueTang.tscn"),
+	preload("res://scenes/Pike.tscn")
 ];
 
-## A dictionary used to map plant species
-## to their corresponding packed scenes
-## - TODO: Update this after merging to main branch
+## An array that maps plant species to their packed scenes.
 var plantPathDict = [
 	preload("res://scenes/Plant.tscn"),
-	preload("res://scenes/Anemone.tscn")
+	preload("res://scenes/Anemone.tscn"),
+	preload("res://scenes/Coral.tscn")
 ];
 
 ## Saves data to a directory that is guaranteed to be writable.
@@ -76,12 +77,11 @@ func SaveGame():
 		for fish: Fish in tank.fishList:
 			# Store the savedMarineLife for the current fish
 			# using a helper method to avoid repeating code
-			savedTank.fish.push_back(SaveMarineLife(fishPathDict, fish));
+			savedTank.fish.push_back(SaveMarineLife(fishPathDict, fish, true));
 		
 		# Repeat the near-identical process for plants
 		for plant: Plant in tank.plantList:
-			savedTank.plants.push_back(SaveMarineLife(plantPathDict, plant));
-			pass;
+			savedTank.plants.push_back(SaveMarineLife(plantPathDict, plant, false));
 		
 		# Add the tank's data to the SavedGame's array of tanks
 		savedGame.tanks.push_back(savedTank);
@@ -101,7 +101,7 @@ func SaveGame():
 ##   either a fish or a plant.
 ## - Returns a SavedMarineLife Resource filled out with the
 ##   given marineLife object's data.
-func SaveMarineLife(pathDict: Dictionary, marineLife):
+func SaveMarineLife(pathDict: Dictionary, marineLife, isFish: bool):
 	# Create a SavedMarineLife Resource to fill out
 	var savedMarineLife: SavedMarineLife = SavedMarineLife.new();
 	
@@ -109,8 +109,9 @@ func SaveMarineLife(pathDict: Dictionary, marineLife):
 	# the fish's scene path based on its species
 	savedMarineLife.species = marineLife.Species;
 	
-	# Save simple string data
-	savedMarineLife.name = marineLife.name;
+	# Only save fish name if the marine life is a fish
+	if(isFish):
+		savedMarineLife.name = marineLife.fishname;
 	
 	# Save whether the fish is ready to be harvested
 	var harvestTimer: Timer = marineLife.get_node("Harvest") as Timer;

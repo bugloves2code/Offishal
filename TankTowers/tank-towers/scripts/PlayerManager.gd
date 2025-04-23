@@ -161,11 +161,15 @@ func Levelup():
 func SetLevel(value: int):
 	level = value;
 	if(PlayerManager.level >= 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clownfish.png"), "price": 1, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemone.png"), "price": 1, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
 		UiManager.SaltWaterUnlock()
-	UiManager.ReloadAllUI()
-	UiManager.PlayerUI.FillFishPediaStartPage()
+	elif(PlayerManager.level >= 20):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
+	elif(PlayerManager.level >= 40):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
+		UiManager.SaltWaterUnlock()
 
 func UpdateTankPrice(higherprice: bool):
 	if higherprice:
