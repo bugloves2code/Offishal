@@ -15,25 +15,25 @@ class_name SaverLoader
 extends Node
 
 ## A dictionary used to map fish species 
-## to their corresponding scene paths
+## to their corresponding packed scenes
 ## - I initially wanted to have fish and plants in the same
 ##   dictionary, but that led to conflicts because the underlying
 ##   integer values were identical between the two enumerations,
 ##   and we had problems with assigning specific values to enums
 ##   before, so two separate dictionaries it is!
 ## - TODO: Update this after merging to main branch
-var fishPathDict: Dictionary = {
-	ThEnums.FishSpecies.Guppy: "res://scenes/Fish.tscn",
-	ThEnums.FishSpecies.Clownfish: "res://scenes/ClownFish.tscn",
-};
+var fishPathDict = [
+	preload("res://scenes/Fish.tscn"),
+	preload("res://scenes/ClownFish.tscn"),
+];
 
 ## A dictionary used to map plant species
-## to their corresponding scene paths
+## to their corresponding packed scenes
 ## - TODO: Update this after merging to main branch
-var plantPathDict: Dictionary = {
-	ThEnums.PlantSpecies.Guppygrass: "res://scenes/Plant.tscn",
-	ThEnums.PlantSpecies.Anemone: "res://scenes/Anemone.tscn"
-};
+var plantPathDict = [
+	preload("res://scenes/Plant.tscn"),
+	preload("res://scenes/Anemone.tscn")
+];
 
 ## Saves data to a directory that is guaranteed to be writable.
 ## - Using res:// would not work, since when the project is
@@ -76,11 +76,11 @@ func SaveGame():
 		for fish: Fish in tank.fishList:
 			# Store the savedMarineLife for the current fish
 			# using a helper method to avoid repeating code
-			savedTank.fish.push_back(StoreMarineLife(fishPathDict, fish));
+			savedTank.fish.push_back(SaveMarineLife(fishPathDict, fish));
 		
 		# Repeat the near-identical process for plants
 		for plant: Plant in tank.plantList:
-			savedTank.plants.push_back(StoreMarineLife(plantPathDict, plant));
+			savedTank.plants.push_back(SaveMarineLife(plantPathDict, plant));
 			pass;
 		
 		# Add the tank's data to the SavedGame's array of tanks
@@ -92,13 +92,22 @@ func SaveGame():
 	#   the file type could be changed to .res
 	ResourceSaver.save(savedGame, "user://savegame.tres");
 
+
 ## A helper function to simplify saving fish and plant data
-func StoreMarineLife(pathDict: Dictionary, marineLife):
+## - pathDict is a dictionary that maps species type to 
+##   scene path. A different one is passed in depending on
+##   whether the marineLife is a fish or a plant
+## - marineLife is a vile, untyped variable, which can be
+##   either a fish or a plant.
+## - Returns a SavedMarineLife Resource filled out with the
+##   given marineLife object's data.
+func SaveMarineLife(pathDict: Dictionary, marineLife):
+	# Create a SavedMarineLife Resource to fill out
 	var savedMarineLife: SavedMarineLife = SavedMarineLife.new();
-			
+	
 	# Use the dictionary defined above to store 
 	# the fish's scene path based on its species
-	savedMarineLife.scenePath = fishPathDict[marineLife.Species];
+	savedMarineLife.species = marineLife.Species;
 	
 	# Save simple string data
 	savedMarineLife.name = marineLife.name;
@@ -196,8 +205,35 @@ func LoadGame():
 		
 		# The actual UI label needs to be updated
 		tank.get_node("TankLabel").text = savedTank.name;
+		
+		# Loop to create fish in the current tank
+		for savedFish: SavedMarineLife in savedTank.fish:
+			#var fish: Fish = fishPathDict[savedFish.species].instantiate();
+			var scene = fishPathDict[savedFish.species];
+			var fish: Fish = scene.instantiate();
+			
+			# Set name (not sure if this actually works)
+			fish.fishname = savedFish.name;
+			
+			# If the fish was ready to be harvested, then toggle
+			# its harvestability using the _on_harvest_timout function
+			if(savedFish.harvestReady):
+				fish._on_harvest_timeout();
+			
+			tank.AddFish(fish);
+		
+		# Loop to create plants in the current tank
+		# - Essentially the same as creating fish
+		for savedPlant: SavedMarineLife in savedTank.plants:
+			var plant: Plant = plantPathDict[savedPlant.species].instantiate();
+			
+			# Toggle harvestability
+			if(savedPlant.harvestReady):
+				plant._on_harvest_timeout();
+				
+			tank.AddPlant(plant);
 	
-	# Load the player's after creating all of the tanks, 
+	# Load the player's stats after creating all of the tanks, 
 	# due to some wonky number stuff happening from 
 	# reusing the existing tank creation functions
 	PlayerManager.money = savedGame.money;

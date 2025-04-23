@@ -26,7 +26,6 @@ extends Resource
 ##   All we have is whether the timer has finished.
 @export var harvestReady: bool;
 
-## The path to the scene of the MarineLife
-## - With different fish / plant scenes (guppy, clownfish, etc.),
-##   this seems like the best way to do this.
-@export var scenePath: String;
+## An integer used to represent the species. The FishSpecies
+## and PlantSpecies enums can be interpreted as integers.
+@export var species: int;
