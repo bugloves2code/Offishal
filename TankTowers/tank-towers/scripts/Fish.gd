@@ -8,6 +8,7 @@ extends MarineLife
 class_name Fish
 
 signal fishClicked
+signal tankAutoFilled
 
 var scrollContainer
 var last_scroll = 0
@@ -143,11 +144,14 @@ func fish_clicked(event: InputEvent) -> void:
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 						else:
-							Notifier.push_notification("TANK IS FULL OF FISh, GUPPY ADDED TO INVENTORY")
+							##emit_signal("tankAutoFilled")
+							print("toomanyfish")
+							Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 							UiManager.ReloadAllUI()
 							PlayerManager.xp += 1
 					else:
+						##emit_signal("tankAutoFilled")
 						Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 						PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 						UiManager.ReloadAllUI()

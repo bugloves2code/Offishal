@@ -8,6 +8,8 @@
 
 extends CanvasLayer
 
+signal fishAddedToInventory
+
 ## Holds actual Fish
 var fish : CharacterBody2D
 
@@ -81,6 +83,7 @@ func loadFishUI():
 ## PutInInventory
 ## allows player to put fis back in their inventory
 func PutInInventory():
+	emit_signal("fishAddedToInventory")
 	PlayerManager.AddMarineLife(fish)
 	UiManager.CloseFishUI()
 	var tank_container = get_tree().get_root().get_node("Main/Control/ScrollContainer/VBoxContainer")

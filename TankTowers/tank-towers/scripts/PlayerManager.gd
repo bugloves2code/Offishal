@@ -4,6 +4,7 @@
 ## - This script controls the player's stats and inventory.
 
 extends Node
+signal reachLevel5
 
 ## The player's current currency.
 ## - For simplicity, this is an integer instead of a float.
@@ -133,7 +134,9 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## when they level up
 func Levelup():
 	level += 1
-	if(PlayerManager.level == 5):	
+	if(PlayerManager.level == 5):
+		print(reachLevel5)
+		emit_signal("reachLevel5")
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
 		UiManager.SaltWaterUnlock()

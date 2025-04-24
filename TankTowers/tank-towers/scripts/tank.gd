@@ -32,6 +32,15 @@ var plantList: Array = []
 var tankName: String = "Awesome Tank"
 
 signal addFish
+signal addPlant
+signal addClownFish
+signal tankAutoFilled
+
+func _process(delta: float) -> void:
+	##print(fishList.size())
+	if (fishList.size() >= 10):
+		emit_signal("tankAutoFilled")
+	
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
@@ -45,8 +54,12 @@ func AddFish(fishInstance):
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
 		$Bloop.play()
+		print(fishInstance.Species)
 		## emit signal for adding fish	
-		emit_signal("addFish")
+		if fishInstance.Species == ThEnums.FishSpecies.Guppy:
+			emit_signal("addFish")
+		elif fishInstance.Species == ThEnums.FishSpecies.Clownfish:
+			emit_signal("addClownFish")
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
@@ -82,7 +95,7 @@ func AddPlant(plantInstance):
 		var plantSpawned = SpawnManager.SpawnPlant(self, plantInstance)
 		plantList.append(plantSpawned)
 		$Bloop.play()
-		
+		emit_signal("addPlant")
 	UiManager.ReloadAllUI()
 	if PlayerManager.tutorialComplete == false:
 		return
