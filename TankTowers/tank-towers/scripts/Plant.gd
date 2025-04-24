@@ -60,12 +60,12 @@ func plant_clicked(event: InputEvent) -> void:
 					
 				if self.Species == ThEnums.PlantSpecies.Coral:
 					if PlayerManager.unlockFertilizer:
-						PlayerManager.xp += 200
+						PlayerManager.xp += 20
 						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
 						PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
 						UiManager.TankDragDrop.populate_hbox_container()
 						return
-					PlayerManager.xp += 100
+					PlayerManager.xp += 20
 					PlayerManager.marineLifeInventory.append(load("res://scenes/Coral.tscn").instantiate())
 					UiManager.ReloadAllUI()
 					
