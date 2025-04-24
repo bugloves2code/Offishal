@@ -44,7 +44,7 @@ var plantPathDict = [
 ## - If the .tres file is dragged into the project and 
 ##   looked at in the inspector, all of the variables
 ##   exported in the SavedGame Resource will be visible.
-func SaveGame():
+func SaveGame() -> void:
 	# Create a SavedGame object, and populate its 
 	# exported variables with data we want to save
 	var savedGame:SavedGame = SavedGame.new();
@@ -103,6 +103,14 @@ func SaveGame():
 		# Store the savedWorker in the savedGame array
 		savedGame.workers.push_back(savedWorker);
 	
+	# Save PlayerManager boolean variables
+	savedGame.tutorialComplete = PlayerManager.tutorialComplete;
+	savedGame.unlockNursery = PlayerManager.unlockNursery;
+	savedGame.unlockTankUpgrade = PlayerManager.unlockTankUpgrade;
+	savedGame.unlockAutoSell = PlayerManager.unlockAutoSell;
+	savedGame.unlockFertilizer = PlayerManager.unlockFertilizer;
+	savedGame.unlockSellAll = UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible
+	
 	# Save the data to a .tres (text-based resource) file
 	# - This file will be human-readable
 	# - If we want save files to not be human readable,
@@ -115,7 +123,7 @@ func SaveGame():
 ##   either a fish or a plant.
 ## - Returns a SavedMarineLife Resource filled out with the
 ##   given marineLife object's data.
-func SaveMarineLife(marineLife, isFish: bool):
+func SaveMarineLife(marineLife, isFish: bool) -> SavedMarineLife:
 	# Create a SavedMarineLife Resource to fill out
 	var savedMarineLife: SavedMarineLife = SavedMarineLife.new();
 	
@@ -142,7 +150,7 @@ func SaveMarineLife(marineLife, isFish: bool):
 ##   duplicated when loading new nodes from the file
 ## - Makes use of the existing functionality for creating
 ##   tanks inside the TankCreationUI script
-func LoadGame():
+func LoadGame() -> void:
 	# "as" statement necessary for whatever 
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
@@ -158,6 +166,7 @@ func LoadGame():
 	
 	PlayerManager.marineLifeInventory.clear();
 	PlayerManager.workers.clear();
+	PlayerManager.unlocks.clear();
 	
 	# This is dumb and bad, but I think it should work
 	# for resetting the shop stock.
@@ -305,3 +314,12 @@ func LoadGame():
 		else:
 			PlayerManager.marineLifeInventory.push_back(
 				plantPathDict[savedMarineLife.species].instantiate());
+	
+	# Load PlayerManager boolean variables
+	PlayerManager.tutorialComplete = savedGame.tutorialComplete;
+	PlayerManager.unlockNursery = savedGame.unlockNursery;
+	PlayerManager.unlockTankUpgrade = savedGame.unlockTankUpgrade;
+	PlayerManager.unlockAutoSell = savedGame.unlockAutoSell;
+	PlayerManager.unlockFertilizer = savedGame.unlockFertilizer;
+	UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
+	PlayerManager.checkUnlocks();

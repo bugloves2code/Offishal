@@ -41,3 +41,22 @@ extends Resource
 ## An array of worker data to be saved.
 ## - Each worker has a level, number harvested, etc.
 @export var workers: Array[SavedWorker];
+
+
+## Whether the tutorial has been completed
+@export var tutorialComplete: bool;
+
+## Whether the nursery has been unlocked
+@export var unlockNursery: bool;
+
+## Whether the tank capacity has been unlocked
+@export var unlockTankUpgrade: bool;
+
+## Whether the auto sell has been unlocked
+@export var unlockAutoSell: bool;
+
+## Whether the fertilizer has been unlocked
+@export var unlockFertilizer: bool;
+
+## Whether the sell all upgrade has been unlocked
+@export var unlockSellAll: bool;
