@@ -362,8 +362,8 @@ func StockShop():
 	if UiManager.DontShowPlantYet == false:	
 		PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
 	if(PlayerManager.level >= 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.PNG"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.PNG"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
 		UiManager.SaltWaterUnlock()
 	if(PlayerManager.level >= 20):	
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
