@@ -187,7 +187,7 @@ func checkUnlocks():
 		unlocks.append({"unlock":"tutorial", "status": true})
 	else:
 		unlocks.append({"unlock":"tutorial", "status": false})
-	if UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible == true:
+	if UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible == true:
 		unlocks.append({"unlock":"sellall", "status": true})
 	else:
 		unlocks.append({"unlock":"sellall", "status": false})

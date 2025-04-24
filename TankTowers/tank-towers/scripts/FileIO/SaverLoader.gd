@@ -56,7 +56,8 @@ func SaveGame() -> void:
 	
 	# Initialize the savedGame arrays to empty
 	savedGame.tanks = [];
-	savedGame.workers = [];	
+	savedGame.workers = [];
+	savedGame.inventory = [];
 	
 	# Loop through each tank, and add data to SavedGame
 	for tank:Tank in TankManager.tankList:		
@@ -109,7 +110,7 @@ func SaveGame() -> void:
 	savedGame.unlockTankUpgrade = PlayerManager.unlockTankUpgrade;
 	savedGame.unlockAutoSell = PlayerManager.unlockAutoSell;
 	savedGame.unlockFertilizer = PlayerManager.unlockFertilizer;
-	savedGame.unlockSellAll = UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible
+	savedGame.unlockSellAll = UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible;
 	
 	# Save the data to a .tres (text-based resource) file
 	# - This file will be human-readable
@@ -288,7 +289,8 @@ func LoadGame() -> void:
 		# Upgrade the worker as many times as the level
 		# - This should definitely be a different function to
 		#   just set the level instead of calling LevelUp repeatedly
-		for j: int in savedWorker.level:
+		# - Go one less than the level, since workers begin at level 1.
+		for j: int in savedWorker.level - 1:
 			worker.upgradeWorker();
 	
 	# Load the player's stats after creating all of the tanks, 
@@ -321,5 +323,7 @@ func LoadGame() -> void:
 	PlayerManager.unlockTankUpgrade = savedGame.unlockTankUpgrade;
 	PlayerManager.unlockAutoSell = savedGame.unlockAutoSell;
 	PlayerManager.unlockFertilizer = savedGame.unlockFertilizer;
-	UiManager.PlayerUI.get_node("$SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
+	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
 	PlayerManager.checkUnlocks();
+	
+	UiManager.ReloadAllUI();
