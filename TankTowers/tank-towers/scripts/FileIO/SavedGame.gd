@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last updated 3/23/25 by William Duprey
+## Last updated 4/24/25 by William Duprey
 ## Game Data Resource Script
 ## - This script extends the Godot Resource class,
 ##   which is a built-in way of saving / loading

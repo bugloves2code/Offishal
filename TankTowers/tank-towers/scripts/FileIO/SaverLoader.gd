@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last updated 3/23/25 by William Duprey
+## Last updated 4/24/25 by William Duprey
 ## Saving and Loading Script
 ## - This script handles saving and loading all data
 ##   required to play the game (tanks, fish, player stats, etc.)
@@ -54,8 +54,9 @@ func SaveGame():
 	savedGame.level = PlayerManager.level;
 	savedGame.xp = PlayerManager.xp;
 	
-	# Initialize the fishList and plantList variables to empty arrays
+	# Initialize the savedGame arrays to empty
 	savedGame.tanks = [];
+	savedGame.workers = [];	
 	
 	# Loop through each tank, and add data to SavedGame
 	for tank:Tank in TankManager.tankList:		
@@ -90,6 +91,17 @@ func SaveGame():
 	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
 		savedGame.inventory.push_back(
 			SaveMarineLife(marineLife, marineLife is Fish));
+	
+	# Loop through the PlayerManager's Worker array to save them
+	for worker: Worker in PlayerManager.workers:
+		var savedWorker: SavedWorker = SavedWorker.new();
+		
+		# Save worker data to the Resource node
+		savedWorker.level = worker.level;
+		savedWorker.marineLifeHarvested = worker.harvestedMarineLife;
+		
+		# Store the savedWorker in the savedGame array
+		savedGame.workers.push_back(savedWorker);
 	
 	# Save the data to a .tres (text-based resource) file
 	# - This file will be human-readable
@@ -137,7 +149,15 @@ func LoadGame():
 	
 	# --- Reset the game ---
 	PlayerManager.level = 1;
+	
+	# Free up all the marine life and workers in the PlayerManager
+	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
+		marineLife.queue_free();
+	for worker: Worker in PlayerManager.workers:
+		worker.queue_free();
+	
 	PlayerManager.marineLifeInventory.clear();
+	PlayerManager.workers.clear();
 	
 	# This is dumb and bad, but I think it should work
 	# for resetting the shop stock.
@@ -239,6 +259,28 @@ func LoadGame():
 				plant._on_harvest_timeout();
 				
 			tank.AddPlant(plant);
+	
+	# Set the player's money ridiculously high to get around
+	# the worker creation and upgrade functions reducing money
+	PlayerManager.money = 100000;
+	
+	# Loop through the saved worker data and create new workers
+	for i: int in savedGame.workers.size():
+		var savedWorker: SavedWorker = savedGame.workers[i];
+		
+		# Call the worker creation function,
+		# and get it from the workers array
+		UiManager.PlayerUI._on_worker_upgrade_purchase();
+		var worker: Worker = PlayerManager.workers[i];
+		
+		# Set simple data
+		worker.harvestedMarineLife = savedWorker.marineLifeHarvested;
+		
+		# Upgrade the worker as many times as the level
+		# - This should definitely be a different function to
+		#   just set the level instead of calling LevelUp repeatedly
+		for j: int in savedWorker.level:
+			worker.upgradeWorker();
 	
 	# Load the player's stats after creating all of the tanks, 
 	# due to some wonky number stuff happening from 

@@ -1,5 +1,5 @@
 ## Fish Friends
-## Last updated 3/31/25 by William Duprey
+## Last updated 4/24/25 by William Duprey
 ## MarineLife Data Resource Script
 ## - In the absence of GDScript supporting structs, 
 ##   I am reduced to making another class for saving
