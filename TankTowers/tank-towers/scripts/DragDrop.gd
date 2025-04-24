@@ -19,6 +19,25 @@ extends TextureRect
 ## the information being dragged
 var drag_info: Node = null
 
+var count: int = 1:
+	set(value):
+		count = value
+		if count_label != null:  # Ensure label exists before updating
+			_update_count_label()
+
+@onready var count_label: Label = $CountLabel  # Replace with your label's path
+
+func _ready():
+	# Initialize label when node is ready
+	_update_count_label()
+
+func _update_count_label():
+	if count_label:
+		count_label.text = "x" + str(count)
+		# Ensure label is visible and properly configured
+		count_label.visible = true
+		count_label.z_index = 10  # Make sure it's on top
+
 ## _get_drag_data
 ## This function is used to find
 ## the drag data it accepts the
