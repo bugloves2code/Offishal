@@ -82,7 +82,7 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(500, 700)
 layout_mode = 2
 
-[node name="CreateTankButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control" groups=["TutorialGlowObjects"]]
+[node name="CreateTankButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control" groups=["Glodes"]]
 layout_mode = 0
 offset_left = 130.0
 offset_top = 553.0

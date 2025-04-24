@@ -7,6 +7,7 @@ extends Node
 
 # signal that comes on when a tank is added
 signal tankAdded
+signal saltwaterTankAdded
 
 ## tank_scene 
 ## tank_scene holds then tank so we can instaniate it
@@ -22,5 +23,7 @@ var tankList: Array = []
 var tankCapacity = 20
 
 func _process(delta: float) -> void:
-	if (tankList.size() >= 1):
+	if (tankList.size() == 1):
 		emit_signal("tankAdded")
+	elif (tankList.size() == 2):
+		emit_signal("saltwaterTankAdded")
