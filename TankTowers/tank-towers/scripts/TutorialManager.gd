@@ -53,7 +53,7 @@ func create_tutorial_steps():
 
 	##done 4 FISH UI
 	var step5 = TutorialStep.new()
-	step5.instruction_text = "Nice job! Now you have more fish. You can add these to your inventory to sell — this is how you make money."
+	step5.instruction_text = "Nice job! Now you have more fish. You can add these to your inventory to sell — this is how you make money. Click on a fish for the option to do so."
 	step5.signal_name = "fishAddedToInventory"
 	step5.signal_source = UiManager.FishUI.get_path()
 	steps.append(step5)
@@ -85,7 +85,7 @@ func create_tutorial_steps():
 
 	##done 9 SELLPANEL
 	var step10 = TutorialStep.new()
-	step10.instruction_text = "Plants and fish help each other — more fish means faster plant growth. Try selling a plant too!"
+	step10.instruction_text = "Plants and fish help each other — more fish means faster plant growth. Try selling a plant too! When you harvest it, another will be added to your inventory"
 	step10.signal_name = "plantSold"
 	##step10.signal_source = get_node("/root/UiManager/PlayerUI/SellPanel").get_path()
 	steps.append(step10)
@@ -104,15 +104,21 @@ func create_tutorial_steps():
 
 	## done 12 TANK
 	var step13 = TutorialStep.new()
-	step13.instruction_text = "You reached level 5! Now you can buy Saltwater Tanks and new fish and plants. Try adding them to your collection!"
-	step13.signal_name = "addClownFish"
+	step13.instruction_text = "You reached level 5! Now you can buy Saltwater Tanks and new fish and plants. Try buying a saltwater tank!"
+	step13.signal_name = "saltwaterTankAdded"
+	step13.signal_source = "/root/TankManager"
 	steps.append(step13)
 
-	## 13 TANK
 	var step14 = TutorialStep.new()
-	step14.instruction_text = "Great! You’ve completed the tutorial for Tank Towers. Keep expanding your marine collection and check the shop often. Good luck, fish friend!"
-	##step14.signal_name = "tutorialComplete"
+	step14.instruction_text = "Now buy a clownFish and add it to the new Tank!"
+	step14.signal_name = "addClownFish"
 	steps.append(step14)
+	
+	
+	var step15 = TutorialStep.new()
+	step15.instruction_text = "Great! You’ve completed the tutorial for Tank Towers. Keep expanding your marine collection and check the shop often. Good luck, fish friend!"
+	##step14.signal_name = "tutorialComplete"
+	steps.append(step15)
 
 	#var step1 = TutorialStep.new()
 	#step1.instruction_text = "Welcome to Tank Towers! My name is Professor Marlin. Try creating a new Freshwater Tank to get started."
@@ -150,11 +156,10 @@ func _start_step():
 
 func _on_tutorial_acknowledged():
 	if waiting_for_action:
-		print("Waiting for action")
 		return
 	overlay.hide_tutorial()
-	print("Tutorial Acknowledged")
 	UiManager.ShowAllBottomUI()
+	TutorialGlowManager.glow_nodes_for_step(current_step)
 	waiting_for_action = true
 	if current_step >= steps.size()-1:
 		emit_signal("tutorial_complete")
@@ -175,13 +180,15 @@ func _on_step_completed():
 	if source.is_connected(step.signal_name, Callable(self, "_on_step_completed")):
 		source.disconnect(step.signal_name, Callable(self, "_on_step_completed"))
 	
+	if (current_step == 11):
+		PlayerManager.tutorialComplete = true;
 	current_step += 1
 	if (current_step == 2): #TANK
 		var tankPath = TankManager.tankList[0].get_path()
 		#print(TankManager.tankList[0])
 		steps[2].signal_source = tankPath
 		steps[8].signal_source = tankPath
-		steps[12].signal_source = tankPath
+		##steps[12].signal_source = tankPath
 		##TankManager.tankList[0].connect("addFish", Callable(self, "_on_step_completed"))
 		##print(steps[1].signal_source)
 	if (current_step == 3): #FISH
@@ -205,9 +212,13 @@ func _on_step_completed():
 		steps[11].signal_source = PlayerManager.get_path()
 		if (PlayerManager.is_connected(steps[11].signal_name, Callable(self, "_on_step_completed"))):
 			print("connect!")
-	if current_step == 12:
-		var tankPath = TankManager.tankList[0].get_path()
-		steps[12].signal_source = tankPath
+	if current_step == 13:
+		for salt in TankManager.tankList:
+			if salt.tank_type == ThEnums.WaterType.Salt:
+				var node = salt
+				steps[13].signal_source = node.get_path()
+		#var tankPath = TankManager.tankList[1].get_path()
+		#steps[13].signal_source = tankPath
 	if current_step < steps.size():
 		overlay.show_tutorial(steps[current_step].instruction_text)
 		waiting_for_action = false
