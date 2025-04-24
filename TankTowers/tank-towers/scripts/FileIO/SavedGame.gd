@@ -31,3 +31,13 @@ extends Resource
 ## - Each tank stores its water type, 
 ##   and arrays of fish and plants
 @export var tanks: Array[SavedTank];
+
+## An array of marine life data for the player's inventory.
+## - In hindsight, the player's inventory should really
+##   have been a dictionary, so that we would not need
+##   to store an inordinate amount of full MarineLife nodes.
+@export var inventory: Array[SavedMarineLife];
+
+## An array of worker data to be saved.
+## - Each worker has a level, number harvested, etc.
+@export var workers: Array[SavedWorker];

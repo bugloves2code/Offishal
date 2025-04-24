@@ -86,6 +86,11 @@ func SaveGame():
 		# Add the tank's data to the SavedGame's array of tanks
 		savedGame.tanks.push_back(savedTank);
 	
+	# Save the player's inventory
+	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
+		savedGame.inventory.push_back(
+			SaveMarineLife(marineLife, marineLife is Fish));
+	
 	# Save the data to a .tres (text-based resource) file
 	# - This file will be human-readable
 	# - If we want save files to not be human readable,
@@ -94,9 +99,6 @@ func SaveGame():
 
 
 ## A helper function to simplify saving fish and plant data
-## - pathDict is a dictionary that maps species type to 
-##   scene path. A different one is passed in depending on
-##   whether the marineLife is a fish or a plant
 ## - marineLife is a vile, untyped variable, which can be
 ##   either a fish or a plant.
 ## - Returns a SavedMarineLife Resource filled out with the
@@ -112,6 +114,9 @@ func SaveMarineLife(marineLife, isFish: bool):
 	# Only save fish name if the marine life is a fish
 	if(isFish):
 		savedMarineLife.name = marineLife.fishname;
+	
+	# Save whether the marine life is a fish
+	savedMarineLife.isFish = isFish;
 	
 	# Save whether the fish is ready to be harvested
 	var harvestTimer: Timer = marineLife.get_node("Harvest") as Timer;
@@ -132,6 +137,7 @@ func LoadGame():
 	
 	# --- Reset the game ---
 	PlayerManager.level = 1;
+	PlayerManager.marineLifeInventory.clear();
 	
 	# This is dumb and bad, but I think it should work
 	# for resetting the shop stock.
@@ -241,3 +247,19 @@ func LoadGame():
 	PlayerManager.SetLevel(savedGame.level);
 	UiManager.PlayerUI.ShowPlayerLevel();
 	PlayerManager.xp = savedGame.xp;
+	
+	# Load the player's inventory
+	# - This is potentially the slowest part of the whole process,
+	#   depending on how many things the player has saved.
+	# - With more time, it would be very good to refactor to use
+	#   a dictionary instead of an array, so that item totals could
+	#   be stored instead of each full MarineLife node.
+	for savedMarineLife: SavedMarineLife in savedGame.inventory:
+		# If a fish, use the fishPathDict
+		if(savedMarineLife.isFish):
+			PlayerManager.marineLifeInventory.push_back(
+				fishPathDict[savedMarineLife.species].instantiate());
+		# Otherwise, use the plant
+		else:
+			PlayerManager.marineLifeInventory.push_back(
+				plantPathDict[savedMarineLife.species].instantiate());

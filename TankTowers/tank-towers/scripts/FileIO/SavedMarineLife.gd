@@ -20,6 +20,9 @@ extends Resource
 ## - Nickname given by the player, not the name of the species
 @export var name: String;
 
+## Whether the SavedMarineLife is a fish or a plant.
+@export var isFish: bool;
+
 ## Whether the marine life is ready to be harvested
 ## - I would have preferred to store the timer's value,
 ##   but that doesn't seem to be an accessible field.
