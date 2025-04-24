@@ -4,7 +4,9 @@
 ## - This Script is used to display things the player
 ## needs to interact with
 extends Node
-signal shopPressed
+signal buyFish
+signal buyPlant
+signal sellAllPurchased
 
 ## Arrays for the Fish Shop and Plant Shop
 var ShopStock: Array;
@@ -193,7 +195,7 @@ func LoadShop():
 	#
 	#await get_tree().process_frame
 	#
-	#for item in PlayerManager.marineLifeInventory:
+	#for item in PlayerManager.marineLifeInventory:`
 		#var drag_drop_instance = drag_drop_scene.instantiate()
 		#
 		##Access the Sprite2D node from the Fish Scene
@@ -214,14 +216,13 @@ func LoadShop():
 ## Buy Button for Fish
 ## allows player to get new fish in their inventory
 func _on_BuyButton_pressed(item, instance):
-	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
-		
+		emit_signal("buyFish")
 		##var fish_instance = item as ShopItem
 		##print(fish_instance["Species"], item["Species"], instance["Species"])
 		var fish
@@ -253,14 +254,13 @@ func _on_BuyButton_pressed(item, instance):
 ## Buy Button for Plant
 ## allows player to get new plant in their inventory
 func _on_BuyPlantButton_pressed(item, instance):
-	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
 		# Remove the item from ShopStock
-		
+		emit_signal("buyPlant")
 		var plant
 		if item["Species"] == ThEnums.PlantSpecies.Guppygrass:
 			plant = PlantScene.instantiate() as Plant
@@ -709,7 +709,6 @@ func _on_sell_all_button_mouse_exited() -> void:
 
 func _on_sell_all_button_pressed() -> void:
 	$SellPanel/SellAllButton.text = "Sell All"
-	
 	for item in PlayerManager.marineLifeInventory:
 		PlayerManager.money += item.sell_price
 		item.queue_free()
@@ -720,6 +719,7 @@ func _on_sell_all_button_pressed() -> void:
 
 func _on_sell_all_purchased():
 	if PlayerManager.money >= 10:
+		emit_signal("sellAllPurchased")
 		$SellPanel/SellAllButton.visible = true
 		PlayerManager.money -= 10
 		upgrades()

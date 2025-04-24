@@ -4,6 +4,7 @@
 ## - This script controls the player's stats and inventory.
 
 extends Node
+signal reachLevel5
 
 ## The player's current currency.
 ## - For simplicity, this is an integer instead of a float.
@@ -135,6 +136,8 @@ func Levelup():
 	level += 1
 	UiManager.PlayerUI.StockShop()
 	if(PlayerManager.level == 5):	
+		emit_signal("reachLevel5")
+		print(reachLevel5)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	elif(PlayerManager.level == 20):
 		Notifier.push_notification("LEVEL UP! NEW FISH UNLOCKED")

@@ -4,7 +4,8 @@
 ## Controls a Panel for the sell shop the the player can sell items
 
 extends Control
-
+signal fishSold
+signal plantSold
 
 ## Label for price
 @onready var price_label = $PriceLabel
@@ -49,6 +50,10 @@ func _can_drop_data(_pos, data):
 ## deleted
 func _drop_data(_pos, data):
 	if data is MarineLife:
+		if data is Fish:
+			emit_signal("fishSold")
+		elif data is Plant:
+			emit_signal("plantSold")
 		PlayerManager.money += data.sell_price
 		PlayerManager.marineLifeInventory.erase(data)
 		data.queue_free()

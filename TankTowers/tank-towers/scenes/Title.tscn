@@ -1,8 +1,109 @@
-[gd_scene load_steps=4 format=3 uid="uid://daa1a51haqbkn"]
+[gd_scene load_steps=12 format=3 uid="uid://daa1a51haqbkn"]
 
-[ext_resource type="Texture2D" uid="uid://dcw17q7w5ry81" path="res://assets/titleScenes/title.PNG" id="1_745jp"]
 [ext_resource type="Script" path="res://scripts/Title.gd" id="1_s6duk"]
 [ext_resource type="Texture2D" uid="uid://cecskhhfikot7" path="res://assets/maui-blue-ocean-abstract.jpg" id="2_fl47s"]
+[ext_resource type="Texture2D" uid="uid://c0i2c6eynqhti" path="res://assets/titleScenes/background.PNG" id="3_c6pvs"]
+[ext_resource type="Texture2D" uid="uid://cv4267bfh2524" path="res://assets/titleScenes/TOWERword.PNG" id="4_jm246"]
+[ext_resource type="Texture2D" uid="uid://bds65xec5lo20" path="res://assets/titleScenes/TANKword.PNG" id="5_ygilw"]
+[ext_resource type="Texture2D" uid="uid://ct2ggjl33qahp" path="res://assets/titleScenes/seaweed.PNG" id="6_k5ic5"]
+[ext_resource type="Texture2D" uid="uid://c2iydjgccndm7" path="res://assets/titleScenes/mini_fish.PNG" id="7_5863c"]
+[ext_resource type="Texture2D" uid="uid://bb2d0tkfmo1jo" path="res://assets/titleScenes/bubble.PNG" id="8_w27tl"]
+
+[sub_resource type="Animation" id="Animation_ga8b1"]
+resource_name = "titleAnim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tankWord:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(276, 340), Vector2(276, 390)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tankWord:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("towersWord:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_sj68u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tankWord:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tankWord:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(276, 390)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnv1j"]
+_data = {
+"RESET": SubResource("Animation_sj68u"),
+"titleAnim": SubResource("Animation_ga8b1")
+}
 
 [node name="Title" type="Node2D"]
 script = ExtResource("1_s6duk")
@@ -28,19 +129,39 @@ position = Vector2(327, 550)
 scale = Vector2(0.966667, 0.966667)
 texture = ExtResource("2_fl47s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Control"]
+[node name="background" type="Sprite2D" parent="Control"]
 position = Vector2(276, 390)
 scale = Vector2(0.627604, 0.627604)
-texture = ExtResource("1_745jp")
+texture = ExtResource("3_c6pvs")
 
-[node name="background" type="Sprite2D" parent="Control"]
+[node name="towersWord" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("4_jm246")
 
-[node name="Sprite2D4" type="Sprite2D" parent="Control"]
+[node name="tankWord" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("5_ygilw")
 
-[node name="Sprite2D5" type="Sprite2D" parent="Control"]
+[node name="seaweed" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("6_k5ic5")
 
-[node name="Sprite2D6" type="Sprite2D" parent="Control"]
+[node name="minifish" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("7_5863c")
 
-[node name="Sprite2D7" type="Sprite2D" parent="Control"]
+[node name="bubbleBackground" type="Sprite2D" parent="Control"]
+position = Vector2(276, 390)
+scale = Vector2(0.627604, 0.627604)
+texture = ExtResource("8_w27tl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+libraries = {
+"": SubResource("AnimationLibrary_dnv1j")
+}
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
