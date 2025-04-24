@@ -180,9 +180,9 @@ func _on_step_completed():
 	if source.is_connected(step.signal_name, Callable(self, "_on_step_completed")):
 		source.disconnect(step.signal_name, Callable(self, "_on_step_completed"))
 	
+	current_step += 1
 	if (current_step == 11):
 		PlayerManager.tutorialComplete = true;
-	current_step += 1
 	if (current_step == 2): #TANK
 		var tankPath = TankManager.tankList[0].get_path()
 		#print(TankManager.tankList[0])
