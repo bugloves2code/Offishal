@@ -172,11 +172,8 @@ func _on_tutorial_acknowledged():
 	var step = steps[current_step]
 	var source = get_node(step.signal_source)
 	source.connect(step.signal_name, Callable(self, "_on_step_completed"))
-	if source.is_connected(step.signal_name, Callable(self, "_on_step_completed")):
-		print("connected!")
 
 func _on_step_completed():
-	print("step completed")
 	UiManager.CloseAllBottomUI()
 	var step = steps[current_step]
 	var source = get_node(step.signal_source)
@@ -211,12 +208,9 @@ func _on_step_completed():
 	if (current_step == 5): #SELLPANEL
 		var sellPath = UiManager.PlayerUI.get_node("SellPanel/Control").get_path()
 		steps[5].signal_source = sellPath
-		print(steps[5].signal_source)
 		steps[9].signal_source = sellPath
 	if current_step == 11:
 		steps[11].signal_source = PlayerManager.get_path()
-		if (PlayerManager.is_connected(steps[11].signal_name, Callable(self, "_on_step_completed"))):
-			print("connect!")
 	if current_step == 13:
 		for salt in TankManager.tankList:
 			if salt.tank_type == ThEnums.WaterType.Salt:

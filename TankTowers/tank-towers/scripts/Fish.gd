@@ -145,7 +145,6 @@ func fish_clicked(event: InputEvent) -> void:
 							self.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 						else:
 							##emit_signal("tankAutoFilled")
-							print("toomanyfish")
 							Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 							UiManager.ReloadAllUI()

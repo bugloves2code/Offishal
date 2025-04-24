@@ -140,7 +140,6 @@ func Levelup():
 	UiManager.PlayerUI.StockShop()
 	if(PlayerManager.level == 5):	
 		emit_signal("reachLevel5")
-		print(reachLevel5)
 		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	elif(PlayerManager.level == 20):

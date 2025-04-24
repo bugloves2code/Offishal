@@ -39,7 +39,6 @@ func _ready() -> void:
 	tutorial = get_node(tutorial_manager)
 	glowNodes = get_tree().get_nodes_in_group("Glodes")
 	setNodesByStep()
-	print(glowNodes)
 
 func setNodesByStep():
 	stepDict[0] = [glowNodes[0], glowNodes[2], glowNodes[4]]  # CreateTankButton, FreshWaterCheckBox, CreateTankButton 2

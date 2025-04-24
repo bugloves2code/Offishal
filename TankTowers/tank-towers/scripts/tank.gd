@@ -54,7 +54,6 @@ func AddFish(fishInstance):
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
 		SoundEffectsManager.play_sound(SoundEffectsManager.fishAdd)
-		print(fishInstance.Species)
 		## emit signal for adding fish	
 		if fishInstance.Species == ThEnums.FishSpecies.Guppy:
 			emit_signal("addFish")
