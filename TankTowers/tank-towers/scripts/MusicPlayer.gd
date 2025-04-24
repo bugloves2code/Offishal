@@ -5,9 +5,13 @@
 extends AudioStreamPlayer 
 var song
 var titleSong
+
+
+
 func _ready():
 	song = load("res://audio/fishSong.mp3")  # Replace with your actual file path
 	titleSong = load("res://audio/underwater-ambience.mp3")
+	
 	#stream = song
 	#playing = true
 	#bus = "Music"

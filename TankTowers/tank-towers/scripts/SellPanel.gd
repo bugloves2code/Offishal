@@ -57,6 +57,7 @@ func _drop_data(_pos, data):
 		PlayerManager.money += data.sell_price
 		PlayerManager.marineLifeInventory.erase(data)
 		data.queue_free()
+		SoundEffectsManager.play_sound(SoundEffectsManager.buy)
 		#print(get_tree().current_scene)
 		UiManager.ReloadAllUI()
 		UiManager.ShowInventory()

@@ -53,7 +53,7 @@ func AddFish(fishInstance):
 			fishspawned.fishname = get_random_fish_name()
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
-		$Bloop.play()
+		SoundEffectsManager.play_sound(SoundEffectsManager.fishAdd)
 		print(fishInstance.Species)
 		## emit signal for adding fish	
 		if fishInstance.Species == ThEnums.FishSpecies.Guppy:
@@ -94,7 +94,7 @@ func AddPlant(plantInstance):
 	if plantList.size() < plantCapacity:
 		var plantSpawned = SpawnManager.SpawnPlant(self, plantInstance)
 		plantList.append(plantSpawned)
-		$Bloop.play()
+		SoundEffectsManager.play_sound(SoundEffectsManager.plantAdd)
 		emit_signal("addPlant")
 	UiManager.ReloadAllUI()
 	if PlayerManager.tutorialComplete == false:
