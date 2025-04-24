@@ -86,7 +86,6 @@ func CreateTank():
 			PlayerManager.money -= PlayerManager.currentTankPrice
 			
 			for worker in PlayerManager.workers:
-				print("DID you buy a new tank?")
 				worker.makeWorkTimer()
 	else:
 		Notifier.push_notification("YOU DON'T HAVE ENOUGH $")

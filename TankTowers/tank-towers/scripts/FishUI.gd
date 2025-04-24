@@ -103,7 +103,6 @@ func PutInInventory():
 	
 	UiManager.ReloadAllUI()
 	for worker in PlayerManager.workers:
-		print("DID you put a fish away")
 		worker.makeWorkTimer()
 	
 ## CloseUI
