@@ -133,18 +133,12 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## when they level up
 func Levelup():
 	level += 1
+	UiManager.PlayerUI.StockShop()
 	if(PlayerManager.level == 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
-		UiManager.SaltWaterUnlock()
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
-	elif(PlayerManager.level == 20):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
+	elif(PlayerManager.level == 20):
 		Notifier.push_notification("LEVEL UP! NEW FISH UNLOCKED")
 	elif(PlayerManager.level == 40):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
-		UiManager.SaltWaterUnlock()
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
 		Notifier.push_notification("LEVEL UP!")
