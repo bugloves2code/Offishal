@@ -22,7 +22,7 @@ var TankCreationUI
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerUI =  get_tree().get_root().get_node("Main/PlayerUI")
-	print(PlayerUI)
+	#print(PlayerUI)
 	TankDragDrop = get_tree().get_root().get_node("Main/DragDropMenu")
 	FishUI = get_tree().get_root().get_node("Main/FishUI")
 	TankCreationUI = get_tree().get_root().get_node("Main/TankCreationUI")
@@ -58,7 +58,7 @@ func CloseTankCreationUI():
 	TankCreationUI.visible = false
 	
 func ShowInventory():
-	print("Called Show Inventory")
+	#print("Called Show Inventory")
 	if PlayerManager.marineLifeInventory.size() == 0:
 		PlayerUI.ShowShop()
 		Notifier.push_notification("INVENTORY IS EMPTY")

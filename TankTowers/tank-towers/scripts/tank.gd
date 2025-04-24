@@ -64,7 +64,7 @@ func AddFish(fishInstance):
 	if PlayerManager.tutorialComplete == false:
 		return
 	elif PlayerManager.marineLifeInventory.size() == 0:
-		print("Add Fish")
+		##print("Add Fish")
 		UiManager.ShowInventory()
 		
 
@@ -87,7 +87,7 @@ func AddPlant(plantInstance):
 	if PlayerManager.tutorialComplete == false:
 		return
 	elif PlayerManager.marineLifeInventory.size() == 0:
-		print("add plant")
+		##print("add plant")
 		UiManager.ShowInventory()
 
 ## _can_drop_data
