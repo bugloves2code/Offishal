@@ -77,11 +77,11 @@ func SaveGame():
 		for fish: Fish in tank.fishList:
 			# Store the savedMarineLife for the current fish
 			# using a helper method to avoid repeating code
-			savedTank.fish.push_back(SaveMarineLife(fishPathDict, fish, true));
+			savedTank.fish.push_back(SaveMarineLife(fish, true));
 		
 		# Repeat the near-identical process for plants
 		for plant: Plant in tank.plantList:
-			savedTank.plants.push_back(SaveMarineLife(plantPathDict, plant, false));
+			savedTank.plants.push_back(SaveMarineLife(plant, false));
 		
 		# Add the tank's data to the SavedGame's array of tanks
 		savedGame.tanks.push_back(savedTank);
@@ -101,7 +101,7 @@ func SaveGame():
 ##   either a fish or a plant.
 ## - Returns a SavedMarineLife Resource filled out with the
 ##   given marineLife object's data.
-func SaveMarineLife(pathDict: Dictionary, marineLife, isFish: bool):
+func SaveMarineLife(marineLife, isFish: bool):
 	# Create a SavedMarineLife Resource to fill out
 	var savedMarineLife: SavedMarineLife = SavedMarineLife.new();
 	
@@ -239,4 +239,5 @@ func LoadGame():
 	# reusing the existing tank creation functions
 	PlayerManager.money = savedGame.money;
 	PlayerManager.SetLevel(savedGame.level);
+	UiManager.PlayerUI.ShowPlayerLevel();
 	PlayerManager.xp = savedGame.xp;
