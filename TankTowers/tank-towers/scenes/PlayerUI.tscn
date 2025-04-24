@@ -309,39 +309,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="InventoryPanel" type="Panel" parent="."]
-offset_top = 920.0
-offset_right = 577.0
-offset_bottom = 943.0
-
-[node name="FishCheckBox" type="CheckBox" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 59.0
-offset_right = 83.0
-offset_bottom = 24.0
-
-[node name="FishLabel" type="Label" parent="InventoryPanel/FishCheckBox"]
-layout_mode = 0
-offset_left = -46.0
-offset_top = -1.0
-offset_right = -6.0
-offset_bottom = 22.0
-text = "Fishes"
-
-[node name="FishCheckBox2" type="CheckBox" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 144.0
-offset_right = 168.0
-offset_bottom = 24.0
-
-[node name="FishLabel" type="Label" parent="InventoryPanel/FishCheckBox2"]
-layout_mode = 0
-offset_left = -46.0
-offset_top = -1.0
-offset_right = -6.0
-offset_bottom = 22.0
-text = "Plants"
-
 [node name="UpgradesPanel" type="Panel" parent="."]
 visible = false
 offset_right = 576.0

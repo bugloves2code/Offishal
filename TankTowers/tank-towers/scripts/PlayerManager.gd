@@ -133,15 +133,19 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## This function updates all the stats the player gets
 ## when they level up
 func Levelup():
+	SoundEffectsManager.play_sound(SoundEffectsManager.levelUp)
 	level += 1
 	UiManager.PlayerUI.StockShop()
 	if(PlayerManager.level == 5):	
 		emit_signal("reachLevel5")
 		print(reachLevel5)
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	elif(PlayerManager.level == 20):
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! NEW FISH UNLOCKED")
 	elif(PlayerManager.level == 40):	
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
 		Notifier.push_notification("LEVEL UP!")

@@ -40,7 +40,7 @@ func CreateTank():
 		if TankManager.tankList.size() < TankManager.tankCapacity:
 			## This sound effect makes me want the tank to fall
 			## from the sky and land on the top of the tower
-			##$TankCreation.play();
+			SoundEffectsManager.play_sound(SoundEffectsManager.tankCreation)
 			
 			var new_instance = TankManager.tank_scene.instantiate()
 			

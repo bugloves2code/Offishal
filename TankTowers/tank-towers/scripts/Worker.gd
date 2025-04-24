@@ -557,6 +557,7 @@ func upgradeWorker():
 		Notifier.push_notification("THIS WORKER IS MAX LEVEL")
 		return
 	if PlayerManager.money >= level * 100:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		PlayerManager.money -= level * 100
 		level += 1
 		timetoharvest = 11 - level
