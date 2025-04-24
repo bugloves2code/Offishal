@@ -81,6 +81,7 @@ text = "Level: 1"
 horizontal_alignment = 1
 
 [node name="SellPanel" type="Panel" parent="." groups=["Glodes"]]
+visible = false
 offset_left = 161.0
 offset_top = 16.0
 offset_right = 401.0
@@ -132,11 +133,13 @@ offset_right = 575.0
 offset_bottom = 1024.0
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 offset_top = 879.0
 offset_right = 576.0
 offset_bottom = 919.0
 
 [node name="Menu" type="Button" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 496.0
 offset_top = 5.0
@@ -145,6 +148,7 @@ offset_bottom = 36.0
 text = "Menu"
 
 [node name="Shop" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 172.0
 offset_top = 5.0
@@ -153,6 +157,7 @@ offset_bottom = 36.0
 text = "Shop"
 
 [node name="Upgrades" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 335.0
 offset_top = 5.0
@@ -161,6 +166,7 @@ offset_bottom = 36.0
 text = "Upgrades"
 
 [node name="Inventory" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 7.0
 offset_top = 5.0

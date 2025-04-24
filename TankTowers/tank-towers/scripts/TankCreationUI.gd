@@ -64,7 +64,8 @@ func CreateTank():
 				new_instance.fishCapacity = 20
 				new_instance.plantCapacity = 20
 			TankManager.tankList.append(new_instance)
-			UiManager.ShowInventory()
+			if PlayerManager.tutorialComplete == true:
+				UiManager.ShowInventory()
 			self.visible = false
 
 			if vbox_node:

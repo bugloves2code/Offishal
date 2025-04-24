@@ -66,7 +66,7 @@ func _process(delta: float) -> void:
 
 func glow_nodes_for_step(step: int) -> void:
 	turn_off_all_glow()
-	print(stepDict[step])
+	#print(stepDict[step])
 	for node in stepDict[step]:
 		glow(node)
 

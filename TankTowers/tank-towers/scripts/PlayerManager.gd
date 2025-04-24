@@ -106,6 +106,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if tutorialComplete == false:
+		xp = 0
 	if level + 5 <= xp:
 		xp = 0
 		Levelup()

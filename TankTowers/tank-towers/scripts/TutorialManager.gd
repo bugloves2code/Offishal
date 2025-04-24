@@ -157,8 +157,11 @@ func _start_step():
 func _on_tutorial_acknowledged():
 	if waiting_for_action:
 		return
+		
+	
+	UiManager.make_things_appear(current_step)
+		
 	overlay.hide_tutorial()
-	UiManager.ShowAllBottomUI()
 	TutorialGlowManager.glow_nodes_for_step(current_step)
 	waiting_for_action = true
 	if current_step >= steps.size()-1:
@@ -181,6 +184,8 @@ func _on_step_completed():
 		source.disconnect(step.signal_name, Callable(self, "_on_step_completed"))
 	
 	current_step += 1
+	
+	
 	if (current_step == 11):
 		PlayerManager.tutorialComplete = true;
 	if (current_step == 2): #TANK

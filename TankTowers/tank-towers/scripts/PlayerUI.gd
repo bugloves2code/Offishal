@@ -359,7 +359,8 @@ func StockShop():
 		child.queue_free()	
 	
 	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
+	if UiManager.DontShowPlantYet == false:	
+		PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
 	if(PlayerManager.level >= 5):	
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
@@ -370,6 +371,7 @@ func StockShop():
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
 		
+	LoadShop()
 	
 
 
@@ -712,6 +714,7 @@ func _on_sell_all_purchased():
 	if PlayerManager.money >= 10:
 		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		emit_signal("sellAllPurchased")
+		$UpgradesPanel.visible = false
 		$SellPanel/SellAllButton.visible = true
 		PlayerManager.money -= 10
 		upgrades()

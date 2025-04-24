@@ -60,7 +60,8 @@ func _drop_data(_pos, data):
 		SoundEffectsManager.play_sound(SoundEffectsManager.buy)
 		#print(get_tree().current_scene)
 		UiManager.ReloadAllUI()
-		UiManager.ShowInventory()
+		if PlayerManager.tutorialComplete == true:
+			UiManager.ShowInventory()
 		
 ## update_price_label
 ## Show the price of the item hovering over the sell panel
