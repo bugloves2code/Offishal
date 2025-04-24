@@ -404,11 +404,18 @@ func FillFishPediaStartPage():
 	var fishpedialist = []
 	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
 	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "facts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups."})
-	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "10 seconds", "facts": ""})
+	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "1 minute maximum", "facts": "Guppy Grass grows faster when fish are in the tank with it. For every fish that is in the tank, the Guppy Grass will grow 5 seconds faster."})
 	
 	if PlayerManager.level >= 5:
-		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png","watertype": "Salt", "harvesttime": "", "facts": ""})
-		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png","watertype": "Salt", "harvesttime": "", "facts": ""})
+		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clown.png","watertype": "Salt", "harvesttime": "2 minutes", "facts": ""})
+		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemoneNew.png","watertype": "Salt", "harvesttime": "3 minutes maximum", "facts": "Anemones grows faster when fish are in the tank with it. For every fish that is in the tank, the Anemone will grow 5 seconds faster."})
+	
+	if PlayerManager.level >= 20:
+		fishpedialist.append({"type": "Northern Pike", "image": "res://assets/cancelCulturePike.png", "watertype": "Fresh", "harvesttime": "6 minutes", "facts": ""})
+		
+	if PlayerManager.level >= 40:
+		fishpedialist.append({"type": "Blue Tang", "image": "res://assets/blueTang.png", "watertype": "Salt", "harvesttime": "7 minutes", "facts": ""})
+		fishpedialist.append({"type": "Coral", "image": "res://assets/coral.png","watertype": "Salt", "harvesttime": "7 minutes maximum", "facts": "Coral grows faster when fish are in the tank with it. For every fish that is in the tank, the Coral will grow 5 seconds faster."})
 	
 	var grid_container = $FishPediaStartPanel/ScrollContainer/GridContainer
 	var details_panel = $DetailsPanel  # Reference to the single panel
