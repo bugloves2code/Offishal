@@ -29,33 +29,33 @@ var stepDict = {
 ##SaltwaterCheckBox:<CheckBox#62193141211>, saltwater checkbox 3
 ##CreateTankButton:<Button#62277027296>, createtank2 4
 ##SellPanel:<Panel#63451432453>, dragto sell 5
-##Shop:<Button#63753422359>, shop 6
-##Upgrades:<Button#63803754010> upgrades 7
-##Inventory:<Button#63854085661> inventory 8
-## sell all button 9
+## sell all button 6
+##Shop:<Button#63753422359>, shop 7
+##Upgrades:<Button#63803754010> upgrades 8
+##Inventory:<Button#63854085661> inventory 9
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	tutorial = get_node(tutorial_manager)
 	glowNodes = get_tree().get_nodes_in_group("Glodes")
 	setNodesByStep()
-	##print(glowNodes)
+	print(glowNodes)
 
 func setNodesByStep():
 	stepDict[0] = [glowNodes[0], glowNodes[2], glowNodes[4]]  # CreateTankButton, FreshWaterCheckBox, CreateTankButton 2
-	stepDict[1] = [glowNodes[6]]  # Shop
-	stepDict[2] = [glowNodes[8]]  # Inventory
+	stepDict[1] = [glowNodes[7]]  # Shop
+	stepDict[2] = [glowNodes[9]]  # Inventory
 	stepDict[3] = []  # No nodes
 	stepDict[4] = [glowNodes[1]]  # PutInInventoryButton
-	stepDict[5] = [glowNodes[8], glowNodes[5]]  # Inventory, SellPanel
+	stepDict[5] = [glowNodes[9], glowNodes[5]]  # Inventory, SellPanel
 	stepDict[6] = []  # No nodes
-	stepDict[7] = [glowNodes[6]]  # Shop
+	stepDict[7] = [glowNodes[7]]  # Shop
 	stepDict[8] = []
-	stepDict[9] = [glowNodes[8], glowNodes[5]]  # Inventory, SellPanel
-	stepDict[10] = [glowNodes[7]]  # Upgrades
-	stepDict[11] = [glowNodes[9]]  # Sell all (assuming upgrades button again)
+	stepDict[9] = [glowNodes[9], glowNodes[5]]  # Inventory, SellPanel
+	stepDict[10] = [glowNodes[8]]  # Upgrades
+	stepDict[11] = [glowNodes[6]]  # Sell all (assuming upgrades button again)
 	stepDict[12] = [glowNodes[0], glowNodes[3], glowNodes[4]]  # CreateTankButton, SaltwaterCheckBox
-	stepDict[13] = [glowNodes[6]] # No nodes
+	stepDict[13] = [glowNodes[7]] # Shop
 	stepDict[14] = []  # No nodes
 
  
