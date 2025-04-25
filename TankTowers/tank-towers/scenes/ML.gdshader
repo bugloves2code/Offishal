@@ -16,6 +16,10 @@ void fragment() {
 	if(onOff == 1.0) {
 		COLOR = vec4(input_color.r, input_color.g, 1.0, input_color.a);
 	}
+	
+	if(onOff == 2.0) {
+		COLOR = vec4(1.0, input_color.g, input_color.b, input_color.a);
+	}
 }
 
 //void light() {
