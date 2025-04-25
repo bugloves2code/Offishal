@@ -61,4 +61,12 @@ func push_notification(text: String):
 	await NotificationTimer.timeout
 	NotificationLabel.visible = false
 	
+
+func put_in_inventory_notification(on: bool):
+	NotificationLabel.text = "CLICK NON-HARVESTABLE FISH TO SEE FISHUI"
+	NotificationLabel.add_theme_color_override("font_color", Color.WHITE)  
+	NotificationLabel.add_theme_font_size_override("font_size", 24)  # Larger font size
+	NotificationLabel.visible = on
+	
+	NotificationLabel.reset_size()
 	

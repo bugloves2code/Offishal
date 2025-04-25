@@ -85,6 +85,23 @@ func adjustFishBounds() -> void:
 func _process(delta: float) -> void:
 	adjustFishBounds()
 	super._process(delta)
+	
+	#Pike stopping guppies from being harvested if they are in the same tank
+	if self.Species == ThEnums.FishSpecies.Guppy:
+		for fish in self.get_parent().fishList:
+			if fish.Species == ThEnums.FishSpecies.Pike:
+				self.get_node("Harvest").set_paused(true)
+				self.get_node("Sprite2D").material.set_shader_parameter("onOff", 2.0);
+				self.harvestStatus = false
+				return
+			else:
+				if self.get_node("Harvest").paused == true:
+					self.get_node("Harvest").set_paused(false)
+					self.get_node("Harvest").start()
+				if self.harvestStatus == true:
+					self.get_node("Sprite2D").material.set_shader_parameter("onOff", 1.0);
+				else:
+					self.get_node("Sprite2D").material.set_shader_parameter("onOff", 0.0);
 
 ## fish_clicked
 ## Allows user to access Fish UI when

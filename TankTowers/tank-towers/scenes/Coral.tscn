@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsbjka60fbcsl"]
+[gd_scene load_steps=7 format=3 uid="uid://bthhqeslhi1bq"]
 
 [ext_resource type="Script" path="res://scripts/Plant.gd" id="1_fk34o"]
 [ext_resource type="Shader" path="res://scenes/ML.gdshader" id="2_3wsp4"]
@@ -19,6 +19,8 @@ size = Vector2(38.5, 3)
 
 [node name="Coral" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_8w0cn")
+collision_layer = 256
+collision_mask = 4
 script = ExtResource("1_fk34o")
 Species = 2
 waterType = 1

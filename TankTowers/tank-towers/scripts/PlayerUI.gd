@@ -433,7 +433,7 @@ func ShowShop():
 func FillFishPediaStartPage():
 	var fishpedialist = []
 	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
-	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "gamefacts": "", "realfacts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups. Guppies can be found in northern South America and the West Indies, but have been introduced in North America, Africa, Asia, Europe, and Oceania."})
+	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "gamefacts": "If Guppies are in a tank with a larger fish, they will not be able to be harvested.", "realfacts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups. Guppies can be found in northern South America and the West Indies, but have been introduced in North America, Africa, Asia, Europe, and Oceania."})
 	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "1 minute maximum", "gamefacts": "Guppy Grass grows faster when fish are in the tank with it. For every fish that is in the tank, the Guppy Grass will grow 5 seconds faster.", "realfacts": "Guppy grass is a fast growing, dense plant that makes a great hiding spot for smaller fish. Guppy grass can be found in North and Central America."})
 	
 	if PlayerManager.level >= 5:
@@ -441,7 +441,7 @@ func FillFishPediaStartPage():
 		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemoneNew.png","watertype": "Salt", "harvesttime": "3 minutes maximum", "gamefacts": "Anemones grows faster when fish are in the tank with it. For every fish that is in the tank, the Anemone will grow 5 seconds faster.", "realfacts": "Anemones have a symbiotic relationship with Clownfish, meaning that both species benefit from it. Anemones use Clownfish by being cleaned of parasites. Anemones can be found worldwide."})
 	
 	if PlayerManager.level >= 20:
-		fishpedialist.append({"type": "Northern Pike", "image": "res://assets/cancelCulturePike.png", "watertype": "Fresh", "harvesttime": "6 minutes", "gamefacts": "", "realfacts": "Pike are carnivorous in real life, and they have hundreds of backward-slanting teeth to grab and long teeth in their lower jaw to pierce. Pike can be found in upper and middle North America, but have been introduced throughout Europe."})
+		fishpedialist.append({"type": "Northern Pike", "image": "res://assets/cancelCulturePike.png", "watertype": "Fresh", "harvesttime": "6 minutes", "gamefacts": "North Pike are carnivorous, they will stop the Guppies that are in their tank from being harvested.", "realfacts": "Northern Pike have hundreds of backward-slanting teeth to grab and long teeth in their lower jaw to pierce. Northern Pike can be found in upper and middle North America, but have been introduced throughout Europe."})
 		
 	if PlayerManager.level >= 40:
 		fishpedialist.append({"type": "Blue Tang", "image": "res://assets/blueTang.png", "watertype": "Salt", "harvesttime": "7 minutes", "gamefacts": "", "realfacts": "Blue tangs may look harmless, but when they are in danger they can raise a pair of venomous spines of either side of their tail. Blue tangs also reach 85% of their full size within their first year. Blue tangs can be found in the Caribbean Sea and surrounding waters."})
