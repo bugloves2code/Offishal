@@ -214,6 +214,16 @@ func LoadGame() -> void:
 	# Get the Tank UI node so that its tank creation function can be used
 	var tankUINode:CanvasLayer = get_tree().current_scene.get_node("TankCreationUI");
 	
+	# Load PlayerManager boolean variables
+	# - Do this first, so that the tank capacity is properly upgraded
+	PlayerManager.tutorialComplete = savedGame.tutorialComplete;
+	PlayerManager.unlockNursery = savedGame.unlockNursery;
+	PlayerManager.unlockTankUpgrade = savedGame.unlockTankUpgrade;
+	PlayerManager.unlockAutoSell = savedGame.unlockAutoSell;
+	PlayerManager.unlockFertilizer = savedGame.unlockFertilizer;
+	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
+	PlayerManager.checkUnlocks();	
+	
 	# Variables for the current tank being loaded in
 	var tank:Tank;
 	var savedTank:SavedTank;
@@ -328,15 +338,6 @@ func LoadGame() -> void:
 			PlayerManager.marineLifeInventory.push_back(
 				plantPathDict[savedMarineLife.species].instantiate());
 	
-	# Load PlayerManager boolean variables
-	PlayerManager.tutorialComplete = savedGame.tutorialComplete;
-	PlayerManager.unlockNursery = savedGame.unlockNursery;
-	PlayerManager.unlockTankUpgrade = savedGame.unlockTankUpgrade;
-	PlayerManager.unlockAutoSell = savedGame.unlockAutoSell;
-	PlayerManager.unlockFertilizer = savedGame.unlockFertilizer;
-	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
-	PlayerManager.checkUnlocks();
-	
 	# Make stuff visible if the player has completed the tutorial
 	if PlayerManager.tutorialComplete:
 		UiManager.PlayerUI.get_node("SellPanel").visible = true;
@@ -345,5 +346,8 @@ func LoadGame() -> void:
 		UiManager.PlayerUI.get_node("Panel/Shop").visible = true;
 		UiManager.PlayerUI.get_node("Panel/Upgrades").visible = true;
 		UiManager.PlayerUI.get_node("Panel/Inventory").visible = true;
+		
+		# A truly insane line of code, but we do what we do
+		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true;
 	
 	UiManager.ReloadAllUI();
