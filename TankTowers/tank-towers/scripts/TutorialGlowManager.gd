@@ -20,7 +20,6 @@ var stepDict = {
 	11: null,
 	12: null,
 	13: null,
-	14: null
 }
 
 ##CreateTankButton:<Button#61538829748>, createtank1  0
@@ -54,8 +53,7 @@ func setNodesByStep():
 	stepDict[10] = [glowNodes[8]]  # Upgrades
 	stepDict[11] = [glowNodes[6]]  # Sell all (assuming upgrades button again)
 	stepDict[12] = [glowNodes[0], glowNodes[3], glowNodes[4]]  # CreateTankButton, SaltwaterCheckBox
-	stepDict[13] = [glowNodes[7]] # Shop
-	stepDict[14] = []  # No nodes
+	stepDict[13] = []  # No nodes
 
  
 # Called every frame. 'delta' is the elapsed time since the previous frame.
