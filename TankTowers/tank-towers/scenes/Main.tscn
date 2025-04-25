@@ -96,9 +96,9 @@ layout_mode = 2
 visible = false
 layout_mode = 0
 offset_left = 130.0
-offset_top = 553.0
+offset_top = 535.0
 offset_right = 449.0
-offset_bottom = 705.0
+offset_bottom = 687.0
 theme_override_font_sizes/font_size = 25
 text = "Create Tank"
 
