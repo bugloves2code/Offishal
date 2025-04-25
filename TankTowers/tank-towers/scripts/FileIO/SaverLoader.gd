@@ -302,6 +302,8 @@ func LoadGame() -> void:
 ## Helper function that resets the game
 func ResetGame() -> void:
 	PlayerManager.level = 1;
+	PlayerManager.xp = 0;
+	PlayerManager.money = 10;
 	
 	# Free up all the marine life and workers in the PlayerManager
 	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
@@ -374,8 +376,11 @@ func SaveTimer() -> void:
 ## - This function also restarts the tutorial
 func DeleteSave() -> void:
 	ResetGame(); # Reset the game to initial state
+	#UiManager.ReloadAllUI(); #Reload UI stuff
 	SaveGame();  # Overwrite data with initial game state
 	
 	# Call the tutorial start here?
 	# - Or, probably it'll be on the player to restart the game,
 	#   so they can see the epic title screen animation
+	# - True evil: just quit the entire game
+	get_tree().quit();

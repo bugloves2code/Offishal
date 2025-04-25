@@ -92,22 +92,6 @@ offset_right = 449.0
 offset_bottom = 705.0
 text = "Create Tank"
 
-[node name="SaveButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
-layout_mode = 0
-offset_left = 362.0
-offset_top = 224.0
-offset_right = 496.0
-offset_bottom = 311.0
-text = "Save"
-
-[node name="LoadButton" type="Button" parent="Control/ScrollContainer/VBoxContainer/Control"]
-layout_mode = 0
-offset_left = 358.0
-offset_top = 322.0
-offset_right = 502.0
-offset_bottom = 421.0
-text = "Load"
-
 [node name="DragDropMenu" parent="." instance=ExtResource("5_bmkks")]
 offset_left = -12.0
 offset_top = 914.0
@@ -149,6 +133,4 @@ script = ExtResource("11_xy52x")
 wait_time = 10.0
 
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
-[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/SaveButton" to="SaverLoader" method="SaveGame"]
-[connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/LoadButton" to="SaverLoader" method="LoadGame"]
 [connection signal="timeout" from="SaverLoader/SaveTimer" to="SaverLoader" method="SaveTimer"]
