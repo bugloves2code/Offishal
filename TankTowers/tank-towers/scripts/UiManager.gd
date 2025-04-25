@@ -106,6 +106,8 @@ func CloseTankCreationUI():
 	
 func ShowInventory():
 	#print("Called Show Inventory")
+	if PlayerManager.tutorialComplete == true:
+		ShowSellPanel = true
 	if PlayerManager.marineLifeInventory.size() == 0:
 		PlayerUI.ShowShop()
 		Notifier.push_notification("INVENTORY IS EMPTY")

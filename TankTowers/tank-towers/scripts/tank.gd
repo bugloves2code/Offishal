@@ -51,7 +51,6 @@ func AddFish(fishInstance):
 		# SpawnManager destroys the isntance passed in
 		var harvestReady: bool = fishInstance.harvestStatus;
 		
-		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()

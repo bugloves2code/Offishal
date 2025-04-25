@@ -350,9 +350,6 @@ func _on_harvest_timeout() -> void:
 	self.harvestStatus = true
 	$Sprite2D.material.set_shader_parameter("onOff", 1.0)
 
-
-func _on_timer_timeout() -> void:
-	pass # Replace with function body.
 	
 func _can_drop_data(_pos,data):
 	if data is Fish && self.get_parent().fishList.size() >= self.get_parent().fishCapacity:

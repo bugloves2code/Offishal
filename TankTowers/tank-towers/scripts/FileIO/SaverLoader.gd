@@ -151,7 +151,7 @@ func SaveMarineLife(marineLife, isFish: bool) -> SavedMarineLife:
 ## - Makes use of the existing functionality for creating
 ##   tanks inside the TankCreationUI script
 func LoadGame() -> void:
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true);
 	# "as" statement necessary for whatever 
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
@@ -304,15 +304,14 @@ func LoadGame() -> void:
 		# A truly insane line of code, but we do what we do
 		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true;
 	
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
-	SettingsManager.load_settings()
 	UiManager.ReloadAllUI();
+	MakeNotMute();
 
 ## Helper function that resets the game
 func ResetGame() -> void:
 	PlayerManager.level = 1;
 	PlayerManager.xp = 0;
-	PlayerManager.money = 10;
+	PlayerManager.money = 6;
 	
 	# Free up all the marine life and workers in the PlayerManager
 	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
@@ -393,3 +392,13 @@ func DeleteSave() -> void:
 	#   so they can see the epic title screen animation
 	# - True evil: just quit the entire game
 	get_tree().quit();
+	
+
+	
+func MakeNotMute():
+	$MakeNotMuteTimer.wait_time = 2;
+	$MakeNotMuteTimer.start();
+	await $MakeNotMuteTimer.timeout;
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false);
+	SettingsManager.load_settings();
+	
