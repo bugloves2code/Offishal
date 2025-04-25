@@ -19,11 +19,15 @@ radius = 31.0644
 
 [node name="BlueTang" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_1hcam")
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_gexj5")
 Species = 2
 waterType = 1
 sell_price = 100
 maxSpeed = 50
+wanderRadius = 20.0
+boundsWeight = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_it8kj")
