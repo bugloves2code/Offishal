@@ -318,6 +318,8 @@ func fish_clicked(event: InputEvent) -> void:
 						UiManager.ReloadAllUI()
 						PlayerManager.xp += 20
 			else:
+				if PlayerManager.tutorialComplete == true:
+					get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()
 				UiManager.CloseInventory()

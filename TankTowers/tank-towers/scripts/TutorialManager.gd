@@ -28,14 +28,14 @@ func start_tutorial():
 func create_tutorial_steps():
 	##done 0
 	var step1 = TutorialStep.new()
-	step1.instruction_text = "Create a Tank to get started! Click the checkmark next to Freshwater Tank in the menu."
+	step1.instruction_text = "Click create a Tank to get started! Click the checkmark next to Freshwater Tank in the menu then click create tank in the same menu."
 	step1.signal_name = "tankAdded"
 	step1.signal_source = "/root/TankManager"
 	steps.append(step1)
 
 	##done 1 PLAYERUI
 	var step2 = TutorialStep.new()
-	step2.instruction_text = "Now buy a fish from the shop!"
+	step2.instruction_text = "Now buy a fish from the shop by pressing the buy button under the fish!"
 	step2.signal_name = "buyFish"
 	steps.append(step2)
 

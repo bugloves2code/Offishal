@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://daa1a51haqbkn"]
+[gd_scene load_steps=18 format=3 uid="uid://daa1a51haqbkn"]
 
 [ext_resource type="Script" path="res://scripts/Title.gd" id="1_s6duk"]
 [ext_resource type="Texture2D" uid="uid://cecskhhfikot7" path="res://assets/maui-blue-ocean-abstract.jpg" id="2_fl47s"]
@@ -539,6 +539,15 @@ _data = {
 "titleAnim": SubResource("Animation_ga8b1")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2bab"]
+bg_color = Color(0.31802, 0.31802, 0.31802, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eumvr"]
+bg_color = Color(0.133664, 0.144972, 0.163674, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw837"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="Title" type="Node2D"]
 script = ExtResource("1_s6duk")
 
@@ -606,6 +615,9 @@ offset_left = 159.0
 offset_top = 649.0
 offset_right = 412.0
 offset_bottom = 793.0
+theme_override_styles/hover = SubResource("StyleBoxFlat_f2bab")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eumvr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yw837")
 text = "Play
 "
 

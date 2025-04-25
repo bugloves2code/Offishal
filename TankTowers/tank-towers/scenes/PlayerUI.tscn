@@ -454,7 +454,17 @@ offset_top = 401.0
 offset_right = 556.0
 offset_bottom = 829.0
 theme_override_font_sizes/font_size = 20
-text = "Interesting Facts"
+text = "Real World Facts"
+autowrap_mode = 3
+
+[node name="InGameFactsLabel" type="Label" parent="DetailsPanel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 601.0
+offset_right = 556.0
+offset_bottom = 1029.0
+theme_override_font_sizes/font_size = 20
+text = "In Game Facts"
 autowrap_mode = 3
 
 [connection signal="focus_entered" from="SellPanel/SellAllButton" to="." method="_on_sell_all_button_focus_entered"]

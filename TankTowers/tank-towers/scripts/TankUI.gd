@@ -21,6 +21,7 @@ func _process(_delta: float) -> void:
 ## Creat Tank Button and processes if a tank can be made and then adds it to
 ## the scene
 func _on_create_tank_button_pressed() -> void:
+	$"../Control/ScrollContainer/VBoxContainer/Control/CreateTankButton".visible = false
 	UiManager.CloseFishUI()
 	UiManager.ShowTankCreationUI()
 	UiManager.ReloadAllUI()
