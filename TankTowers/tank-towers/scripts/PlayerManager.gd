@@ -172,6 +172,8 @@ func SetLevel(value: int):
 		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
 		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
 		UiManager.SaltWaterUnlock()
+	UiManager.PlayerUI.StockShop()
+	UiManager.PlayerUI.FillFishPediaStartPage()
 
 func UpdateTankPrice(higherprice: bool):
 	if higherprice:

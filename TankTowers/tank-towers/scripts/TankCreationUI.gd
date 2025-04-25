@@ -90,7 +90,7 @@ func CreateTank():
 				get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
 
 				## print(tankList.size())
-			PlayerManager.money -= PlayerManager.currentTankPrice
+			#PlayerManager.money -= PlayerManager.currentTankPrice
 			
 			for worker in PlayerManager.workers:
 				worker.makeWorkTimer()

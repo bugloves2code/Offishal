@@ -168,6 +168,15 @@ func LoadGame() -> void:
 	PlayerManager.marineLifeInventory.clear();
 	PlayerManager.workers.clear();
 	PlayerManager.unlocks.clear();
+	PlayerManager.currentTankPrice = 0;
+	
+	# Reset unlock statuses
+	PlayerManager.tutorialComplete = false;
+	PlayerManager.unlockNursery = false;
+	PlayerManager.unlockTankUpgrade = false;
+	PlayerManager.unlockAutoSell = false;
+	PlayerManager.unlockFertilizer = false;
+	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = false;
 	
 	# This is dumb and bad, but I think it should work
 	# for resetting the shop stock.
@@ -297,6 +306,8 @@ func LoadGame() -> void:
 	# due to some wonky number stuff happening from 
 	# reusing the existing tank creation functions
 	PlayerManager.money = savedGame.money;
+	if savedGame.tutorialComplete:
+		UiManager.DontShowPlantYet = false;
 	PlayerManager.SetLevel(savedGame.level);
 	UiManager.PlayerUI.ShowPlayerLevel();
 	PlayerManager.xp = savedGame.xp;
@@ -325,5 +336,14 @@ func LoadGame() -> void:
 	PlayerManager.unlockFertilizer = savedGame.unlockFertilizer;
 	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = savedGame.unlockSellAll;
 	PlayerManager.checkUnlocks();
+	
+	# Make stuff visible if the player has completed the tutorial
+	if PlayerManager.tutorialComplete:
+		UiManager.PlayerUI.get_node("SellPanel").visible = true;
+		UiManager.PlayerUI.get_node("Panel").visible = true;
+		UiManager.PlayerUI.get_node("Panel/Menu").visible = true;
+		UiManager.PlayerUI.get_node("Panel/Shop").visible = true;
+		UiManager.PlayerUI.get_node("Panel/Upgrades").visible = true;
+		UiManager.PlayerUI.get_node("Panel/Inventory").visible = true;
 	
 	UiManager.ReloadAllUI();
