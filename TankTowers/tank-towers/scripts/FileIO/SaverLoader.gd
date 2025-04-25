@@ -8,10 +8,9 @@
 ##   want to have some kind of autosave eventually, either
 ##   based on a Timer, or triggered whenever the player does
 ##   something worth saving.
-## - Mostly followed this Godot tutorial:
+## - Followed this Godot tutorial:
 ##   https://www.youtube.com/watch?v=43BZsLZheA4
 
-class_name SaverLoader
 extends Node
 
 ## An array of packed scenes used to map fish species 
@@ -156,59 +155,7 @@ func LoadGame() -> void:
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
 	
-	# --- Reset the game ---
-	PlayerManager.level = 1;
-	
-	# Free up all the marine life and workers in the PlayerManager
-	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
-		marineLife.queue_free();
-	for worker: Worker in PlayerManager.workers:
-		worker.queue_free();
-	
-	PlayerManager.marineLifeInventory.clear();
-	PlayerManager.workers.clear();
-	PlayerManager.unlocks.clear();
-	PlayerManager.currentTankPrice = 0;
-	
-	# Reset unlock statuses
-	PlayerManager.tutorialComplete = false;
-	PlayerManager.unlockNursery = false;
-	PlayerManager.unlockTankUpgrade = false;
-	PlayerManager.unlockAutoSell = false;
-	PlayerManager.unlockFertilizer = false;
-	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = false;
-	
-	# This is dumb and bad, but I think it should work
-	# for resetting the shop stock.
-	# - The reason I'm even doing this is to prevent
-	#   issues from happening when reloading data
-	#   again, which shouldn't ever happen in the
-	#   finished game (since data will be loaded once
-	#   when the game starts).
-	while UiManager.PlayerUI.ShopStock.size() > 1:
-		UiManager.PlayerUI.ShopStock.pop_back();
-	while UiManager.PlayerUI.PlantShopStock.size() > 1:
-		UiManager.PlayerUI.PlantShopStock.pop_back();
-	
-	# Loop through existing tanks and clean them up
-	# in preparation for loading new ones
-	# - queue_free() is technically enough to delete, but
-	#   just calling queue_free means the node will stay
-	#   in the tree until the end of the frame, which
-	#   can have unwanted side effects, so it's best
-	#   practice to remove the node from its parent first
-	for tank:Tank in TankManager.tankList:
-		# Clear out all fish nodes too
-		# - Or not necessary, since fish are children of tank?
-		#   Garbage collector goes vroom?
-		#for fish:Fish in tank.fishList:
-		#	fish.get_parent().remove_child(fish);
-		#	fish.queue_free();
-		
-		tank.get_parent().remove_child(tank);
-		tank.queue_free();
-		
-	TankManager.tankList.clear();
+	ResetGame();
 	
 	# --- Load in saved data ---
 	# Get the Tank UI node so that its tank creation function can be used
@@ -351,3 +298,84 @@ func LoadGame() -> void:
 		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true;
 	
 	UiManager.ReloadAllUI();
+
+## Helper function that resets the game
+func ResetGame() -> void:
+	PlayerManager.level = 1;
+	
+	# Free up all the marine life and workers in the PlayerManager
+	for marineLife: MarineLife in PlayerManager.marineLifeInventory:
+		marineLife.queue_free();
+	for worker: Worker in PlayerManager.workers:
+		worker.queue_free();
+	
+	PlayerManager.marineLifeInventory.clear();
+	PlayerManager.workers.clear();
+	PlayerManager.unlocks.clear();
+	PlayerManager.currentTankPrice = 0;
+	
+	# Reset unlock statuses
+	PlayerManager.tutorialComplete = false;
+	PlayerManager.unlockNursery = false;
+	PlayerManager.unlockTankUpgrade = false;
+	PlayerManager.unlockAutoSell = false;
+	PlayerManager.unlockFertilizer = false;
+	UiManager.PlayerUI.get_node("SellPanel/SellAllButton").visible = false;
+	
+	# This is dumb and bad, but I think it should work
+	# for resetting the shop stock.
+	# - The reason I'm even doing this is to prevent
+	#   issues from happening when reloading data
+	#   again, which shouldn't ever happen in the
+	#   finished game (since data will be loaded once
+	#   when the game starts).
+	while UiManager.PlayerUI.ShopStock.size() > 1:
+		UiManager.PlayerUI.ShopStock.pop_back();
+	while UiManager.PlayerUI.PlantShopStock.size() > 1:
+		UiManager.PlayerUI.PlantShopStock.pop_back();
+	
+	# Loop through existing tanks and clean them up
+	# in preparation for loading new ones
+	# - queue_free() is technically enough to delete, but
+	#   just calling queue_free means the node will stay
+	#   in the tree until the end of the frame, which
+	#   can have unwanted side effects, so it's best
+	#   practice to remove the node from its parent first
+	for tank:Tank in TankManager.tankList:
+		# Clear out all fish nodes too
+		# - Or not necessary, since fish are children of tank?
+		#   Garbage collector goes vroom?
+		#for fish:Fish in tank.fishList:
+		#	fish.get_parent().remove_child(fish);
+		#	fish.queue_free();
+		
+		tank.get_parent().remove_child(tank);
+		tank.queue_free();
+		
+	TankManager.tankList.clear();
+
+## Function for the save timer to call when its timer runs out
+func SaveTimer() -> void:
+	# Restart the timer
+	$SaveTimer.start();
+	
+	# Don't save until the tutorial is done
+	if !PlayerManager.tutorialComplete:
+		return;
+		
+	# Don't save if we're on the title screen
+	if get_tree().current_scene.get_node("Title").visible:
+		return;
+	
+	SaveGame();
+
+## A function that deletes the save game by first resetting
+## everything, then saving that starting data.
+## - This function also restarts the tutorial
+func DeleteSave() -> void:
+	ResetGame(); # Reset the game to initial state
+	SaveGame();  # Overwrite data with initial game state
+	
+	# Call the tutorial start here?
+	# - Or, probably it'll be on the player to restart the game,
+	#   so they can see the epic title screen animation

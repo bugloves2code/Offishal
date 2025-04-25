@@ -145,6 +145,10 @@ z_index = 21
 [node name="SaverLoader" type="Node" parent="."]
 script = ExtResource("11_xy52x")
 
+[node name="SaveTimer" type="Timer" parent="SaverLoader"]
+wait_time = 10.0
+
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/SaveButton" to="SaverLoader" method="SaveGame"]
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/LoadButton" to="SaverLoader" method="LoadGame"]
+[connection signal="timeout" from="SaverLoader/SaveTimer" to="SaverLoader" method="SaveTimer"]

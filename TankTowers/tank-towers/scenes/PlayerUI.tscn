@@ -197,6 +197,14 @@ offset_bottom = 278.0
 text = "Settings
 "
 
+[node name="DeleteSaveButton" type="Button" parent="MenuPanel"]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 374.0
+offset_right = 381.0
+offset_bottom = 463.0
+text = "Delete Save Data"
+
 [node name="SettingsPanel" type="Panel" parent="."]
 visible = false
 offset_right = 578.0
@@ -459,6 +467,7 @@ autowrap_mode = 3
 [connection signal="pressed" from="Panel/Inventory" to="." method="_on_inventory_pressed"]
 [connection signal="pressed" from="MenuPanel/FishPediaButton" to="." method="_on_fish_pedia_button_pressed"]
 [connection signal="pressed" from="MenuPanel/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuPanel/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]
 [connection signal="value_changed" from="SettingsPanel/MasterSlider" to="." method="_on_master_volume_changed"]
 [connection signal="value_changed" from="SettingsPanel/MusicSlider" to="." method="_on_music_volume_changed"]
 [connection signal="value_changed" from="SettingsPanel/SFXSlider" to="." method="_on_sfx_volume_changed"]

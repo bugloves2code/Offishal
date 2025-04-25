@@ -27,6 +27,7 @@ Notifier="*res://scripts/Notifier.gd"
 UiManager="*res://scripts/UiManager.gd"
 TutorialGlowManager="*res://scripts/TutorialGlowManager.gd"
 SoundEffectsManager="*res://scripts/SoundEffectsManager.gd"
+SaverLoader="*res://scripts/FileIO/SaverLoader.gd"
 
 [display]
 

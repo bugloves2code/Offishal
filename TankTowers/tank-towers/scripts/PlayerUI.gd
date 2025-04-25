@@ -760,3 +760,8 @@ func _on_unlock_auto_sell():
 		upgrades()
 	else:
 		Notifier.push_notification("YOU CAN NOT AFFORD THIS")
+
+## Function to delete the save data,
+## just calls the SaverLoader DeleteSave function.
+func _on_delete_save_button_pressed() -> void:
+	SaverLoader.DeleteSave();
