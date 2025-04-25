@@ -12,6 +12,7 @@ func gameStart():
 	connect = false
 	var tutorial = get_node(tutorial_manager)
 	get_node("SaverLoader").LoadGame();
+	get_node("SaverLoader/SaveTimer").start();
 	if !PlayerManager.tutorialComplete:
 		tutorial.start_tutorial()
 	MusicPlayer.playGameMusic()
