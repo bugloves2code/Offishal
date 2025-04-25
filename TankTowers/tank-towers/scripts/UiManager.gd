@@ -142,6 +142,9 @@ func make_things_appear(step: int):
 		PlayerUI.StockShop()
 	if step == 5:
 		ShowSellPanel = true
+		Notifier.put_in_inventory_notification(false)
+	if step == 4:
+		Notifier.put_in_inventory_notification(true)
 	if step == 2:
 		PlayerUI.get_node("Panel/Shop").visible = false
 	if step == 1:
