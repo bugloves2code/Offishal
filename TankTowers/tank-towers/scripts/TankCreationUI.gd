@@ -37,58 +37,57 @@ func CreateTank():
 		Notifier.push_notification("SELECT A TANK TYPE")
 		return
 	if PlayerManager.money >= PlayerManager.currentTankPrice:
-		if TankManager.tankList.size() < TankManager.tankCapacity:
-			## This sound effect makes me want the tank to fall
-			## from the sky and land on the top of the tower
-			SoundEffectsManager.play_sound(SoundEffectsManager.tankCreation)
+		## This sound effect makes me want the tank to fall
+		## from the sky and land on the top of the tower
+		SoundEffectsManager.play_sound(SoundEffectsManager.tankCreation)
+		
+		var new_instance = TankManager.tank_scene.instantiate()
+		
+		 # Use the label's text as the tank name
+		new_instance.tankName = TankNameLabel.text
+		
+		if freshwater == null:
+			Notifier.push_notification("SELECT A TANK TYPE")
+			return
 			
-			var new_instance = TankManager.tank_scene.instantiate()
+		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
+		if saltwater == true:
+			TankManager.saltWater = true
+			new_instance.tank_type = ThEnums.WaterType.Salt
+			new_instance.get_node("Sprite2D").texture = load("res://assets/saltwatertank.png")
+		if freshwater == true:
+			new_instance.tank_type = ThEnums.WaterType.Fresh
+			new_instance.get_node("Sprite2D").texture = load("res://assets/tank.PNG")
 			
-			 # Use the label's text as the tank name
-			new_instance.tankName = TankNameLabel.text
-			
-			if freshwater == null:
-				Notifier.push_notification("SELECT A TANK TYPE")
-				return
-				
-			get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
-			if saltwater == true:
-				TankManager.saltWater = true
-				new_instance.tank_type = ThEnums.WaterType.Salt
-				new_instance.get_node("Sprite2D").texture = load("res://assets/saltwatertank.png")
-			if freshwater == true:
-				new_instance.tank_type = ThEnums.WaterType.Fresh
-				new_instance.get_node("Sprite2D").texture = load("res://assets/tank.PNG")
-				
-			var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
-			new_instance.get_node("TankLabel").text = new_instance.tankName
-			if PlayerManager.unlockTankUpgrade:
-				new_instance.fishCapacity = 20
-				new_instance.plantCapacity = 20
-			TankManager.tankList.append(new_instance)
-			if PlayerManager.tutorialComplete == true:
-				UiManager.ShowInventory()
-			self.visible = false
+		var vbox_node = get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer")
+		new_instance.get_node("TankLabel").text = new_instance.tankName
+		if PlayerManager.unlockTankUpgrade:
+			new_instance.fishCapacity = 20
+			new_instance.plantCapacity = 20
+		TankManager.tankList.append(new_instance)
+		if PlayerManager.tutorialComplete == true:
+			UiManager.ShowInventory()
+		self.visible = false
 
-			if vbox_node:
-				## print("main found")
-				vbox_node.add_child(new_instance)
-				#if TankManager.tankList.size() == 1:
-					#vbox_node.move_child(new_instance, TankManager.tankList.size())
-				#print(TankManager.tankList.size())
-				
-				# Wait for layout to update
-				vbox_node.move_child(new_instance, 1)
-				await get_tree().process_frame
-
-				# Ensure the new tank is fully visible
-				get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
-
-				## print(tankList.size())
-			PlayerManager.money -= PlayerManager.currentTankPrice
+		if vbox_node:
+			## print("main found")
+			vbox_node.add_child(new_instance)
+			#if TankManager.tankList.size() == 1:
+				#vbox_node.move_child(new_instance, TankManager.tankList.size())
+			#print(TankManager.tankList.size())
 			
-			for worker in PlayerManager.workers:
-				worker.makeWorkTimer()
+			# Wait for layout to update
+			vbox_node.move_child(new_instance, 1)
+			await get_tree().process_frame
+
+			# Ensure the new tank is fully visible
+			get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
+
+			## print(tankList.size())
+		PlayerManager.money -= PlayerManager.currentTankPrice
+		
+		for worker in PlayerManager.workers:
+			worker.makeWorkTimer()
 	else:
 		Notifier.push_notification("YOU DON'T HAVE ENOUGH $")
 		

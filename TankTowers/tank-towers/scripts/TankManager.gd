@@ -22,7 +22,6 @@ var saltWater
 
 ## tankCapacity
 ## amount of tanks player has unlocked
-var tankCapacity = 20
 
 func _process(delta: float) -> void:
 	if (tankList.size() == 1):
