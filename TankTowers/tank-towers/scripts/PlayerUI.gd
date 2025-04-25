@@ -377,7 +377,7 @@ func StockShop():
 
 
 func _on_inventory_pressed() -> void:
-	if PlayerManager.tutorialComplete == true:
+	if PlayerManager.tutorialComplete == true and PlayerManager.level >= 5:
 		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	if PlayerManager.marineLifeInventory.size() == 0:
 		ShowShop()
@@ -396,7 +396,7 @@ func _on_inventory_pressed() -> void:
 
 
 func _on_shop_pressed() -> void:
-	if PlayerManager.tutorialComplete == true:
+	if PlayerManager.tutorialComplete == true and PlayerManager.level >= 5:
 		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	ShowShop()
 	$UpgradesPanel.visible = false

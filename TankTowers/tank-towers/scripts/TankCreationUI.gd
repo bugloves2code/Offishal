@@ -53,6 +53,7 @@ func CreateTank():
 				
 			get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 			if saltwater == true:
+				TankManager.saltWater = true
 				new_instance.tank_type = ThEnums.WaterType.Salt
 				new_instance.get_node("Sprite2D").texture = load("res://assets/saltwatertank.png")
 			if freshwater == true:

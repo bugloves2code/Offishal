@@ -55,8 +55,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
-	
-	
+	#if TankManager.saltWater == true:
+		#TankCreationUI.get_node("Panel/FreshWaterCheckBox").visible = true
+		#return
+	#if PlayerManager.tutorialComplete == true:
+		##hide create tank button
+		#TankCreationUI.get_node("Panel/FreshWaterCheckBox").visible = false
+
+
 func setNodesByStep():
 	visibleDict[0] = [get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton")]  # CreateTankButton
 	visibleDict[1] = [PlayerUI.get_node("Panel"), PlayerUI.get_node("Panel/Shop")]  # Shop

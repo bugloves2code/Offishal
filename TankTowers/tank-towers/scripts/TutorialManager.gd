@@ -100,7 +100,7 @@ func create_tutorial_steps():
 	var step12 = TutorialStep.new()
 	step12.instruction_text = "Now when you access your inventory, you can sell everything instantly!"
 	step12.signal_name = "reachLevel5"
-	steps.append(step12)
+	steps.append(step12)	
 
 	## done 12 TANK
 	var step13 = TutorialStep.new()
@@ -109,14 +109,14 @@ func create_tutorial_steps():
 	step13.signal_source = "/root/TankManager"
 	steps.append(step13)
 
-	var step14 = TutorialStep.new()
-	step14.instruction_text = "Now buy a clownFish and add it to the new Tank!"
-	step14.signal_name = "addClownFish"
-	steps.append(step14)
+	#var step14 = TutorialStep.new()
+	#step14.instruction_text = "Now buy a clownFish and add it to the new Tank!"
+	#step14.signal_name = "addClownFish"	
+	#steps.append(step14)
 	
 	
 	var step15 = TutorialStep.new()
-	step15.instruction_text = "Great! You’ve completed the tutorial for Tank Towers. Keep expanding your marine collection and check the shop often. Good luck, fish friend!"
+	step15.instruction_text = "Find new fish to add there in the shop and you’ve completed the tutorial for Tank Towers. Keep expanding your marine collection and check the shop often. Good luck, fish friend!"
 	##step14.signal_name = "tutorialComplete"
 	steps.append(step15)
 
@@ -157,8 +157,7 @@ func _start_step():
 func _on_tutorial_acknowledged():
 	if waiting_for_action:
 		return
-		
-	
+
 	UiManager.make_things_appear(current_step)
 		
 	overlay.hide_tutorial()
@@ -211,11 +210,6 @@ func _on_step_completed():
 		steps[9].signal_source = sellPath
 	if current_step == 11:
 		steps[11].signal_source = PlayerManager.get_path()
-	if current_step == 13:
-		for salt in TankManager.tankList:
-			if salt.tank_type == ThEnums.WaterType.Salt:
-				var node = salt
-				steps[13].signal_source = node.get_path()
 		#var tankPath = TankManager.tankList[1].get_path()
 		#steps[13].signal_source = tankPath
 	if current_step < steps.size():
