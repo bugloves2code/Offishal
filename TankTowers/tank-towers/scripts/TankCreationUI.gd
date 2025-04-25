@@ -50,7 +50,8 @@ func CreateTank():
 			if freshwater == null:
 				Notifier.push_notification("SELECT A TANK TYPE")
 				return
-			
+				
+			get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 			if saltwater == true:
 				new_instance.tank_type = ThEnums.WaterType.Salt
 				new_instance.get_node("Sprite2D").texture = load("res://assets/saltwatertank.png")
@@ -120,6 +121,7 @@ func get_random_tank_name() -> String:
 
 
 func _on_cancel_button_pressed() -> void:
+	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	ReloadTankCreationUI()
 	self.visible = false
 	UiManager.ShowInventory()

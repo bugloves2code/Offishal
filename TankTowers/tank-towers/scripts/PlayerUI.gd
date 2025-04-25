@@ -109,6 +109,7 @@ func _on_menu_pressed() -> void:
 ## _on_shop_pressed
 ## handles when shop button is clicked
 func _on_shop_button_pressed() -> void:
+	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	var ShopPanel = $ShopPanel
 	var MenuPanel = $MenuPanel
 	MenuPanel.visible = false
@@ -376,6 +377,7 @@ func StockShop():
 
 
 func _on_inventory_pressed() -> void:
+	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	if PlayerManager.marineLifeInventory.size() == 0:
 		ShowShop()
 		Notifier.push_notification("INVENTORY IS EMPTY")
@@ -531,6 +533,7 @@ func _on_worker_upgrade_purchase() -> void:
 
 
 func _on_upgrades_pressed() -> void:
+	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	$UpgradesPanel.visible = !$UpgradesPanel.visible
 	$MenuPanel.visible = false
 	$SettingsPanel.visible = false
