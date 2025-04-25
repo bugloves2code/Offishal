@@ -151,6 +151,7 @@ func SaveMarineLife(marineLife, isFish: bool) -> SavedMarineLife:
 ## - Makes use of the existing functionality for creating
 ##   tanks inside the TankCreationUI script
 func LoadGame() -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
 	# "as" statement necessary for whatever 
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
@@ -303,6 +304,8 @@ func LoadGame() -> void:
 		# A truly insane line of code, but we do what we do
 		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true;
 	
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+	SettingsManager.load_settings()
 	UiManager.ReloadAllUI();
 
 ## Helper function that resets the game
