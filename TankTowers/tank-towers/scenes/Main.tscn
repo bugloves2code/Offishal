@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/TutorialManager.gd" id="8_t44bm"]
 [ext_resource type="PackedScene" uid="uid://bcmggxqftf2f3" path="res://scenes/TutorialCharacter.tscn" id="9_5knk2"]
 [ext_resource type="Script" path="res://scripts/TutorialOverlay.gd" id="10_vkydt"]
+[ext_resource type="Script" path="res://scripts/FileIO/SaverLoader.gd" id="11_xy52x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y04uv"]
 
@@ -137,4 +138,11 @@ script = ExtResource("10_vkydt")
 [node name="Title" parent="." instance=ExtResource("2_6mw8u")]
 z_index = 21
 
+[node name="SaverLoader" type="Node" parent="."]
+script = ExtResource("11_xy52x")
+
+[node name="SaveTimer" type="Timer" parent="SaverLoader"]
+wait_time = 10.0
+
 [connection signal="pressed" from="Control/ScrollContainer/VBoxContainer/Control/CreateTankButton" to="Tank UI - CanvasLayer" method="_on_create_tank_button_pressed"]
+[connection signal="timeout" from="SaverLoader/SaveTimer" to="SaverLoader" method="SaveTimer"]

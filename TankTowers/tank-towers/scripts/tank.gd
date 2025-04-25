@@ -10,7 +10,6 @@
 extends Control
 class_name Tank
 
-
 ## tank_type is where this tanks WaterType will be stored
 ## this is currently hardcoded and shown in inspector
 ## this will likely be chosen before tank creation
@@ -48,9 +47,22 @@ func _process(delta: float) -> void:
 func AddFish(fishInstance):
 	
 	if fishList.size() < fishCapacity:
+		# Save whether the fish is ready to harvest because
+		# SpawnManager destroys the isntance passed in
+		var harvestReady: bool = fishInstance.harvestStatus;
+		
+		print("tank",fishInstance)
 		var fishspawned = SpawnManager.SpawnFish(self, fishInstance)
 		if fishspawned.fishname == "":
 			fishspawned.fishname = get_random_fish_name()
+		
+		# Set the fish's harvest status
+		# - This is very dumb to have pass in a fish instance,
+		#   only for SpawnManager to delete it and recreate a 
+		#   new instance. Very, very odd.
+		if(harvestReady):
+			fishspawned._on_harvest_timeout();
+		
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
 		SoundEffectsManager.play_sound(SoundEffectsManager.fishAdd)
@@ -86,12 +98,21 @@ func AddFish(fishInstance):
 ## if there are then it will add the given plant to plantList
 func AddPlant(plantInstance):	
 	
+	# Store whether the plant is ready to harvest because
+	# SpawnManager will destroy the plantInstance
+	var harvestReady: bool = plantInstance.harvestStatus;
+	
 	plantInstance.queue_free()
 	
 	
 	
 	if plantList.size() < plantCapacity:
 		var plantSpawned = SpawnManager.SpawnPlant(self, plantInstance)
+		
+		# Toggle whether the plant is ready to be harvested
+		if(harvestReady):
+			plantSpawned._on_harvest_timeout();
+		
 		plantList.append(plantSpawned)
 		SoundEffectsManager.play_sound(SoundEffectsManager.plantAdd)
 		emit_signal("addPlant")

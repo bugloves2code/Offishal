@@ -11,7 +11,10 @@ func _ready() -> void:
 func gameStart():
 	connect = false
 	var tutorial = get_node(tutorial_manager)
-	tutorial.start_tutorial()
+	get_node("SaverLoader").LoadGame();
+	get_node("SaverLoader/SaveTimer").start();
+	if !PlayerManager.tutorialComplete:
+		tutorial.start_tutorial()
 	MusicPlayer.playGameMusic()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

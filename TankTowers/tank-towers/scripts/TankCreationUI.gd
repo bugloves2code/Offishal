@@ -69,6 +69,7 @@ func CreateTank():
 			UiManager.ShowInventory()
 		self.visible = false
 
+		PlayerManager.money -= PlayerManager.currentTankPrice
 		if vbox_node:
 			## print("main found")
 			vbox_node.add_child(new_instance)
@@ -84,7 +85,6 @@ func CreateTank():
 			get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
 
 			## print(tankList.size())
-		PlayerManager.money -= PlayerManager.currentTankPrice
 		
 		for worker in PlayerManager.workers:
 			worker.makeWorkTimer()
