@@ -377,7 +377,8 @@ func StockShop():
 
 
 func _on_inventory_pressed() -> void:
-	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
+	if PlayerManager.tutorialComplete == true:
+		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	if PlayerManager.marineLifeInventory.size() == 0:
 		ShowShop()
 		Notifier.push_notification("INVENTORY IS EMPTY")
@@ -387,11 +388,23 @@ func _on_inventory_pressed() -> void:
 		UiManager.CloseTankCreationUI()
 		CloseShop()
 		$UpgradesPanel.visible = false
+		$MenuPanel.visible = false
+		$Panel/Menu.text = "Menu"
+		$Panel/Menu.remove_theme_stylebox_override("normal")
+		$Panel/Menu.remove_theme_stylebox_override("hover")
+		$Panel/Menu.remove_theme_stylebox_override("pressed")
 
 
 func _on_shop_pressed() -> void:
+	if PlayerManager.tutorialComplete == true:
+		get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	ShowShop()
 	$UpgradesPanel.visible = false
+	$MenuPanel.visible = false
+	$Panel/Menu.text = "Menu"
+	$Panel/Menu.remove_theme_stylebox_override("normal")
+	$Panel/Menu.remove_theme_stylebox_override("hover")
+	$Panel/Menu.remove_theme_stylebox_override("pressed")
 	
 func CloseShop():
 	$ShopScrollContainer.visible = false
@@ -533,7 +546,6 @@ func _on_worker_upgrade_purchase() -> void:
 
 
 func _on_upgrades_pressed() -> void:
-	get_tree().current_scene.get_node("Control/ScrollContainer/VBoxContainer/Control/CreateTankButton").visible = true
 	$UpgradesPanel.visible = !$UpgradesPanel.visible
 	$MenuPanel.visible = false
 	$SettingsPanel.visible = false
