@@ -155,6 +155,12 @@ func LoadGame() -> void:
 	# Godot's version of Intellisense to work
 	var savedGame:SavedGame = load("user://savegame.tres") as SavedGame;
 	
+	# If this is the first time being run, savegame.tres will not exist, 
+	# so make it by calling SaveGame, then loading it again
+	if savedGame == null:
+		SaveGame();
+		savedGame = load("user://savegame.tres") as SavedGame;
+	
 	ResetGame();
 	
 	# --- Load in saved data ---
