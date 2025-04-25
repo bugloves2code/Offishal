@@ -8,6 +8,7 @@ extends MarineLife
 class_name Fish
 
 signal fishClicked
+signal tankAutoFilled
 
 var scrollContainer
 var last_scroll = 0
@@ -143,11 +144,13 @@ func fish_clicked(event: InputEvent) -> void:
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/Fish.tscn").instantiate())
 						else:
-							Notifier.push_notification("TANK IS FULL OF FISh, GUPPY ADDED TO INVENTORY")
+							##emit_signal("tankAutoFilled")
+							Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 							UiManager.ReloadAllUI()
 							PlayerManager.xp += 1
 					else:
+						##emit_signal("tankAutoFilled")
 						Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 						PlayerManager.marineLifeInventory.append(load("res://scenes/Fish.tscn").instantiate())
 						UiManager.ReloadAllUI()
@@ -157,31 +160,31 @@ func fish_clicked(event: InputEvent) -> void:
 					if PlayerManager.unlockNursery == true:
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
-							PlayerManager.xp += 50
+							PlayerManager.xp += 10
 							if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 								self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
-								PlayerManager.xp += 50
+								PlayerManager.xp += 10
 								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 									self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
-									PlayerManager.xp += 50
+									PlayerManager.xp += 10
 									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 										self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
-										PlayerManager.xp += 50
+										PlayerManager.xp += 10
 									else:
 										PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 										UiManager.ReloadAllUI()
-										PlayerManager.xp += 50
+										PlayerManager.xp += 10
 								else:
 									PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 									PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 									UiManager.ReloadAllUI()
-									PlayerManager.xp += 100
+									PlayerManager.xp += 10
 							else:
 								PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 								UiManager.ReloadAllUI()
-								PlayerManager.xp += 150
+								PlayerManager.xp += 10
 								
 						else:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
@@ -189,23 +192,23 @@ func fish_clicked(event: InputEvent) -> void:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 							UiManager.ReloadAllUI()
-							PlayerManager.xp += 200
+							PlayerManager.xp += 10
 						return
 					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 						self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
-						PlayerManager.xp += 100
+						PlayerManager.xp += 10
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/Pike.tscn").instantiate())
 						else:
 							Notifier.push_notification("TANK IS FULL OF FISh, GUPPY ADDED TO INVENTORY")
 							PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 							UiManager.ReloadAllUI()
-							PlayerManager.xp += 50
+							PlayerManager.xp += 10
 					else:
 						Notifier.push_notification("TANK IS FULL OF FISH, GUPPY ADDED TO INVENTORY")
 						PlayerManager.marineLifeInventory.append(load("res://scenes/Pike.tscn").instantiate())
 						UiManager.ReloadAllUI()
-						PlayerManager.xp += 50
+						PlayerManager.xp += 10
 						
 				elif self.Species == ThEnums.FishSpecies.Clownfish:
 					if PlayerManager.unlockNursery == true:
@@ -229,13 +232,13 @@ func fish_clicked(event: InputEvent) -> void:
 									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 									PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 									UiManager.ReloadAllUI()
-									PlayerManager.xp += 10
+									PlayerManager.xp += 5
 							else:
 								PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 								UiManager.ReloadAllUI()
-								PlayerManager.xp += 15
+								PlayerManager.xp += 5
 								
 						else:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
@@ -243,7 +246,7 @@ func fish_clicked(event: InputEvent) -> void:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 							PlayerManager.marineLifeInventory.append(load("res://scenes/ClownFish.tscn").instantiate())
 							UiManager.ReloadAllUI()
-							PlayerManager.xp += 20
+							PlayerManager.xp += 5
 						return
 					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 						self.get_parent().AddFish(load("res://scenes/ClownFish.tscn").instantiate())
@@ -265,31 +268,31 @@ func fish_clicked(event: InputEvent) -> void:
 					if PlayerManager.unlockNursery == true:
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
-							PlayerManager.xp += 100
+							PlayerManager.xp += 20
 							if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 								self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
-								PlayerManager.xp += 100
+								PlayerManager.xp += 20
 								if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 									self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
-									PlayerManager.xp += 100
+									PlayerManager.xp += 20
 									if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 										self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
-										PlayerManager.xp += 100
+										PlayerManager.xp += 20
 									else:
 										PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 										UiManager.ReloadAllUI()
-										PlayerManager.xp += 100
+										PlayerManager.xp += 20
 								else:
 									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 									PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 									UiManager.ReloadAllUI()
-									PlayerManager.xp += 200
+									PlayerManager.xp += 20
 							else:
 								PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 								PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 								UiManager.ReloadAllUI()
-								PlayerManager.xp += 300
+								PlayerManager.xp += 20
 								
 						else:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
@@ -297,23 +300,23 @@ func fish_clicked(event: InputEvent) -> void:
 							PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 							PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 							UiManager.ReloadAllUI()
-							PlayerManager.xp += 400
+							PlayerManager.xp += 20
 						return
 					if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 						self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
-						PlayerManager.xp += 100
+						PlayerManager.xp += 20
 						if self.get_parent().fishList.size() < self.get_parent().fishCapacity:
 							self.get_parent().AddFish(load("res://scenes/BlueTang.tscn").instantiate())
 						else:
 							Notifier.push_notification("TANK IS FULL OF FISH, BLUE TANG ADDED TO INVENTORY")
 							PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 							UiManager.ReloadAllUI()
-							PlayerManager.xp += 100
+							PlayerManager.xp += 20
 					else:
 						Notifier.push_notification("TANK IS FULL OF FISH, BLUE TANG ADDED TO INVENTORY")
 						PlayerManager.marineLifeInventory.append(load("res://scenes/BlueTang.tscn").instantiate())
 						UiManager.ReloadAllUI()
-						PlayerManager.xp += 100
+						PlayerManager.xp += 20
 			else:
 				FishUI.loadFish(self)
 				FishUI.loadFishUI()

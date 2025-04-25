@@ -4,6 +4,7 @@
 ## - This script controls the player's stats and inventory.
 
 extends Node
+signal reachLevel5
 
 ## The player's current currency.
 ## - For simplicity, this is an integer instead of a float.
@@ -12,7 +13,7 @@ extends Node
 ## - I would have preferred this to be an unsigned integer
 ##   to not have to worry about negative currency, but
 ##   can you take a wild guess what GDScript doesn't have?
-@export var money: int = 10;
+@export var money: int = 6;
 
 ## The player's maximum currency.
 ## - There should probably be a maximum just so there's
@@ -105,6 +106,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if tutorialComplete == false:
+		xp = 0
 	if level + 5 <= xp:
 		xp = 0
 		Levelup()
@@ -132,19 +135,18 @@ func RemoveMarineLife(index: int) -> MarineLife:
 ## This function updates all the stats the player gets
 ## when they level up
 func Levelup():
+	SoundEffectsManager.play_sound(SoundEffectsManager.levelUp)
 	level += 1
+	UiManager.PlayerUI.StockShop()
 	if(PlayerManager.level == 5):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.png"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.png"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
-		UiManager.SaltWaterUnlock()
+		emit_signal("reachLevel5")
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
-	elif(PlayerManager.level == 20):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
+	elif(PlayerManager.level == 20):
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! NEW FISH UNLOCKED")
 	elif(PlayerManager.level == 40):	
-		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
-		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
-		UiManager.SaltWaterUnlock()
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockShop)
 		Notifier.push_notification("LEVEL UP! SALTWATER UNLOCKED! NEW FISH AND PLANT UNLOCKED")
 	else:
 		Notifier.push_notification("LEVEL UP!")

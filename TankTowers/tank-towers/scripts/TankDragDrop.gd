@@ -76,4 +76,3 @@ func populate_hbox_container():
 		drag_drop_instance.count = species_data.count
 		
 		# Debug print
-		print("Created entry for: ", species, " (Count: ", species_data.count, ")")

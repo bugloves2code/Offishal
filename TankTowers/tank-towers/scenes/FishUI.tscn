@@ -28,7 +28,7 @@ offset_right = 569.0
 offset_bottom = 99.0
 text = "Fishpedia"
 
-[node name="PutinInventoryButton" type="Button" parent="Panel"]
+[node name="PutinInventoryButton" type="Button" parent="Panel" groups=["Glodes"]]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 61.0

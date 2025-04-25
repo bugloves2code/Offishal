@@ -31,6 +31,15 @@ var plantList: Array = []
 var tankName: String = "Awesome Tank"
 
 signal addFish
+signal addPlant
+signal addClownFish
+signal tankAutoFilled
+
+func _process(delta: float) -> void:
+	##print(fishList.size())
+	if (fishList.size() >= 10):
+		emit_signal("tankAutoFilled")
+	
 
 ## AddFish 
 ## This method checks if ther is room in the tank to add a fish
@@ -56,9 +65,12 @@ func AddFish(fishInstance):
 		
 		fishList.append(fishspawned)
 		self.add_child(fishspawned)
-		$Bloop.play()
+		SoundEffectsManager.play_sound(SoundEffectsManager.fishAdd)
 		## emit signal for adding fish	
-		emit_signal("addFish")
+		if fishInstance.Species == ThEnums.FishSpecies.Guppy:
+			emit_signal("addFish")
+		elif fishInstance.Species == ThEnums.FishSpecies.Clownfish:
+			emit_signal("addClownFish")
 		## print("Added Fish: " + fishInstance)
 		## print("Added Fish: ", fishInstance)
 		## print("Tank: ",tankName, " Fish Count: ", fishList.size())
@@ -76,7 +88,7 @@ func AddFish(fishInstance):
 	if PlayerManager.tutorialComplete == false:
 		return
 	elif PlayerManager.marineLifeInventory.size() == 0:
-		print("Add Fish")
+		##print("Add Fish")
 		UiManager.ShowInventory()
 		
 
@@ -102,13 +114,13 @@ func AddPlant(plantInstance):
 			plantSpawned._on_harvest_timeout();
 		
 		plantList.append(plantSpawned)
-		$Bloop.play()
-		
+		SoundEffectsManager.play_sound(SoundEffectsManager.plantAdd)
+		emit_signal("addPlant")
 	UiManager.ReloadAllUI()
 	if PlayerManager.tutorialComplete == false:
 		return
 	elif PlayerManager.marineLifeInventory.size() == 0:
-		print("add plant")
+		##print("add plant")
 		UiManager.ShowInventory()
 
 ## _can_drop_data

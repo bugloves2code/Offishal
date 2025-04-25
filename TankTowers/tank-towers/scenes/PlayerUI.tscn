@@ -80,7 +80,8 @@ offset_bottom = 26.0
 text = "Level: 1"
 horizontal_alignment = 1
 
-[node name="SellPanel" type="Panel" parent="."]
+[node name="SellPanel" type="Panel" parent="." groups=["Glodes"]]
+visible = false
 offset_left = 161.0
 offset_top = 16.0
 offset_right = 401.0
@@ -115,7 +116,7 @@ text = "Price: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SellAllButton" type="Button" parent="SellPanel"]
+[node name="SellAllButton" type="Button" parent="SellPanel" groups=["Glodes"]]
 visible = false
 layout_mode = 0
 offset_left = 42.0
@@ -132,11 +133,13 @@ offset_right = 575.0
 offset_bottom = 1024.0
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 offset_top = 879.0
 offset_right = 576.0
 offset_bottom = 919.0
 
 [node name="Menu" type="Button" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_left = 496.0
 offset_top = 5.0
@@ -144,7 +147,8 @@ offset_right = 567.0
 offset_bottom = 36.0
 text = "Menu"
 
-[node name="Shop" type="Button" parent="Panel" groups=["TutorialGlowObjects"]]
+[node name="Shop" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 172.0
 offset_top = 5.0
@@ -152,7 +156,8 @@ offset_right = 243.0
 offset_bottom = 36.0
 text = "Shop"
 
-[node name="Upgrades" type="Button" parent="Panel"]
+[node name="Upgrades" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 335.0
 offset_top = 5.0
@@ -160,7 +165,8 @@ offset_right = 417.0
 offset_bottom = 36.0
 text = "Upgrades"
 
-[node name="Inventory" type="Button" parent="Panel"]
+[node name="Inventory" type="Button" parent="Panel" groups=["Glodes"]]
+visible = false
 layout_mode = 0
 offset_left = 7.0
 offset_top = 5.0
@@ -308,39 +314,6 @@ vertical_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="InventoryPanel" type="Panel" parent="."]
-offset_top = 920.0
-offset_right = 577.0
-offset_bottom = 943.0
-
-[node name="FishCheckBox" type="CheckBox" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 59.0
-offset_right = 83.0
-offset_bottom = 24.0
-
-[node name="FishLabel" type="Label" parent="InventoryPanel/FishCheckBox"]
-layout_mode = 0
-offset_left = -46.0
-offset_top = -1.0
-offset_right = -6.0
-offset_bottom = 22.0
-text = "Fishes"
-
-[node name="FishCheckBox2" type="CheckBox" parent="InventoryPanel"]
-layout_mode = 0
-offset_left = 144.0
-offset_right = 168.0
-offset_bottom = 24.0
-
-[node name="FishLabel" type="Label" parent="InventoryPanel/FishCheckBox2"]
-layout_mode = 0
-offset_left = -46.0
-offset_top = -1.0
-offset_right = -6.0
-offset_bottom = 22.0
-text = "Plants"
 
 [node name="UpgradesPanel" type="Panel" parent="."]
 visible = false

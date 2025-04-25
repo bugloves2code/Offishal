@@ -32,4 +32,3 @@ func hide_tutorial():
 func _input(event):
 	if can_continue and event is InputEventMouseButton and event.pressed:
 		emit_signal("tutorial_continue")
-		print("hi")

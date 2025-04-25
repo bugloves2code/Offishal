@@ -40,7 +40,7 @@ func CreateTank():
 		if TankManager.tankList.size() < TankManager.tankCapacity:
 			## This sound effect makes me want the tank to fall
 			## from the sky and land on the top of the tower
-			##$TankCreation.play();
+			SoundEffectsManager.play_sound(SoundEffectsManager.tankCreation)
 			
 			var new_instance = TankManager.tank_scene.instantiate()
 			
@@ -64,7 +64,8 @@ func CreateTank():
 				new_instance.fishCapacity = 20
 				new_instance.plantCapacity = 20
 			TankManager.tankList.append(new_instance)
-			UiManager.ShowInventory()
+			if PlayerManager.tutorialComplete == true:
+				UiManager.ShowInventory()
 			self.visible = false
 			
 			# Moved this line up here because it was subtracting from
@@ -89,7 +90,10 @@ func CreateTank():
 				get_tree().current_scene.get_node("Control/ScrollContainer").ensure_control_visible(new_instance)
 
 				## print(tankList.size())
+			PlayerManager.money -= PlayerManager.currentTankPrice
 			
+			for worker in PlayerManager.workers:
+				worker.makeWorkTimer()
 	else:
 		Notifier.push_notification("YOU DON'T HAVE ENOUGH $")
 		

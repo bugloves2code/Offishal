@@ -26,6 +26,7 @@ MusicPlayer="*res://scripts/MusicPlayer.gd"
 Notifier="*res://scripts/Notifier.gd"
 UiManager="*res://scripts/UiManager.gd"
 TutorialGlowManager="*res://scripts/TutorialGlowManager.gd"
+SoundEffectsManager="*res://scripts/SoundEffectsManager.gd"
 
 [display]
 
@@ -40,7 +41,7 @@ project/assembly_name="Tank Towers"
 
 [global_group]
 
-Glodes="This represents every thing tht will glow to direct the player for the tutorial"
+Glodes=""
 
 [input]
 

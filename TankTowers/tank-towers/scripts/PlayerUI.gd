@@ -4,7 +4,9 @@
 ## - This Script is used to display things the player
 ## needs to interact with
 extends Node
-signal shopPressed
+signal buyFish
+signal buyPlant
+signal sellAllPurchased
 
 ## Arrays for the Fish Shop and Plant Shop
 var ShopStock: Array;
@@ -193,7 +195,7 @@ func LoadShop():
 	#
 	#await get_tree().process_frame
 	#
-	#for item in PlayerManager.marineLifeInventory:
+	#for item in PlayerManager.marineLifeInventory:`
 		#var drag_drop_instance = drag_drop_scene.instantiate()
 		#
 		##Access the Sprite2D node from the Fish Scene
@@ -214,14 +216,14 @@ func LoadShop():
 ## Buy Button for Fish
 ## allows player to get new fish in their inventory
 func _on_BuyButton_pressed(item, instance):
-	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
+		SoundEffectsManager.play_sound(SoundEffectsManager.buy)
 		# Remove the item from ShopStock
-		
+		emit_signal("buyFish")
 		##var fish_instance = item as ShopItem
 		##print(fish_instance["Species"], item["Species"], instance["Species"])
 		var fish
@@ -253,14 +255,14 @@ func _on_BuyButton_pressed(item, instance):
 ## Buy Button for Plant
 ## allows player to get new plant in their inventory
 func _on_BuyPlantButton_pressed(item, instance):
-	emit_signal("shopPressed")
 	#print("Button Linked")
 	# Check if the player has enough money
 	if PlayerManager.money >= item["price"]:
 		# Deduct the price from the player's money
 		PlayerManager.money -= item["price"]
+		SoundEffectsManager.play_sound(SoundEffectsManager.buy)
 		# Remove the item from ShopStock
-		
+		emit_signal("buyPlant")
 		var plant
 		if item["Species"] == ThEnums.PlantSpecies.Guppygrass:
 			plant = PlantScene.instantiate() as Plant
@@ -349,10 +351,27 @@ func _on_mute_toggled(toggled):
 ## StockShop
 ## Fills Shop with everything from Stock
 func StockShop():
-	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
-	PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
 	
+	ShopStock = []
+	PlantShopStock = []
+	
+	for child in $ShopScrollContainer/HBoxContainer.get_children():
+		child.queue_free()	
+	
+	ShopStock.append({"texture": preload("res://assets/guppy.PNG"), "price": 1, "Species": ThEnums.FishSpecies.Guppy})
+	if UiManager.DontShowPlantYet == false:	
+		PlantShopStock.append({"texture": preload("res://assets/guppyGrass.PNG"), "price": 5, "Species": ThEnums.PlantSpecies.Guppygrass})
+	if(PlayerManager.level >= 5):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/clown.PNG"), "price": 10, "Species": ThEnums.FishSpecies.Clownfish})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/anemoneNew.PNG"), "price": 15, "Species": ThEnums.PlantSpecies.Anemone})
+		UiManager.SaltWaterUnlock()
+	if(PlayerManager.level >= 20):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/cancelCulturePike.PNG"), "price": 100, "Species": ThEnums.FishSpecies.Pike})
+	if(PlayerManager.level >= 40):	
+		UiManager.PlayerUI.ShopStock.append({"texture": preload("res://assets/blueTang.PNG"), "price": 200, "Species": ThEnums.FishSpecies.BlueTang})
+		UiManager.PlayerUI.PlantShopStock.append({"texture": preload("res://assets/coral.PNG"), "price": 200, "Species": ThEnums.PlantSpecies.Coral})
 		
+	LoadShop()
 	
 
 
@@ -377,20 +396,16 @@ func CloseShop():
 	$Background.visible = false
 	
 func ShowInventorySort():
-	$InventoryPanel.visible = true
 	$SellPanel.visible = true
 	
 func CloseInventorySort():
-	$InventoryPanel.visible = false
 	$SellPanel.visible = false
 	
 func CloseMenuPanel():
 	$Panel.visible = false
-	$InventoryPanel.visible = false
 	
 func ShowMenuPanel():
 	$Panel.visible = true
-	$InventoryPanel.visible = true
 	$SellPanel.visible = true
 	
 func ShowShop():
@@ -404,11 +419,18 @@ func FillFishPediaStartPage():
 	var fishpedialist = []
 	## fishpedialist.append({"type": "", "image": "","watertype": "", "harvesttime": "", "facts": ""})
 	fishpedialist.append({"type": "Guppy", "image": "res://assets/guppy.PNG", "watertype": "Fresh", "harvesttime": "10 seconds", "facts": "Guppies are live bearers, which means they give birth to live young. Guppies enjoy being in groups."})
-	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "10 seconds", "facts": ""})
+	fishpedialist.append({"type": "Guppy Grass", "image": "res://assets/guppyGrass.PNG","watertype": "Fresh", "harvesttime": "1 minute maximum", "facts": "Guppy Grass grows faster when fish are in the tank with it. For every fish that is in the tank, the Guppy Grass will grow 5 seconds faster."})
 	
 	if PlayerManager.level >= 5:
-		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clownfish.png","watertype": "Salt", "harvesttime": "", "facts": ""})
-		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemone.png","watertype": "Salt", "harvesttime": "", "facts": ""})
+		fishpedialist.append({"type": "Clownfish", "image": "res://assets/clown.png","watertype": "Salt", "harvesttime": "2 minutes", "facts": ""})
+		fishpedialist.append({"type": "Anemone", "image": "res://assets/anemoneNew.png","watertype": "Salt", "harvesttime": "3 minutes maximum", "facts": "Anemones grows faster when fish are in the tank with it. For every fish that is in the tank, the Anemone will grow 5 seconds faster."})
+	
+	if PlayerManager.level >= 20:
+		fishpedialist.append({"type": "Northern Pike", "image": "res://assets/cancelCulturePike.png", "watertype": "Fresh", "harvesttime": "6 minutes", "facts": ""})
+		
+	if PlayerManager.level >= 40:
+		fishpedialist.append({"type": "Blue Tang", "image": "res://assets/blueTang.png", "watertype": "Salt", "harvesttime": "7 minutes", "facts": ""})
+		fishpedialist.append({"type": "Coral", "image": "res://assets/coral.png","watertype": "Salt", "harvesttime": "7 minutes maximum", "facts": "Coral grows faster when fish are in the tank with it. For every fish that is in the tank, the Coral will grow 5 seconds faster."})
 	
 	var grid_container = $FishPediaStartPanel/ScrollContainer/GridContainer
 	var details_panel = $DetailsPanel  # Reference to the single panel
@@ -491,6 +513,7 @@ func _on_fish_pedia_back_button_pressed() -> void:
 
 func _on_worker_upgrade_purchase() -> void:
 	if PlayerManager.money >= 50:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		var workerscene = load("res://scenes/Worker.tscn")
 		var worker = workerscene.instantiate()
 		worker.timetoharvest = 10
@@ -529,16 +552,16 @@ func upgrades():
 	var upgrades = []
 	#upgrades.append({"title": "", "image": ,"desc": "", "price": , "func": })
 	if $SellPanel/SellAllButton.visible == false:
-		upgrades.append({"title": "Sell All", "image": "res://icon.svg","desc": "A new button that allows you to sell all in inventory", "price": 10, "func": Callable(self, "_on_sell_all_purchased") })
-	upgrades.append({"title": "Worker", "image": "res://icon.svg","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
+		upgrades.append({"title": "Sell All","desc": "A new button that allows you to sell all in inventory", "price": 10, "func": Callable(self, "_on_sell_all_purchased") })
+	upgrades.append({"title": "Worker","desc": "A worker will harvest fish and plants for you once every 10 seconds", "price": 50, "func": Callable(self, "_on_worker_upgrade_purchase")})
 	if PlayerManager.unlockNursery == false:	
-		upgrades.append({"title": "Nursery", "image": "res://icon.svg","desc": "Increase fish output to 4 fish per harvest", "price": 1000, "func": Callable(self, "_on_nursery_purchase")})
+		upgrades.append({"title": "Nursery","desc": "Increase fish output to 4 fish per harvest", "price": 1000, "func": Callable(self, "_on_nursery_purchase")})
 	if PlayerManager.unlockFertilizer == false:
-		upgrades.append({"title": "Fertilizer", "image": "res://icon.svg","desc": "Increase plant output to 2 plants per harvest", "price": 2000 , "func": Callable(self, "_on_unlock_fertilizer")})
+		upgrades.append({"title": "Fertilizer","desc": "Increase plant output to 2 plants per harvest", "price": 2000 , "func": Callable(self, "_on_unlock_fertilizer")})
 	if PlayerManager.unlockTankUpgrade == false:
-		upgrades.append({"title": "Tank Upgrade", "image": "res://icon.svg" ,"desc": "All tanks get +10 Capacity for plants and fish", "price": 10000, "func": Callable(self, "_on_unlock_tank_upgrade")})
+		upgrades.append({"title": "Tank Upgrade" ,"desc": "All tanks get +10 Capacity for plants and fish", "price": 10000, "func": Callable(self, "_on_unlock_tank_upgrade")})
 	if PlayerManager.unlockAutoSell == false:
-		upgrades.append({"title": "Worker Auto Sell", "image": "res://icon.svg","desc": "Workers Auto sell their harvests", "price": 50000, "func": Callable(self, "_on_unlock_auto_sell")})
+		upgrades.append({"title": "Worker Auto Sell","desc": "Workers Auto sell their harvests", "price": 50000, "func": Callable(self, "_on_unlock_auto_sell")})
 	
 	var upgrade_container = $UpgradesPanel/VBoxContainer
 	
@@ -584,14 +607,6 @@ func upgrades():
 			var hbox = HBoxContainer.new()
 			hbox.set("theme_override_constants/separation", 20)
 
-			# Create TextureRect for the image
-			var texture_rect = TextureRect.new()
-			texture_rect.texture = load("res://icon.svg")
-			texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-			texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
-			texture_rect.size = Vector2(20,20)
-			hbox.add_child(texture_rect)
-
 			# Title
 			var title_label = Label.new()
 			title_label.text = "Worker"
@@ -624,25 +639,22 @@ func upgrades():
 		var workerLabel = Label.new()
 		workerLabel.text = "Workers"
 		workerLabel.set("theme_override_font_sizes/font_size", 20)
+		var center_container = CenterContainer.new()
+		center_container.add_child(workerLabel)
 		scroll_container.add_child(worker_container)
-		upgrade_container.add_child(workerLabel)
+		upgrade_container.add_child(center_container)
 		upgrade_container.add_child(scroll_container)
 	
 	for upgrade in upgrades:
 		
 		var hbox = HBoxContainer.new()
 		hbox.set("theme_override_constants/separation", 20)
-		# Create TextureRect for the image
-		var texture_rect = TextureRect.new()
-		texture_rect.texture = load(upgrade.image)
-		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
-		texture_rect.size = Vector2(20,20)
-		hbox.add_child(texture_rect)
 		
 		# Title
 		var title_label = Label.new()
 		title_label.text = upgrade.title
+		title_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		title_label.custom_minimum_size = Vector2(100, 0)
 		title_label.set("theme_override_font_sizes/font_size", 18)
 		hbox.add_child(title_label)
 		
@@ -667,8 +679,10 @@ func upgrades():
 	var upgradeLabel = Label.new()
 	upgradeLabel.text = "Upgrades"
 	upgradeLabel.set("theme_override_font_sizes/font_size", 20)
+	var center_container = CenterContainer.new()
+	center_container.add_child(upgradeLabel)
 	upgrades_scroll.add_child(UpgradesVbox)
-	upgrade_container.add_child(upgradeLabel)
+	upgrade_container.add_child(center_container)
 	upgrade_container.add_child(upgrades_scroll)
 		
 
@@ -687,7 +701,7 @@ func _on_sell_all_button_mouse_exited() -> void:
 
 func _on_sell_all_button_pressed() -> void:
 	$SellPanel/SellAllButton.text = "Sell All"
-	
+	SoundEffectsManager.play_sound(SoundEffectsManager.buy)
 	for item in PlayerManager.marineLifeInventory:
 		PlayerManager.money += item.sell_price
 		item.queue_free()
@@ -698,6 +712,9 @@ func _on_sell_all_button_pressed() -> void:
 
 func _on_sell_all_purchased():
 	if PlayerManager.money >= 10:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
+		emit_signal("sellAllPurchased")
+		$UpgradesPanel.visible = false
 		$SellPanel/SellAllButton.visible = true
 		PlayerManager.money -= 10
 		upgrades()
@@ -707,6 +724,7 @@ func _on_sell_all_purchased():
 		
 func _on_nursery_purchase():
 	if PlayerManager.money >= 1000:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		PlayerManager.unlockNursery = true
 		PlayerManager.money -= 1000
 		upgrades()
@@ -715,6 +733,7 @@ func _on_nursery_purchase():
 		
 func _on_unlock_tank_upgrade():
 	if PlayerManager.money >= 10000:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		PlayerManager.unlockTankUpgrade = true
 		PlayerManager.money -= 10000
 		for tank in TankManager.tankList:
@@ -726,6 +745,7 @@ func _on_unlock_tank_upgrade():
 
 func _on_unlock_fertilizer():
 	if PlayerManager.money >= 2000:
+		SoundEffectsManager.play_sound(SoundEffectsManager.upgradePurchase)
 		PlayerManager.unlockFertilizer = true
 		PlayerManager.money -= 2000
 		upgrades()
@@ -734,6 +754,7 @@ func _on_unlock_fertilizer():
 	
 func _on_unlock_auto_sell():
 	if PlayerManager.money >= 50000:
+		SoundEffectsManager.play_sound(SoundEffectsManager.unlockAll)
 		PlayerManager.unlockAutoSell = true
 		PlayerManager.money -= 50000
 		upgrades()
